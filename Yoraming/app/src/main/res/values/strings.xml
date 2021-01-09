@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SniperBang</string>
+    <string name="app_name">Yoraming</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
