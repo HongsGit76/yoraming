@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="major">
+        <item>디지털미디어학과</item>
+        <item>소프트웨어학과</item>
+        <item>국방디지털융합학과</item>
+        <item>사이버보안학과</item>
+        <item>전자공학과</item>
+    </string-array>
+</resources>

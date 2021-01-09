@@ -33,7 +33,6 @@
                 android:layout_height="0dp"
                 android:layout_weight="10"
                 android:text="회원가입"
-                android:backgroundTint="@color/black"
                 android:gravity="center_vertical"
                 android:textSize="26dp" />
             <LinearLayout
@@ -199,13 +198,15 @@
                     android:textSize="18dp"
                     android:text="학과명"/>
 
-                <Button
-                    android:id="@+id/btn_major_1"
+                <Spinner
+                    android:id="@+id/spn_major_1"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="12"
+                    android:background="#AFA9A9"
                     android:gravity="center_vertical"
-                    android:hint="ex) 미디어학과"
+                    android:autofillHints="학과 선택"
+                    android:entries="@array/major"
                     android:paddingLeft="15dp"
                     android:textSize="17sp" />
 
@@ -257,15 +258,16 @@
                     android:gravity="center_vertical"
                     android:textSize="18dp"
                     android:text="현재 학년"/>
-                <EditText
-                    android:id="@+id/et_current"
-                    android:background="#AFA9A9"
-                    android:paddingLeft="15dp"
+                <Spinner
+                    android:id="@+id/spn_current"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="12"
-                    android:hint="ex) 2"
-                    android:inputType="number"/>
+                    android:background="#AFA9A9"
+                    android:gravity="center_vertical"
+                    android:entries="@array/current"
+                    android:paddingLeft="15dp"
+                    android:textSize="17sp"/>
             </LinearLayout>
 
             <LinearLayout
