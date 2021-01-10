@@ -1,4 +1,4 @@
-package com.example.sniperbang;
+package com.example.yoraming;
 
 import org.junit.Test;
 
