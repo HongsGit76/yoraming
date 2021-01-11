@@ -4,7 +4,68 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:orientation="vertical"
     tools:context=".MainActivity">
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이름:"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="학번:"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="현재학점:"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="목표학점:"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="주전공:"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="복수전공:"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="부전공:"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="심화전공:"/>
+
+    <Button
+        android:id = "@+id/main_button_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "남은 졸업 요건 보기"/>
+
+    <Button
+        android:id = "@+id/main_button_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "우리 학과별 요람"/>
+
+    <Button
+        android:id = "@+id/main_button_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text= "수업 강의평가"/>
 
 </LinearLayout>
