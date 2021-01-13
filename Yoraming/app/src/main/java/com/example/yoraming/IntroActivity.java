@@ -35,14 +35,27 @@ public class IntroActivity extends AppCompatActivity {
 
         image.setAnimation(introimage);
         slogan.setAnimation(introimage);
+//
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                Intent intent = new Intent(IntroActivity.this, LoginActivity.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        },SPLASH_SCREEN);
 
-        new Handler().postDelayed(new Runnable() {
+        Handler mHandler = new Handler();
+
+        mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(IntroActivity.this, LoginActivity.class);
+                Intent intent = new Intent(IntroActivity.this,LoginActivity.class);
+
                 startActivity(intent);
+                overridePendingTransition(R.anim.fadein,R.anim.fadeout);
                 finish();
             }
-        },SPLASH_SCREEN);
+        },1300);
     }
 }
