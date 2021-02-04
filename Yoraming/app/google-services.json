@@ -1,0 +1,93 @@
+{
+  "project_info": {
+    "project_number": "350948500462",
+    "firebase_url": "https://loginexample-2d1e5-default-rtdb.firebaseio.com",
+    "project_id": "loginexample-2d1e5",
+    "storage_bucket": "loginexample-2d1e5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:350948500462:android:88acf79de398d773f264ff",
+        "android_client_info": {
+          "package_name": "com.example.googleloginexample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "350948500462-6b7k46nrm4h1js34ri3t8e9gurovgd3k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.googleloginexample",
+            "certificate_hash": "bbf1cf11b1bb479f442b4d433fdc2dbb361f61ec"
+          }
+        },
+        {
+          "client_id": "350948500462-qmblmhreperf94ml51m04pt2vtioc5n1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.googleloginexample",
+            "certificate_hash": "ec67c38465908b8eb11e464f72337e64bff9e631"
+          }
+        },
+        {
+          "client_id": "350948500462-gr1sn9ikt6831cneb748luer9n6upmgm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBP0PV7BuI1k6pxY2dAaHxL5HmZdyWLecY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "350948500462-gr1sn9ikt6831cneb748luer9n6upmgm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:350948500462:android:eba96df79d21847af264ff",
+        "android_client_info": {
+          "package_name": "com.example.yoraming"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "350948500462-utdo2hrj4rurf6798ql86nb943dbsuna.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.yoraming",
+            "certificate_hash": "bbf1cf11b1bb479f442b4d433fdc2dbb361f61ec"
+          }
+        },
+        {
+          "client_id": "350948500462-gr1sn9ikt6831cneb748luer9n6upmgm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBP0PV7BuI1k6pxY2dAaHxL5HmZdyWLecY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "350948500462-gr1sn9ikt6831cneb748luer9n6upmgm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
