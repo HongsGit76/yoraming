@@ -63,13 +63,16 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private FirebaseAuth auth; //파이어베이스 인증 객체
     private GoogleApiClient googleApiClient;
     private static final int REQ_SIGN_GOOGLE = 100; //구글로그인 했을 때 결과 코드
-    private DatabaseReference mDatabase;
+    private BackPressedForFinish backPressedForFinish;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
+
+        // BackPressedForFinish 객체를 생성한다.
+        backPressedForFinish = new BackPressedForFinish(this);
 
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -124,6 +127,13 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 alert.show();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        //BackPressedForFinish 클래스의 onBackPressed() 함수를 호출한다.
+        backPressedForFinish.onBackPressed();
     }
 
     private void signOut() {
