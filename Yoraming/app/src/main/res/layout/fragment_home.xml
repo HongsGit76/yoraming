@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="550dp"
+    android:translationY="50dp"
+    android:id="@+id/home_container"
+    tools:context=".HomeFragment">
+
+    <fragment
+        android:id="@+id/fragmentView1"
+        android:name="com.example.yoraming.FragmentView1"
+        android:layout_width="350dp"
+        android:layout_height="300dp"
+        android:layout_margin="50dp"
+        android:layout_gravity="center_horizontal"/>
+
+</FrameLayout>
