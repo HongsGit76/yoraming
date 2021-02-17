@@ -9,10 +9,11 @@
 
     <fragment
         android:id="@+id/fragmentView1"
-        android:name="com.example.yoraming.FragmentView1"
+        android:name="com.example.yoraming.FragmentView"
         android:layout_width="350dp"
         android:layout_height="300dp"
         android:layout_margin="50dp"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        tools:layout="@layout/fragment_view" />
 
 </FrameLayout>
