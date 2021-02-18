@@ -18,7 +18,6 @@ public class IntroActivity extends AppCompatActivity {
     //Variables
     Animation introimage;
     ImageView image;
-    TextView slogan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +30,8 @@ public class IntroActivity extends AppCompatActivity {
 
         //Hooks
         image = findViewById(R.id.imageView);
-        slogan = findViewById(R.id.textView);
 
         image.setAnimation(introimage);
-        slogan.setAnimation(introimage);
 //
 //        new Handler().postDelayed(new Runnable() {
 //            @Override
@@ -56,6 +53,6 @@ public class IntroActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.fadein,R.anim.fadeout);
                 finish();
             }
-        },1300);
+        },2000);
     }
 }
