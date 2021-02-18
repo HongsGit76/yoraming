@@ -12,13 +12,13 @@ import com.dinuscxj.progressbar.CircleProgressBar;
 
 public class FragmentView extends Fragment implements CircleProgressBar.ProgressFormatter {
 
-    private static final String DEFAULT_PATTERN = "%d%%";
+    private String DEFAULT_PATTERN = "%d%%";
 
     CircleProgressBar circleProgressBar1, circleProgressBar2, circleProgressBar3;
     int i, j, k = 0;
 
     public FragmentView() {
-        // Required empty public constructor
+        // Required empty public consructor
     }
 
     @Override
@@ -42,7 +42,7 @@ public class FragmentView extends Fragment implements CircleProgressBar.Progress
             @Override
             public void run() {
                 if (i <= 70) {
-                    circleProgressBar1.setProgress(i);
+                    circleProgressBar1.setProgress(i * -1);
                     i++;
                     handler1.postDelayed(this, 10);
                 } else {
@@ -54,7 +54,7 @@ public class FragmentView extends Fragment implements CircleProgressBar.Progress
             @Override
             public void run() {
                 if (j <= 50) {
-                    circleProgressBar2.setProgress(j);
+                    circleProgressBar2.setProgress(j * -1);
                     j++;
                     handler2.postDelayed(this, 10);
                 } else {
@@ -67,7 +67,7 @@ public class FragmentView extends Fragment implements CircleProgressBar.Progress
             @Override
             public void run() {
                 if (k <= 90) {
-                    circleProgressBar3.setProgress(k);
+                    circleProgressBar3.setProgress(k * -1);
                     k++;
                     handler3.postDelayed(this, 10);
                 } else {
@@ -81,6 +81,6 @@ public class FragmentView extends Fragment implements CircleProgressBar.Progress
 
     @Override
     public CharSequence format(int progress, int max) {
-        return String.format(DEFAULT_PATTERN, (int) ((float) progress / (float) max * 100));
+        return String.format(DEFAULT_PATTERN,  ((int) ((float) progress / (float) max * 100)));
     }
 }
