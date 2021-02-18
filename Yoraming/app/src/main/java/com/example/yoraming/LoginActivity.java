@@ -1,5 +1,6 @@
 package com.example.yoraming;
 
+import androidx.annotation.Dimension;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -9,6 +10,8 @@ import android.content.AsyncQueryHandler;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -90,6 +93,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         textView = (TextView) btn_google.getChildAt(0);
         textView.setText("아주대 구글계정으로 로그인");
+        textView.setTextColor(Color.parseColor("#000000"));
 
         btn_google.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,8 +103,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             }
         });
 
-        tvData = findViewById(R.id.tv_data);
-        btn_logout = findViewById(R.id.btn_logout);
+        /*btn_logout = findViewById(R.id.btn_logout);
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,7 +134,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(255, 62, 79, 92)));
                 alert.show();
             }
-        });
+        });*/
     }
 
     @Override
