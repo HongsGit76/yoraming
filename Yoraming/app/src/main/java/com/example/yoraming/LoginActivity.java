@@ -59,11 +59,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     private SignInButton btn_google;
     private Button btn_logout;
-    private TextView tvData;
+    private TextView tvData, textView;
     private FirebaseAuth auth; //파이어베이스 인증 객체
     private GoogleApiClient googleApiClient;
     private static final int REQ_SIGN_GOOGLE = 100; //구글로그인 했을 때 결과 코드
     private BackPressedForFinish backPressedForFinish;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +87,10 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         auth = FirebaseAuth.getInstance(); //파이어베이스 인증객체 초기화
         btn_google = findViewById(R.id.btn_google);
+
+        textView = (TextView) btn_google.getChildAt(0);
+        textView.setText("아주대 구글계정으로 로그인");
+
         btn_google.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
