@@ -10,7 +10,7 @@
         android:id="@+id/login_logo"
         android:layout_width="80dp"
         android:layout_height="73dp"
-        android:layout_marginTop="223dp"
+        android:layout_marginTop="200dp"
         android:scaleType="fitCenter"
         android:src="@drawable/login_logo"
         app:layout_constraintLeft_toLeftOf="parent"

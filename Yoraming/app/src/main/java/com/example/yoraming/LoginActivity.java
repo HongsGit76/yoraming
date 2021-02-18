@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     private SignInButton btn_google;
     private Button btn_logout;
-    private TextView tvData, textView;
+    private TextView textView;
     private FirebaseAuth auth; //파이어베이스 인증 객체
     private GoogleApiClient googleApiClient;
     private static final int REQ_SIGN_GOOGLE = 100; //구글로그인 했을 때 결과 코드
@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
         // BackPressedForFinish 객체를 생성한다.
@@ -300,7 +300,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            tvData.setText(result);//서버로 부터 받은 값을 출력해주는 부분
+            //tvData.setText(result);//서버로 부터 받은 값을 출력해주는 부분
         }
     }
 }
