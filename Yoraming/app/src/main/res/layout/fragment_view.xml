@@ -51,15 +51,15 @@
         app:progress_end_color="#295597"
         app:progress_start_color="#4269b2"
         app:progress_stroke_cap="butt"
-        app:progress_stroke_width="16dp "
-        app:progress_text_size="17sp"
+        app:progress_stroke_width="16dp"
+        app:progress_background_color="#f5f5f5"
         app:style="solid_line" />
 
     <com.dinuscxj.progressbar.CircleProgressBar
         android:id="@+id/cpb_circlebar2"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        app:progress_text_size="17sp"
+        app:progress_background_color="#f5f5f5"
         app:style="solid_line"
         app:progress_stroke_width="16dp "
         app:progress_stroke_cap="butt"
@@ -74,6 +74,7 @@
         android:id="@+id/cpb_circlebar3"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        app:progress_background_color="#f5f5f5"
         android:layout_marginEnd="30dp"
         android:layout_marginRight="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -83,6 +84,5 @@
         app:progress_start_color="#4269b2"
         app:progress_stroke_cap="butt"
         app:progress_stroke_width="16dp "
-        app:progress_text_size="17sp"
         app:style="solid_line" />
 </androidx.constraintlayout.widget.ConstraintLayout>

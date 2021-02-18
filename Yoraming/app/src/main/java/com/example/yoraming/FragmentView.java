@@ -12,7 +12,7 @@ import com.dinuscxj.progressbar.CircleProgressBar;
 
 public class FragmentView extends Fragment implements CircleProgressBar.ProgressFormatter {
 
-    private String DEFAULT_PATTERN = "%d%%";
+    private static final String DEFAULT_PATTERN = "%d%%";
 
     CircleProgressBar circleProgressBar1, circleProgressBar2, circleProgressBar3;
     int i, j, k = 0;
@@ -32,8 +32,11 @@ public class FragmentView extends Fragment implements CircleProgressBar.Progress
         View rootView = inflater.inflate(R.layout.fragment_view, container, false);
 
         circleProgressBar1 = (CircleProgressBar) rootView.findViewById(R.id.cpb_circlebar1);
+        circleProgressBar1.setProgressFormatter(null);
         circleProgressBar2 = (CircleProgressBar) rootView.findViewById(R.id.cpb_circlebar2);
+        circleProgressBar2.setProgressFormatter(null);
         circleProgressBar3 = (CircleProgressBar) rootView.findViewById(R.id.cpb_circlebar3);
+        circleProgressBar3.setProgressFormatter(null);
 
         final Handler handler1 = new Handler();
         final Handler handler2 = new Handler();
