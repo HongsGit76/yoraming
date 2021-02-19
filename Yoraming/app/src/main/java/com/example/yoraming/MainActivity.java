@@ -5,10 +5,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.fragment.app.Fragment;
 
-import android.media.Image;
 import android.os.Bundle;
 
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -59,14 +57,14 @@ public class MainActivity extends AppCompatActivity {
                         tab_detail.setSelected(false);
                         tab_yoraming.setSelected(true);
                         tab_mypage.setSelected(false);
-                        currentFragment = new currentScheduleFragment();
+                        currentFragment = new yoramingFragment();
                         break;
                     case R.id.tab_mypage:
                         tab_home.setSelected(false);
                         tab_detail.setSelected(false);
                         tab_yoraming.setSelected(false);
                         tab_mypage.setSelected(true);
-                        currentFragment = new afterScheduleFragment();
+                        currentFragment = new myPageFragment();
                         break;
                     default:
                         return;

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="550dp"
     android:translationY="50dp"
-    tools:context=".currentScheduleFragment">
+    tools:context=".yoramingFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

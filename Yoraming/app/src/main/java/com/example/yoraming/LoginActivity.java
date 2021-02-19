@@ -63,8 +63,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private SignInButton btn_google;
     private Button btn_logout;
     private TextView textView;
-    private FirebaseAuth auth; //파이어베이스 인증 객체
-    private GoogleApiClient googleApiClient;
+    public FirebaseAuth auth; //파이어베이스 인증 객체
+    public GoogleApiClient googleApiClient;
     private static final int REQ_SIGN_GOOGLE = 100; //구글로그인 했을 때 결과 코드
     private BackPressedForFinish backPressedForFinish;
 
@@ -144,7 +144,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         backPressedForFinish.onBackPressed();
     }
 
-    private void signOut() {
+    public void signOut() {
         googleApiClient.connect();
         googleApiClient.registerConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
             @Override
@@ -176,7 +176,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) { //구글로그인 인증을 요청했을 때 결과값을 되돌려받는 구문
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) { //구글로그인 인증을 요청했을 때 결과값을 되돌려받는 구문
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == REQ_SIGN_GOOGLE) {
@@ -188,7 +188,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         }
     }
 
-    private void resultLogin(GoogleSignInAccount account) {
+    public void resultLogin(GoogleSignInAccount account) {
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         auth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
