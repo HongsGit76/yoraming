@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.fragment_container, new HomeFragment()).commitAllowingStateLoss();
 
         tab_home = (ImageView) findViewById(R.id.tab_home);
+        tab_home.setSelected(true);
         tab_detail = (ImageView) findViewById(R.id.tab_detail);
         tab_yoraming = (ImageView) findViewById(R.id.tab_yoraming);
         tab_mypage = (ImageView) findViewById(R.id.tab_mypage);
