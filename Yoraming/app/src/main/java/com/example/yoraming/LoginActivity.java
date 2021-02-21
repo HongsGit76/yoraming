@@ -75,6 +75,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
+        Intent intent = getIntent();
+        int i = intent.getIntExtra("key", 0);
+
         // BackPressedForFinish 객체를 생성한다.
         backPressedForFinish = new BackPressedForFinish(this);
 
@@ -102,6 +105,10 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 startActivityForResult(intent, REQ_SIGN_GOOGLE);
             }
         });
+
+        if (i == 1) {
+            signOut();
+        }
 
         /*btn_logout = findViewById(R.id.btn_logout);
         btn_logout.setOnClickListener(new View.OnClickListener() {
