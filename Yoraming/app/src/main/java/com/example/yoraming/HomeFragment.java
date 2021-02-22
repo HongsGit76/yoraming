@@ -1,13 +1,14 @@
 package com.example.yoraming;
 
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
-
-import androidx.fragment.app.Fragment;
 
 public class HomeFragment extends Fragment {
     View.OnClickListener buttonlistener;
@@ -36,6 +37,7 @@ public class HomeFragment extends Fragment {
     public void onCreateButton(String text, int imageId) {
         Button mButton = new Button(getActivity());
         ViewGroup.LayoutParams pm = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
         mButton.setText(text);
         mButton.setBackgroundResource(imageId);
         mButton.setLayoutParams(pm);
