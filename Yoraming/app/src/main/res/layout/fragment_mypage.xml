@@ -4,12 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="550dp"
     android:translationY="50dp"
-    tools:context=".afterScheduleFragment">
+    tools:context=".myPageFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="미래 시간표" />
+        android:text="마이 페이지" />
+
+    <Button
+    android:id="@+id/btn_logout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:text="로그 아웃"
+    android:textColor="@color/black" />
 
 </FrameLayout>
