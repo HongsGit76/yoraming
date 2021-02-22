@@ -8,11 +8,11 @@
 
     <ImageView
         android:id="@+id/selected_major_1"
-        android:layout_width="350dp"
+        android:layout_width="370dp"
         android:layout_height="220dp"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
-        android:src="@drawable/selected_major_1"
+        android:src="@drawable/announcement_box"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

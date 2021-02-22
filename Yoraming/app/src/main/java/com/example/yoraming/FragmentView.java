@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.FrameLayout;
 
 import androidx.fragment.app.Fragment;
 
@@ -13,13 +15,11 @@ import com.dinuscxj.progressbar.CircleProgressBar;
 public class FragmentView extends Fragment implements CircleProgressBar.ProgressFormatter {
 
     private static final String DEFAULT_PATTERN = "%d%%";
+    View.OnClickListener buttonlistener;
+    View rootView;
 
     CircleProgressBar circleProgressBar1, circleProgressBar2, circleProgressBar3;
     int i, j, k = 0;
-
-    public FragmentView() {
-        // Required empty public consructor
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,6 +31,13 @@ public class FragmentView extends Fragment implements CircleProgressBar.Progress
 
         View rootView = inflater.inflate(R.layout.fragment_view, container, false);
 
+        CreatePieGraph(rootView, 70, 50, 30);
+
+
+        return rootView;
+    }
+
+    public void CreatePieGraph(View rootView, int per_1, int per_2, int per_3) {
         circleProgressBar1 = (CircleProgressBar) rootView.findViewById(R.id.cpb_circlebar1);
         circleProgressBar1.setProgressFormatter(null);
         circleProgressBar2 = (CircleProgressBar) rootView.findViewById(R.id.cpb_circlebar2);
@@ -44,7 +51,7 @@ public class FragmentView extends Fragment implements CircleProgressBar.Progress
         handler1.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (i <= 70) {
+                if (i <= per_1) {
                     circleProgressBar1.setProgress(i);
                     i++;
                     handler1.postDelayed(this, 10);
@@ -56,7 +63,7 @@ public class FragmentView extends Fragment implements CircleProgressBar.Progress
         handler2.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (j <= 50) {
+                if (j <= per_2) {
                     circleProgressBar2.setProgress(j);
                     j++;
                     handler2.postDelayed(this, 10);
@@ -69,7 +76,7 @@ public class FragmentView extends Fragment implements CircleProgressBar.Progress
         handler3.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (k <= 90) {
+                if (k <= per_3) {
                     circleProgressBar3.setProgress(k);
                     k++;
                     handler3.postDelayed(this, 10);
@@ -79,11 +86,22 @@ public class FragmentView extends Fragment implements CircleProgressBar.Progress
             }
         }, 10);
 
-        return rootView;
     }
 
     @Override
     public CharSequence format(int progress, int max) {
         return String.format(DEFAULT_PATTERN,  (int) ((float) progress / (float) max * 100));
+    }
+
+    public void onCreateButton(String text, int imageId) {
+        Button mButton = new Button(getActivity());
+        ViewGroup.LayoutParams pm = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        mButton.setText(text);
+        mButton.setBackgroundResource(imageId);
+        mButton.setLayoutParams(pm);
+        mButton.setOnClickListener(buttonlistener);
+        FrameLayout mView = (FrameLayout)rootView.findViewById(R.id.home_container);
+        mView.addView(mButton);
     }
 }

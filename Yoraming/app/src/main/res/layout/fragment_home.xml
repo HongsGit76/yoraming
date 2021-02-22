@@ -8,7 +8,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="250dp"
         android:translationY="80dp"
         android:layout_gravity="center"
         android:id="@+id/home_container"
@@ -17,8 +17,9 @@
         <fragment
             android:id="@+id/fragmentView1"
             android:name="com.example.yoraming.FragmentView"
-            android:layout_width="350dp"
+            android:layout_width="370dp"
             android:layout_height="220dp"
+            android:layout_marginTop="14dp"
             android:layout_gravity="center"
             tools:layout="@layout/fragment_view" />
     </FrameLayout>
