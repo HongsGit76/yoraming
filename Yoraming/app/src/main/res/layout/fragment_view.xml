@@ -4,85 +4,110 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
     tools:context=".FragmentView">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginLeft="30dp"
-        android:text="전필"
-        android:textSize="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/cpb_circlebar1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="전선"
-        android:textSize="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/cpb_circlebar2"
+    <ImageView
+        android:id="@+id/selected_major_1"
+        android:layout_width="350dp"
+        android:layout_height="220dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/selected_major_1"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+    </ImageView>
 
     <TextView
+        android:id="@+id/tv_all"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="35dp"
-        android:layout_marginRight="50dp"
-        android:text="교양"
-        android:textSize="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/cpb_circlebar3"
+        android:layout_marginStart="52dp"
+        android:layout_marginLeft="52dp"
+        android:layout_marginTop="4dp"
+        android:text="전체 학점"
+        android:textColor="#797979"
+        android:textSize="8dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cpb_circlebar1" />
+
+    <TextView
+        android:id="@+id/tv_general"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="교양 학점"
+        android:textColor="#797979"
+        android:textSize="8dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cpb_circlebar2" />
+
+    <TextView
+        android:id="@+id/tv_major"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="51dp"
+        android:layout_marginRight="51dp"
+        android:text="전공 학점"
+        android:textColor="#797979"
+        android:textSize="8dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cpb_circlebar3" />
 
     <com.dinuscxj.progressbar.CircleProgressBar
         android:id="@+id/cpb_circlebar1"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginLeft="42dp"
+        android:layout_marginBottom="90dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:progress_background_color="#f5f5f5"
         app:progress_end_color="#295597"
         app:progress_start_color="#4269b2"
         app:progress_stroke_cap="butt"
-        app:progress_stroke_width="16dp"
-        app:progress_background_color="#f5f5f5"
+        app:progress_stroke_width="12dp"
         app:style="solid_line" />
 
     <com.dinuscxj.progressbar.CircleProgressBar
         android:id="@+id/cpb_circlebar2"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        app:progress_background_color="#f5f5f5"
-        app:style="solid_line"
-        app:progress_stroke_width="16dp "
-        app:progress_stroke_cap="butt"
-        app:progress_start_color="#4269b2"
-        app:progress_end_color="#295597"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="90dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.dinuscxj.progressbar.CircleProgressBar
-        android:id="@+id/cpb_circlebar3"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        app:progress_background_color="#f5f5f5"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:progress_background_color="#f5f5f5"
         app:progress_end_color="#295597"
         app:progress_start_color="#4269b2"
         app:progress_stroke_cap="butt"
-        app:progress_stroke_width="16dp "
+        app:progress_stroke_width="12dp "
+        app:style="solid_line" />
+
+    <com.dinuscxj.progressbar.CircleProgressBar
+        android:id="@+id/cpb_circlebar3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginRight="42dp"
+        android:layout_marginBottom="90dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:progress_background_color="#f5f5f5"
+        app:progress_end_color="#295597"
+        app:progress_start_color="#4269b2"
+        app:progress_stroke_cap="butt"
+        app:progress_stroke_width="12dp "
         app:style="solid_line" />
 </androidx.constraintlayout.widget.ConstraintLayout>
