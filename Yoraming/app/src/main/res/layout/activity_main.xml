@@ -16,6 +16,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:layout_marginTop="30dp"
+            android:layout_width="130dp"
+            android:layout_height="31dp"
+            android:layout_gravity="left"
+            android:scaleType="fitCenter"
+            android:src="@drawable/home_logo" />
+
+        <ImageView
             android:layout_width="150dp"
             android:layout_height="0dp"
             android:layout_gravity="left"
