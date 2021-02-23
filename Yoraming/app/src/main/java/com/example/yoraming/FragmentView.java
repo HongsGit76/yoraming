@@ -1,22 +1,28 @@
 package com.example.yoraming;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
+import androidx.annotation.RequiresApi;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.dinuscxj.progressbar.CircleProgressBar;
 
 public class FragmentView extends Fragment implements CircleProgressBar.ProgressFormatter {
 
+    private ImageView add_major;
     private static final String DEFAULT_PATTERN = "%d%%";
     View.OnClickListener buttonlistener;
-    View rootView;
 
     CircleProgressBar circleProgressBar1, circleProgressBar2, circleProgressBar3;
     int i, j, k = 0;
@@ -26,18 +32,32 @@ public class FragmentView extends Fragment implements CircleProgressBar.Progress
         super.onCreate(savedInstanceState);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View rootView = inflater.inflate(R.layout.fragment_view, container, false);
+        add_major = (ImageView) rootView.findViewById(R.id.add_major);
+        CreatePieGraph(rootView,70, 50, 30);
+        onCreateButton(rootView,"전공",R.drawable.not_selected_major);
+        onCreateButton(rootView,"전공",R.drawable.not_selected_major);
+        onCreateButton(rootView,"전공",R.drawable.not_selected_major);
+        onCreateButton(rootView,"전공",R.drawable.not_selected_major);
 
-        CreatePieGraph(rootView, 70, 50, 30);
-
-
+        System.out.println("logmain");
+        buttonlistener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    case R.id.add_major:
+                        System.out.println("log");
+                        break;
+                }
+            }
+        };
         return rootView;
     }
 
-    public void CreatePieGraph(View rootView, int per_1, int per_2, int per_3) {
+    public void CreatePieGraph(View rootView,int per_1, int per_2, int per_3) {
         circleProgressBar1 = (CircleProgressBar) rootView.findViewById(R.id.cpb_circlebar1);
         circleProgressBar1.setProgressFormatter(null);
         circleProgressBar2 = (CircleProgressBar) rootView.findViewById(R.id.cpb_circlebar2);
@@ -93,15 +113,44 @@ public class FragmentView extends Fragment implements CircleProgressBar.Progress
         return String.format(DEFAULT_PATTERN,  (int) ((float) progress / (float) max * 100));
     }
 
-    public void onCreateButton(String text, int imageId) {
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+    public void onCreateButton(View rootView, String text, int imageId) {
+        setLayout(rootView);
         Button mButton = new Button(getActivity());
-        ViewGroup.LayoutParams pm = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
-        mButton.setText(text);
+        LinearLayout.LayoutParams pm = new LinearLayout.LayoutParams((int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics()),
+                (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 23, getResources().getDisplayMetrics()));
+        pm.weight = 1;
         mButton.setBackgroundResource(imageId);
         mButton.setLayoutParams(pm);
         mButton.setOnClickListener(buttonlistener);
-        FrameLayout mView = (FrameLayout)rootView.findViewById(R.id.home_container);
+        LinearLayout mView = (LinearLayout) rootView.findViewById(R.id.major_button_group);
         mView.addView(mButton);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+    public void setLayout(View rootView) {
+        LinearLayout linearLayout = (LinearLayout)rootView.findViewById(R.id.major_button_group);
+        ImageButton mButton = (ImageButton)rootView.findViewById(R.id.add_major);
+
+        ConstraintLayout.LayoutParams pm_layout = (ConstraintLayout.LayoutParams) linearLayout.getLayoutParams();
+
+        ConstraintLayout.LayoutParams pm_button = (ConstraintLayout.LayoutParams) mButton.getLayoutParams();
+
+        if(linearLayout.getPaddingRight() <= (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics())) {
+            linearLayout.setPadding(linearLayout.getPaddingLeft(),linearLayout.getPaddingTop(),(int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics()),
+                    linearLayout.getPaddingBottom());
+        } else {
+            linearLayout.setPadding(linearLayout.getPaddingLeft(),linearLayout.getPaddingTop(),linearLayout.getPaddingRight() - (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics()),
+                    linearLayout.getPaddingBottom());
+        }
+
+        if(pm_button.getMarginEnd() <= (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15, getResources().getDisplayMetrics())) {
+            pm_button.setMarginEnd((int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15, getResources().getDisplayMetrics()));
+        } else {
+            pm_button.setMarginEnd(pm_button.getMarginEnd() - (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics()));
+        }
+
+        linearLayout.setLayoutParams(pm_layout);
+        mButton.setLayoutParams(pm_button);
     }
 }

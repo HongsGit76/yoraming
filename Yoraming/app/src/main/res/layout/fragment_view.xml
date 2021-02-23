@@ -2,9 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/view_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FragmentView">
+
 
     <ImageView
         android:id="@+id/selected_major_1"
@@ -16,9 +18,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </ImageView>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/tv_all"
@@ -109,5 +109,42 @@
         app:progress_start_color="#4269b2"
         app:progress_stroke_cap="butt"
         app:progress_stroke_width="12dp "
-        app:style="solid_line" />
+        app:style="solid_line"/>
+
+    <ImageButton
+        android:id="@+id/add_major"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:background="@drawable/plus"
+        android:layout_marginEnd="215dp"
+        android:layout_marginRight="500dp"
+        android:layout_marginBottom="240dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/major_button_group"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="240dp"
+        android:paddingBottom="240dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="94dp">
+
+        <ImageButton
+            android:id="@+id/select_major_base"
+            android:layout_width="100dp"
+            android:layout_height="23dp"
+            android:layout_weight="1"
+            android:background="@drawable/not_selected_major"
+            android:scaleType="fitXY" />
+
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
