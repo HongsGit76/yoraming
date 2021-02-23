@@ -10,15 +10,16 @@
 
     <ImageView
         android:id="@+id/selected_major_1"
-        android:layout_width="370dp"
-        android:layout_height="220dp"
+        android:layout_width="340dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="20dp"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
         android:src="@drawable/announcement_box"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_all"
@@ -67,7 +68,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="42dp"
         android:layout_marginLeft="42dp"
-        android:layout_marginBottom="90dp"
+        android:layout_marginBottom="130dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -82,7 +83,7 @@
         android:id="@+id/cpb_circlebar2"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="90dp"
+        android:layout_marginBottom="130dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -100,7 +101,7 @@
         android:layout_height="50dp"
         android:layout_marginEnd="42dp"
         android:layout_marginRight="42dp"
-        android:layout_marginBottom="90dp"
+        android:layout_marginBottom="130dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -109,33 +110,34 @@
         app:progress_start_color="#4269b2"
         app:progress_stroke_cap="butt"
         app:progress_stroke_width="12dp "
-        app:style="solid_line"/>
+        app:style="solid_line" />
 
     <ImageButton
         android:id="@+id/add_major"
         android:layout_width="15dp"
         android:layout_height="15dp"
-        android:background="@drawable/plus"
         android:layout_marginEnd="215dp"
         android:layout_marginRight="500dp"
         android:layout_marginBottom="240dp"
+        android:background="@drawable/plus"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/major_button_group"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingLeft="20dp"
         android:paddingRight="240dp"
         android:paddingBottom="240dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="94dp">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
             android:id="@+id/select_major_base"
