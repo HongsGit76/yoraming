@@ -8,7 +8,7 @@
     tools:context=".HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/major_layout"
         android:layout_marginTop="60dp"
         android:layout_width="0dp"
         android:layout_height="300dp"
