@@ -105,6 +105,7 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void onCreateButton(View rootView, String text, int imageId) {
         setLayout(rootView);
+        setAddButton(rootView);
         Button mButton = new Button(getActivity());
         LinearLayout.LayoutParams pm = new LinearLayout.LayoutParams((int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics()),
                 (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 23, getResources().getDisplayMetrics()));
@@ -119,27 +120,30 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void setLayout(View rootView) {
         LinearLayout linearLayout = (LinearLayout)rootView.findViewById(R.id.major_button_group);
-        ImageButton mButton = (ImageButton)rootView.findViewById(R.id.add_major);
 
         ConstraintLayout.LayoutParams pm_layout = (ConstraintLayout.LayoutParams) linearLayout.getLayoutParams();
 
-        ConstraintLayout.LayoutParams pm_button = (ConstraintLayout.LayoutParams) mButton.getLayoutParams();
-
-        if(linearLayout.getPaddingRight() <= (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics())) {
-            linearLayout.setPadding(linearLayout.getPaddingLeft(),linearLayout.getPaddingTop(),(int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics()),
+        if(linearLayout.getPaddingRight() < (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 71, getResources().getDisplayMetrics())) {
+            linearLayout.setPadding(linearLayout.getPaddingLeft(),linearLayout.getPaddingTop(),(int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 70, getResources().getDisplayMetrics()),
                     linearLayout.getPaddingBottom());
         } else {
             linearLayout.setPadding(linearLayout.getPaddingLeft(),linearLayout.getPaddingTop(),linearLayout.getPaddingRight() - (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics()),
                     linearLayout.getPaddingBottom());
         }
+        linearLayout.setLayoutParams(pm_layout);
+    }
 
-        if(pm_button.getMarginEnd() <= (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15, getResources().getDisplayMetrics())) {
-            pm_button.setMarginEnd((int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15, getResources().getDisplayMetrics()));
+    public void setAddButton(View rootView) {
+        ImageButton mButton = (ImageButton)rootView.findViewById(R.id.add_major);
+
+        ConstraintLayout.LayoutParams pm_button = (ConstraintLayout.LayoutParams) mButton.getLayoutParams();
+
+        if(pm_button.getMarginEnd() < (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 46, getResources().getDisplayMetrics())) {
+            pm_button.setMarginEnd((int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 45, getResources().getDisplayMetrics()));
         } else {
             pm_button.setMarginEnd(pm_button.getMarginEnd() - (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics()));
         }
 
-        linearLayout.setLayoutParams(pm_layout);
         mButton.setLayoutParams(pm_button);
     }
 }
