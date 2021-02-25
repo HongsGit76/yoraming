@@ -8,6 +8,50 @@
     tools:context=".HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/announcement_layout"
+        android:layout_marginTop="340dp"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/announcement"
+            android:layout_width="350dp"
+            android:layout_height="300dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/announcement_box"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.491"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <ImageButton
+            android:id="@+id/announcement_more"
+            android:layout_width="10dp"
+            android:layout_height="15dp"
+            android:background="@drawable/more"
+            android:scaleType="fitXY"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="300dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="맞춤 공지사항"
+            android:textColor="#333333"
+            android:layout_marginEnd="235dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/major_layout"
         android:layout_marginTop="60dp"
         android:layout_width="0dp"
