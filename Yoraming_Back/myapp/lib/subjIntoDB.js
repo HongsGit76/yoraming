@@ -1,4 +1,4 @@
-const db = require("./db");
+const db = require("../config/db");
 const majorList = require("../json_list/majorList");
 const fs = require("fs");
 
