@@ -32,7 +32,7 @@ import com.google.firebase.auth.FirebaseAuth;
  * Use the {@link myPageFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class myPageFragment extends Fragment {
+public class myPageFragment extends Fragment implements OnBackPressedListener{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -77,9 +77,8 @@ public class myPageFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-    private void signOut() {
-        FirebaseAuth.getInstance().signOut();
-    }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -93,12 +92,17 @@ public class myPageFragment extends Fragment {
             public void onClick(View v) {
                 Toast.makeText(getActivity().getApplicationContext(), "로그아웃", Toast.LENGTH_SHORT).show();
                 System.out.println("로그아웃");
-                signOut();
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 intent.putExtra("key", 1);
                 startActivity(intent);
             }
         });
         return logout;
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        intent.putExtra("key", 0);
+        startActivity(intent);
     }
 }

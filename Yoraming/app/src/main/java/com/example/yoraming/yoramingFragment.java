@@ -1,5 +1,6 @@
 package com.example.yoraming;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,7 +14,7 @@ import android.view.ViewGroup;
  * Use the {@link yoramingFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class yoramingFragment extends Fragment {
+public class yoramingFragment extends Fragment implements OnBackPressedListener{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,5 +61,11 @@ public class yoramingFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_yoraming, container, false);
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        intent.putExtra("key", 0);
+        startActivity(intent);
     }
 }

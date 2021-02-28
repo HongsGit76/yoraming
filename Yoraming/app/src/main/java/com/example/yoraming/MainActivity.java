@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManger;
@@ -79,4 +81,15 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.tab_mypage).setOnClickListener(buttonListener);
     }
 
+    @Override
+    public void onBackPressed() {
+        List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
+        if (fragmentList != null) {
+            for(Fragment fragment : fragmentList){
+                if(fragment instanceof OnBackPressedListener){
+                    ((OnBackPressedListener)fragment).onBackPressed();
+                }
+            }
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.yoraming;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,7 +18,7 @@ import androidx.fragment.app.Fragment;
 
 import com.dinuscxj.progressbar.CircleProgressBar;
 
-public class HomeFragment extends Fragment implements CircleProgressBar.ProgressFormatter {
+public class HomeFragment extends Fragment implements CircleProgressBar.ProgressFormatter, OnBackPressedListener{
 
     private static final String DEFAULT_PATTERN = "%d%%";
     private ImageButton add_major;
@@ -145,5 +146,12 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
         }
 
         mButton.setLayoutParams(pm_button);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        intent.putExtra("key", 0);
+        startActivity(intent);
     }
 }

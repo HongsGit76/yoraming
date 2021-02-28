@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.AsyncQueryHandler;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -29,6 +30,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -63,11 +65,28 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private SignInButton btn_google;
     private Button btn_logout;
     private TextView textView;
+    private static final String TAG = "LoginActivity";
     public FirebaseAuth auth; //파이어베이스 인증 객체
     public GoogleApiClient googleApiClient;
     private static final int REQ_SIGN_GOOGLE = 100; //구글로그인 했을 때 결과 코드
     private BackPressedForFinish backPressedForFinish;
+    private ProgressDialog mProgressDialog;
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent = getIntent();
+        int i = intent.getIntExtra("key", 0);
+
+        if (i == 1) {
+            System.out.println(i);
+            signOut();
+        } else {
+            System.out.println(i);
+            return;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +94,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
-        Intent intent = getIntent();
-        int i = intent.getIntExtra("key", 0);
+        //Intent intent = getIntent();
+        //int i = intent.getIntExtra("key", 0);
 
         // BackPressedForFinish 객체를 생성한다.
         backPressedForFinish = new BackPressedForFinish(this);
@@ -106,9 +125,10 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             }
         });
 
-        if (i == 1) {
+        /*if (i == 1) {
             signOut();
-        }
+        }*/
+
 
         /*btn_logout = findViewById(R.id.btn_logout);
         btn_logout.setOnClickListener(new View.OnClickListener() {
@@ -143,6 +163,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             }
         });*/
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -205,19 +227,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             String email = account.getEmail().substring(account.getEmail().lastIndexOf("@"));
                             Log.d("test", email);
                             if (email.equals("@ajou.ac.kr")) {
-                                //FirebaseUser user = auth.getCurrentUser();
                                 new JSONTask().execute("https://f93d745aa940.ngrok.io/test//login");
-
-                                /*String cu = auth.getUid();
-                                String name = user.getDisplayName();
-                                String userEmail = user.getEmail();*/
 
                                 Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(intent);
 
-                                /*UserData userData = new UserData(userEmail, name, cu);
-                                mDatabase.child("users").setValue(userData);*/
                             } else {
                                 Toast.makeText(LoginActivity.this, "아주대학교 계정이 아닙니다.", Toast.LENGTH_SHORT).show();
                                 signOut();
