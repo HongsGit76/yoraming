@@ -33,7 +33,7 @@ public class BackPressedForFinish {
             toast.cancel();
 
             // 앱을 종료한다.
-            activity.finish();
+            activity.finishAffinity();
         }
     }
 

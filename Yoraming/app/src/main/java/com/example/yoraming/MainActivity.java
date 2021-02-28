@@ -80,6 +80,11 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.tab_yoraming).setOnClickListener(buttonListener);
         findViewById(R.id.tab_mypage).setOnClickListener(buttonListener);
     }
+    public void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment).commit();      // Fragment로 사용할 MainActivity내의 layout공간을 선택합니다.
+    }
 
     @Override
     public void onBackPressed() {
@@ -88,6 +93,10 @@ public class MainActivity extends AppCompatActivity {
             for(Fragment fragment : fragmentList){
                 if(fragment instanceof OnBackPressedListener){
                     ((OnBackPressedListener)fragment).onBackPressed();
+                    tab_home.setSelected(true);
+                    tab_detail.setSelected(false);
+                    tab_yoraming.setSelected(false);
+                    tab_mypage.setSelected(false);
                 }
             }
         }

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -22,6 +23,9 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
 
     private static final String DEFAULT_PATTERN = "%d%%";
     private ImageButton add_major;
+    private Toast toast;
+    long backKeyPressedTime;
+    MainActivity activity;
     View.OnClickListener buttonlistener;
     CircleProgressBar circleProgressBar1, circleProgressBar2, circleProgressBar3;
     int i, j, k = 0;
@@ -36,6 +40,8 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         CreatePieGraph(rootView,70, 50, 30);
+        activity = (MainActivity) getActivity();
+        toast = Toast.makeText(getContext(), "'뒤로' 버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);
         add_major = (ImageButton)rootView.findViewById(R.id.add_major);
 
         add_major.setOnClickListener(new View.OnClickListener() {
@@ -152,6 +158,15 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
     public void onBackPressed() {
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         intent.putExtra("key", 0);
-        startActivity(intent);
+
+        if(System.currentTimeMillis() > backKeyPressedTime + 2000) {
+            backKeyPressedTime = System.currentTimeMillis();
+            toast.show();
+            return;
+        }
+        if(System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            getActivity().finishAffinity();
+            toast.cancel();
+        }
     }
 }

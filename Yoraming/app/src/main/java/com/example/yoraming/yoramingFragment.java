@@ -66,6 +66,6 @@ public class yoramingFragment extends Fragment implements OnBackPressedListener{
     public void onBackPressed() {
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         intent.putExtra("key", 0);
-        startActivity(intent);
+        ((MainActivity)getActivity()).replaceFragment(new HomeFragment());
     }
 }
