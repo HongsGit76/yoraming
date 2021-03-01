@@ -1,3 +1,6 @@
+"use strict";
+
+// 모듈 정의
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
@@ -5,9 +8,11 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const dotenv = require("dotenv").config();
 
+// 라우터 정의
 var indexRouter = require("./routes/index");
 var ocrRouter = require("./routes/ocr");
 var sbjtRouter = require("./routes/sbjt");
+var specRouter = require("./routes/spec");
 
 var app = express();
 
@@ -23,9 +28,11 @@ app.use(express.static(path.join(__dirname, "public")));
 //port setup
 // app.set("port", process.env.PORT || 9000);
 
+// urls pattern
 app.use("/", indexRouter);
 app.use("/subject", sbjtRouter);
 app.use("/ocr", ocrRouter);
+app.use("/spec", ocrRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
