@@ -3,10 +3,11 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-
 const dotenv = require("dotenv").config();
+
 var indexRouter = require("./routes/index");
 var ocrRouter = require("./routes/ocr");
+var sbjtRouter = require("./routes/sbjt");
 
 var app = express();
 
@@ -23,6 +24,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // app.set("port", process.env.PORT || 9000);
 
 app.use("/", indexRouter);
+app.use("/subject", sbjtRouter);
 app.use("/ocr", ocrRouter);
 
 // catch 404 and forward to error handler
