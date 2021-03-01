@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="500dp"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:translationY="80dp"
     tools:context=".myPageFragment">
@@ -20,7 +20,8 @@
             android:layout_height="100dp"
             android:layout_gravity="center"
             app:civ_border_color="#ff000000"
-            android:src="@drawable/ic_launcher_background"/>
+            android:src="@drawable/ic_launcher_background"
+            tools:ignore="MissingClass" />
 
         <TextView
             android:id="@+id/tv_name"
@@ -40,11 +41,45 @@
 
         <ImageButton
             android:id="@+id/btn_logout"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:backgroundTint="#ffffff"
-            android:scaleType="fitCenter"
-            android:src="@drawable/logout" />
+            android:layout_width="35dp"
+            android:layout_height="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/logout"
+            android:scaleType="fitXY" />
     </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="120dp"
+            android:gravity="center"
+            android:layout_marginBottom="330dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/major_box"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="210dp"
+            android:gravity="center"
+            android:layout_marginBottom="100dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/option_box"/>
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
