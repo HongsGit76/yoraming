@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/subject", sbjtRouter);
 app.use("/ocr", ocrRouter);
-app.use("/spec", ocrRouter);
+app.use("/spec", specRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
