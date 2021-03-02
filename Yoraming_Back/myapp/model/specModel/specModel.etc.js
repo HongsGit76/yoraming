@@ -31,8 +31,34 @@ class SpecEtcModel {
     });
   }
 
-  // test용
-  async test() {
+  async deleteEtcSpec() {
+    // API
+    const user_id = this.body.user_id;
+    const etc_id = this.body.etc_id;
+
+    return new Promise((resolve, reject) => {
+      db.query(deleteQuery, [user_id, etc_id], (err) => {
+        if (err) console.log(err);
+        resolve({ success: true });
+      });
+    });
+  }
+
+  async getEtcSpec() {
+    // API
+    const user_id = this.body.user_id;
+
+    return new Promise((resolve, reject) => {
+      db.query(getQuery, [user_id], (err, rows, fields) => {
+        if (err) console.log(err);
+        rows.success = true;
+        console.log("rows: ", rows);
+        resolve(rows);
+      });
+    });
+  }
+
+  async editEtcSpec() {
     return { success: true };
   }
 }

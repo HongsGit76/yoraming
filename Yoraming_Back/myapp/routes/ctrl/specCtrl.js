@@ -8,7 +8,7 @@ const process = {
   // 스펙 보기
   getEtcSpec: async (req, res) => {
     const spec = new specEtcModel(req.body);
-    const response = await spec.test();
+    const response = await spec.getEtcSpec();
     return res.json(response);
   },
   // 스펙 추가
@@ -20,14 +20,14 @@ const process = {
   // 스펙 삭제
   deleteEtcSpec: async (req, res) => {
     const spec = new specEtcModel(req.body);
-    const response = await spec.test();
+    const response = await spec.deleteEtcSpec();
     return res.json(response);
   },
 
   // 스펙 수정
   editEtcSpec: async (req, res) => {
     const spec = new specEtcModel(req.body);
-    const response = await spec.test();
+    const response = await spec.editEtcSpec();
     return res.json(response);
   },
 };
