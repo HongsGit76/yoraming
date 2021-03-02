@@ -38,25 +38,25 @@ const process = {
   // 스펙 보기
   getCareerSpec: async (req, res) => {
     const spec = new specCareerModel(req.body);
-    const response = await spec.getCareerSpec();
+    const response = await spec.test();
     return res.json(response);
   },
   // 스펙 추가
   addCareerSpec: async (req, res) => {
     const spec = new specCareerModel(req.body);
-    const response = await spec.addCareerSpec();
+    const response = await spec.test();
     return res.json(response);
   },
   // 스펙 삭제
   deleteCareerSpec: async (req, res) => {
     const spec = new specCareerModel(req.body);
-    const response = await spec.deleteCareerSpec();
+    const response = await spec.test();
     return res.json(response);
   },
   // 스펙 수정
   editCareerSpec: async (req, res) => {
     const spec = new specCareerModel(req.body);
-    const response = await spec.editCareerSpec();
+    const response = await spec.test();
     return res.json(response);
   },
 
@@ -64,25 +64,25 @@ const process = {
   // 스펙 보기
   getCertSpec: async (req, res) => {
     const spec = new specCertModel(req.body);
-    const response = await spec.getCertSpec();
+    const response = await spec.test();
     return res.json(response);
   },
   // 스펙 추가
   addCertSpec: async (req, res) => {
     const spec = new specCertModel(req.body);
-    const response = await spec.addCertSpec();
+    const response = await spec.test();
     return res.json(response);
   },
   // 스펙 삭제
   deleteCertSpec: async (req, res) => {
     const spec = new specCertModel(req.body);
-    const response = await spec.deleteCertSpec();
+    const response = await spec.test();
     return res.json(response);
   },
   // 스펙 수정
   editCertSpec: async (req, res) => {
     const spec = new specCertModel(req.body);
-    const response = await spec.editCertSpec();
+    const response = await spec.test();
     return res.json(response);
   },
 
@@ -90,25 +90,25 @@ const process = {
   // 스펙 보기
   getLangSpec: async (req, res) => {
     const spec = new specLangModel(req.body);
-    const response = await spec.getLangSpec();
+    const response = await spec.test();
     return res.json(response);
   },
   // 스펙 추가
   addLangSpec: async (req, res) => {
     const spec = new specLangModel(req.body);
-    const response = await spec.addLangSpec();
+    const response = await spec.test();
     return res.json(response);
   },
   // 스펙 삭제
   deleteLangSpec: async (req, res) => {
     const spec = new specLangModel(req.body);
-    const response = await spec.deleteLangSpec();
+    const response = await spec.test();
     return res.json(response);
   },
   // 스펙 수정
   editLangSpec: async (req, res) => {
     const spec = new specLangModel(req.body);
-    const response = await spec.editLangSpec();
+    const response = await spec.test();
     return res.json(response);
   },
 };
