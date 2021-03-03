@@ -57,6 +57,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
 import android.view.WindowManager;
 
@@ -124,44 +125,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 startActivityForResult(intent, REQ_SIGN_GOOGLE);
             }
         });
-
-        /*if (i == 1) {
-            signOut();
-        }*/
-
-
-        /*btn_logout = findViewById(R.id.btn_logout);
-        btn_logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder alt_bld = new AlertDialog.Builder(v.getContext());
-                alt_bld.setMessage("로그아웃 하시겠습니까?").setCancelable(false)
-                        .setPositiveButton("네",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        // 네 클릭
-                                        // 로그아웃 함수 call
-                                        signOut();
-                                    }
-                                }).setNegativeButton("아니오",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // 아니오 클릭. dialog 닫기.
-                                dialog.cancel();
-                            }
-                        });
-                AlertDialog alert = alt_bld.create();
-                // 대화창 클릭시 뒷 배경 어두워지는 것 막기
-                //alert.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-                // 대화창 제목 설정
-                alert.setTitle("로그아웃");
-                // 대화창 아이콘 설정
-                alert.setIcon(R.drawable.common_google_signin_btn_icon_dark);
-                // 대화창 배경 색 설정
-                alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(255, 62, 79, 92)));
-                alert.show();
-            }
-        });*/
     }
 
 
@@ -228,8 +191,23 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             Log.d("test", email);
                             if (email.equals("@ajou.ac.kr")) {
                                 new JSONTask().execute("https://f93d745aa940.ngrok.io/test//login");
-
                                 Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+                                /*try {
+                                    String result = new JSONTask().execute("https://f93d745aa940.ngrok.io/test//login").get();
+                                    Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+                                    if (result.equals("new user")) {
+                                        Intent intent = new Intent(getApplicationContext(), MainMajorActivity.class);
+                                        startActivity(intent);
+                                    }
+                                    else {
+                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                        startActivity(intent);
+                                    }
+                                } catch (ExecutionException e) {
+                                    e.printStackTrace();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }*/
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(intent);
 
@@ -322,7 +300,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            //tvData.setText(result);//서버로 부터 받은 값을 출력해주는 부분
         }
     }
 }
