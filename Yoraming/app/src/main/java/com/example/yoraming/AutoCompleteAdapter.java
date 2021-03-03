@@ -1,4 +1,4 @@
-package com.example.yoraming.items;
+package com.example.yoraming;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.yoraming.R;
+import com.example.yoraming.items.MajorItem;
 
 import java.util.ArrayList;
 import java.util.List;

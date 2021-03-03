@@ -9,7 +9,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.yoraming.R;
-import com.example.yoraming.items.AutoCompleteAdapter;
+import com.example.yoraming.AutoCompleteAdapter;
 import com.example.yoraming.items.MajorItem;
 
 import java.util.ArrayList;
