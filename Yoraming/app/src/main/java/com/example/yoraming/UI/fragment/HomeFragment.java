@@ -33,21 +33,8 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
     MainActivity activity;
     View.OnClickListener buttonlistener;
     CircleProgressBar circleProgressBar1, circleProgressBar2, circleProgressBar3;
-    public UserDataHandler userData = UserDataHandler.getInstance();
-    public Subject currentSubject= null;
-    private String majorName;
-    private int major;
-    private int basic;
-    static int cnt = 1;
     int i, j, k = 0;
 
-    public HomeFragment() {
-        Subject subject = new Subject();
-        subject.setMajorName("디지털미디어");
-        subject.setMajor(50);
-        subject.setBasic(50);
-        userData.subjectList.add(subject);
-    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,18 +47,13 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
         activity = (MainActivity) getActivity();
         toast = Toast.makeText(getContext(), "'뒤로' 버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);
         add_major = (ImageButton)rootView.findViewById(R.id.add_major);
-        baseMajor = (Button)rootView.findViewById(R.id.select_major_base);
-        currentSubject = userData.subjectList.get(0);
-        baseMajor.setText(currentSubject.getMajorName());
-        baseMajor.setTextSize(10.0f);
-        CreatePieGraph(rootView,currentSubject.getTotal(),currentSubject.getBasic(),currentSubject.getMajor());
+
+        CreatePieGraph(rootView,50,30,80);
 
         add_major.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentSubject = userData.subjectList.get(cnt);
-                onCreateButton(rootView,currentSubject.getMajorName(),R.drawable.not_selected_major);
-                cnt = cnt + 1;
+                onCreateButton(rootView,"전공",R.drawable.not_selected_major);
             }
         });
         return rootView;
