@@ -14,8 +14,11 @@ const delRecSbjtQuery = "DELETE FROM recognitionSbjt WHERE comSbjt_id IS NULL";
 const selectSbjtQuery =
   "SELECT comSbjt_name, comSbjt_date, comSbjt_credit, comSbjt_grade, recSbjt_recCategory FROM completeSbjt AS cs LEFT JOIN recognitionSbjt AS rs ON cs.comSbjt_id = rs.comSbjt_id WHERE cs.user_id = ? AND rs.yoram_id = ? ";
 
-const selectRecSbjtQuery =
-  "SELECT recSbjt_recCategory, yoram_id FROM recognitionSbjt WHERE comSbjt_id = ? AND yoram_id = ?";
+const selectSbjtRecQuery =
+  "SELECT recSbjt_recCategory, yoram_id  FROM recognitionSbjt WHERE comSbjt_id = ?";
+
+const selectSbjtDateQuery =
+  "SELECT comSbjt_id, comSbjt_name, comSbjt_credit, comSbjt_grade  FROM completeSbjt WHERE user_id = ?";
 
 class sbjtModel {
   static addSbjt(data) {
@@ -95,8 +98,6 @@ class sbjtModel {
 
   static sortSbjt(comSbjtData) {
     return new Promise((resolve, reject) => {
-      console.log(comSbjtData);
-
       const sortSbjt = {
         totalCredit: 0,
         totalGrade: 0,
@@ -104,11 +105,12 @@ class sbjtModel {
         majorS: 0,
         univR: 0,
         basicR: 0,
+        general: 0,
       };
 
       for (let i of comSbjtData) {
         sortSbjt.totalCredit += i.comSbjt_credit;
-        sortSbjt.totalGrade += i.comSbjt_grade;
+        sortSbjt.totalGrade += i.comSbjt_grade * i.comSbjt_credit;
         sortSbjt[`${i.recSbjt_recCategory}`] += i.comSbjt_credit;
 
         if (!(i.comSbjt_date in sortSbjt)) {
@@ -119,10 +121,12 @@ class sbjtModel {
             majorS: [],
             univR: [],
             basicR: [],
+            general: [],
           };
         }
         sortSbjt[`${i.comSbjt_date}`].totalCredit += i.comSbjt_credit;
-        sortSbjt[`${i.comSbjt_date}`].totalGrade += i.comSbjt_grade;
+        sortSbjt[`${i.comSbjt_date}`].totalGrade +=
+          i.comSbjt_grade * i.comSbjt_credit;
         //prettier-ignore
         sortSbjt[`${i.comSbjt_date}`][`${i.recSbjt_recCategory}`].push(i.comSbjt_name);
       }
@@ -131,28 +135,41 @@ class sbjtModel {
     });
   }
 
-  // static calRecSbjt(comSbjtData, yoram_id) {
-  //   return new Promise(async (resolve, reject) => {
-  //     await this.selectRecSbjt(comSbjtData, yoram_id);
-  //     resolve();
-  //   });
-  // }
+  static calSbjt(sortSbjtData) {
+    return new Promise(async (resolve, reject) => {
+      sortSbjtData.gpa = (
+        sortSbjtData.totalGrade / sortSbjtData.totalCredit
+      ).toFixed(2);
+      resolve(sortSbjtData);
+    });
+  }
 
-  // static selectRecSbjt(comSbjtData, yoram_id) {
-  //   return new Promise((resolve, reject) => {
-  //     for (let i in comSbjtData) {
-  //       db.query(
-  //         selectRecSbjtQuery,
-  //         [comSbjtData[i].comSbjt_id, yoram_id],
-  //         (err, data) => {
-  //           if (err) reject(err);
-  //           console.log(data);
-  //         }
-  //       );
-  //     }
-  //     resolve();
-  //   });
-  // }
+  static getSbjtDate(user_id) {
+    return new Promise((resolve, reject) => {
+      db.query(selectSbjtDateQuery, [user_id], (err, data) => {
+        if (err) reject(err);
+        resolve(data);
+      });
+    });
+  }
+
+  static getRecSbjtDate(dateSbjtData) {
+    return new Promise(async (resolve, reject) => {
+      for (let i of dateSbjtData) {
+        i.recognitionSbjt = await this.processRecSbjt(i.comSbjt_id);
+      }
+      resolve(dateSbjtData);
+    });
+  }
+
+  static processRecSbjt(comSbjt_id) {
+    return new Promise((resolve, reject) => {
+      db.query(selectSbjtRecQuery, [comSbjt_id], (err, data) => {
+        if (err) reject(err);
+        resolve(data);
+      });
+    });
+  }
 }
 
 module.exports = sbjtModel;
