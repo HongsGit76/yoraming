@@ -189,12 +189,12 @@
             app:layout_constraintStart_toStartOf="parent"
             tools:layout_editor_absoluteY="94dp">
 
-            <ImageButton
+            <Button
                 android:id="@+id/select_major_base"
                 android:layout_width="100dp"
-                android:layout_height="23dp"
+                android:layout_height="25dp"
                 android:layout_weight="1"
-                android:background="@drawable/not_selected_major"
+                android:background="@drawable/selected_major"
                 android:scaleType="fitXY" />
 
         </LinearLayout>
