@@ -47,10 +47,11 @@
         <AutoCompleteTextView
             android:id="@+id/auto_major"
             android:layout_marginLeft="15dp"
+            android:textSize="14dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:completionThreshold="1"
-            android:ems="8" />
+            android:ems="9" />
     </LinearLayout>
 
     <LinearLayout
@@ -69,6 +70,7 @@
         <EditText
             android:layout_marginLeft="11.5dp"
             android:layout_width="wrap_content"
+            android:textSize="14dp"
             android:layout_height="wrap_content"
             android:ems="3" />
 
@@ -96,6 +98,7 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="14dp"
             android:ems="3"/>
 
         <TextView
@@ -122,6 +125,7 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="14dp"
             android:ems="3"/>
 
         <TextView
@@ -148,6 +152,7 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="14dp"
             android:ems="3" />
 
         <TextView
