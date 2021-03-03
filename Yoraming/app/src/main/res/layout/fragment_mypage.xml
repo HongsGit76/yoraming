@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:translationY="80dp"
-    tools:context=".myPageFragment">
+    tools:context=".UI.fragment.myPageFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout

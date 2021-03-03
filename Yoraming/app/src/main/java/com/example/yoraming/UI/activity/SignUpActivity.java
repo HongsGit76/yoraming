@@ -1,20 +1,13 @@
-package com.example.yoraming;
+package com.example.yoraming.UI.activity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.PopupMenu;
-import android.widget.Spinner;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
+import com.example.yoraming.R;
 
 public class SignUpActivity extends AppCompatActivity {
     private Spinner spn_major_1, spn_current;

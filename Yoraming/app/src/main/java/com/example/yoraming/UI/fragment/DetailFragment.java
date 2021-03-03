@@ -1,20 +1,24 @@
-package com.example.yoraming;
+package com.example.yoraming.UI.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
+
+import com.example.yoraming.UI.activity.LoginActivity;
+import com.example.yoraming.UI.activity.MainActivity;
+import com.example.yoraming.OnBackPressedListener;
+import com.example.yoraming.R;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link DetailFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DetailFragment extends Fragment implements OnBackPressedListener{
+public class DetailFragment extends Fragment implements OnBackPressedListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

@@ -1,4 +1,4 @@
-package com.example.yoraming;
+package com.example.yoraming.UI.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,7 +9,8 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.TextView;
+
+import com.example.yoraming.R;
 
 public class IntroActivity extends AppCompatActivity {
 

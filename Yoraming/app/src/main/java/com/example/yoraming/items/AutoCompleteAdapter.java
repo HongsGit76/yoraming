@@ -1,4 +1,4 @@
-package com.example.yoraming;
+package com.example.yoraming.items;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,10 +11,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.yoraming.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
-class AutoCompleteAdapter extends ArrayAdapter<MajorItem> {
+public class AutoCompleteAdapter extends ArrayAdapter<MajorItem> {
     //데이터를 넣을 리스트
     private List<MajorItem> majorListFull;
 

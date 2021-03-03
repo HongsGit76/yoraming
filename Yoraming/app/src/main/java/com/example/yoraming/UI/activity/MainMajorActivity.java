@@ -1,13 +1,16 @@
-package com.example.yoraming;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.yoraming.UI.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.yoraming.R;
+import com.example.yoraming.items.AutoCompleteAdapter;
+import com.example.yoraming.items.MajorItem;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.yoraming;
+package com.example.yoraming.UI.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -9,6 +9,13 @@ import android.os.Bundle;
 
 import android.view.View;
 import android.widget.ImageView;
+
+import com.example.yoraming.OnBackPressedListener;
+import com.example.yoraming.R;
+import com.example.yoraming.UI.fragment.DetailFragment;
+import com.example.yoraming.UI.fragment.HomeFragment;
+import com.example.yoraming.UI.fragment.myPageFragment;
+import com.example.yoraming.UI.fragment.yoramingFragment;
 
 import java.util.List;
 

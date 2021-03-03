@@ -1,4 +1,4 @@
-package com.example.yoraming;
+package com.example.yoraming.items;
 
 public class UserData {
     private String userEmail;
