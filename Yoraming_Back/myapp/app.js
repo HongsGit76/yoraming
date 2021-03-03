@@ -13,6 +13,8 @@ var indexRouter = require("./routes/index");
 var ocrRouter = require("./routes/ocr");
 var sbjtRouter = require("./routes/sbjt");
 var specRouter = require("./routes/spec");
+var YoramRouter = require("./routes/yoram");
+var noticeRouter = require("./routes/notice");
 
 var app = express();
 
@@ -33,6 +35,8 @@ app.use("/", indexRouter);
 app.use("/subject", sbjtRouter);
 app.use("/ocr", ocrRouter);
 app.use("/spec", specRouter);
+app.use("/yoram", YoramRouter);
+app.use("/notice",noticeRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
