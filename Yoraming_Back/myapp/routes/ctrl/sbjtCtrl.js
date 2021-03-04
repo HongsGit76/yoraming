@@ -1,20 +1,7 @@
 const sbjtModel = require("../../model/sbjtModel");
 
 module.exports = {
-  output: {},
-  process: {
-    addSbjt: async (req, res) => {
-      try {
-        const body = req.body;
-        await sbjtModel.delSbjt(body[0].user_id, body[0].comSbjt_date);
-        await sbjtModel.addSbjt(body);
-        res.json({ success: true });
-      } catch (error) {
-        console.log(error);
-        res.json({ success: false, msg: error });
-      }
-    },
-
+  output: {
     getSbjtYoram: async (req, res) => {
       const user_id = req.body.user_id;
       const yoram_id = req.body.yoram_id;
@@ -38,6 +25,19 @@ module.exports = {
         const result = { success: true, data: dateRecSbjtData };
         res.json(result);
       } catch (error) {
+        res.json({ success: false, msg: error });
+      }
+    },
+  },
+  process: {
+    addSbjt: async (req, res) => {
+      try {
+        const body = req.body;
+        await sbjtModel.delSbjt(body[0].user_id, body[0].comSbjt_date);
+        await sbjtModel.addSbjt(body);
+        res.json({ success: true });
+      } catch (error) {
+        console.log(error);
         res.json({ success: false, msg: error });
       }
     },

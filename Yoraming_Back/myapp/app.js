@@ -15,6 +15,7 @@ var sbjtRouter = require("./routes/sbjt");
 var specRouter = require("./routes/spec");
 var YoramRouter = require("./routes/yoram");
 var noticeRouter = require("./routes/notice");
+const userRouter = require("./routes/user");
 
 var app = express();
 
@@ -36,7 +37,8 @@ app.use("/subject", sbjtRouter);
 app.use("/ocr", ocrRouter);
 app.use("/spec", specRouter);
 app.use("/yoram", YoramRouter);
-app.use("/notice",noticeRouter);
+app.use("/notice", noticeRouter);
+app.use("/user", userRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
