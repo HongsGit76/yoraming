@@ -128,7 +128,7 @@ class yoramModel {
                 [
                     this.query.user_id,
                 ],(err,data)=>{
-                    console.log(JSON.stringify(data));
+                    // console.log(JSON.stringify(data));
                     if(err) resolve({success: false, msg: "getErr"});
                     else resolve({success: true, yoram: data});
                 }
