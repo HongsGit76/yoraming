@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -21,10 +22,23 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.dinuscxj.progressbar.CircleProgressBar;
+import com.example.yoraming.Server.Net;
 import com.example.yoraming.UI.activity.LoginActivity;
 import com.example.yoraming.UI.activity.MainActivity;
 import com.example.yoraming.OnBackPressedListener;
 import com.example.yoraming.R;
+import com.example.yoraming.UI.activity.MainMajorActivity;
+import com.example.yoraming.items.YoramData;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static android.content.Context.MODE_PRIVATE;
+import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
 public class HomeFragment extends Fragment implements CircleProgressBar.ProgressFormatter, OnBackPressedListener {
 
@@ -46,7 +60,7 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
     @Override
     public void onStop() {
         super.onStop();
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("mainMajor", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("mainMajor", MODE_PRIVATE);
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
         String text = baseMajor.getText().toString();
@@ -63,18 +77,47 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
         toast = Toast.makeText(getContext(), "'뒤로' 버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);
         add_major = (ImageButton)rootView.findViewById(R.id.add_major);
         baseMajor = (Button)rootView.findViewById(R.id.select_major_base);
+        SharedPreferences SP_user = getActivity().getSharedPreferences("user", MODE_PRIVATE);
+        String user = SP_user.getString("user_id","");
 
         CreatePieGraph(rootView,50,30,80);
 
-        Bundle title = this.getArguments();
-        if(title != null) {
-            title = getArguments();
-            String mainMajor = title.getString("mainMajor");
-        }
+        Call<JsonObject> res1 = Net.getInstance().getyoramFactory().getYoram(user);
+        res1.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if(response.isSuccessful()){
+                    if(response.body() != null){
+                        JsonObject success = response.body();
+                        Log.d("MainMajor 통신", success.get("success").toString());
+                        Log.d("MainMajor 통신", success.get("yoram").toString());
+                        JsonArray jsonArray = success.getAsJsonArray("yoram");
 
-        SharedPreferences sf = getActivity().getSharedPreferences("mainMajor", Context.MODE_PRIVATE);
-        String text = sf.getString("text", "");
-        baseMajor.setText(text);
+                        JsonElement jsonElement = jsonArray.get(0);
+                        String major = jsonElement.getAsJsonObject().get("yoram_major").getAsString();
+                        Log.d("MainMajor 통신", major);
+                        baseMajor.setText(major);
+                        if (success.get("success").toString().equals("true")) {
+
+                        }else{
+                            Toast.makeText(getActivity().getApplicationContext(),"다시 시도해주세요",Toast.LENGTH_SHORT);
+                        }
+                    }else{
+                        Log.e("MainMajor 통신", "실패 1 response 내용이 없음");
+                    }
+                }else{
+                    Log.e("MainMajor 통신", "실패 2 서버 에러");
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.e("MainMajor 통신", "실패 3 통신 에러 "+t.getLocalizedMessage());
+            }
+        });
+
+        //baseMajor.setText();
 
         add_major.setOnClickListener(new View.OnClickListener() {
             @Override

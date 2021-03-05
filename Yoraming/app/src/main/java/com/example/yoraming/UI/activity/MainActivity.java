@@ -59,13 +59,13 @@ public class MainActivity extends AppCompatActivity {
         String yoram = SP_yoram.getString("yoram_id","");
 
 
-        Call<JsonObject> res1 = Net.getInstance().getsubjectFactory().getyoram("test@ajou.ac.kr", "1");
+        Call<JsonObject> res1 = Net.getInstance().getsubjectFactory().getyoram(user, yoram);
         res1.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 if(response.isSuccessful()){
-                    if(response.body() != null){
 
+                    if(response.body() != null){
                         JsonObject success = response.body();
                         Log.d("MainMajor 통신", success.get("success").toString());
                         if (success.get("success").toString().equals("true")) {
