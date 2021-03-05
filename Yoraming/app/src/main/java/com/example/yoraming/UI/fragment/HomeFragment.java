@@ -1,15 +1,13 @@
 package com.example.yoraming.UI.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.SpannableString;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +17,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.dinuscxj.progressbar.CircleProgressBar;
 import com.example.yoraming.Server.Net;
@@ -29,8 +31,6 @@ import com.example.yoraming.UI.activity.LoginActivity;
 import com.example.yoraming.UI.activity.MainActivity;
 import com.example.yoraming.OnBackPressedListener;
 import com.example.yoraming.R;
-import com.example.yoraming.UI.activity.MainMajorActivity;
-import com.example.yoraming.items.YoramData;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -40,12 +40,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.content.Context.MODE_PRIVATE;
-import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
 public class HomeFragment extends Fragment implements CircleProgressBar.ProgressFormatter, OnBackPressedListener {
 
     private static final String DEFAULT_PATTERN = "%d%%";
-    private ImageButton add_major;
+    private ImageButton add_major, imageButton1, imageButton2, imageButton3;
     private Button baseMajor;
     private Toast toast;
     private TextView number_all, number_major, number_general;
@@ -72,6 +71,30 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
         editor.commit();
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        imageButton1 = (ImageButton)getActivity().findViewById(R.id.imageButton1);
+        imageButton2 = (ImageButton)getActivity().findViewById(R.id.imageButton2);
+        imageButton3 = (ImageButton)getActivity().findViewById(R.id.imageButton3);
+
+        imageButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("onclick", "success");
+                getFragmentManager().beginTransaction().replace(R.id.spe_framelayout, new HomeChildFragment1()).commit();
+            }
+        });
+
+        imageButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("onclick", "success");
+                getFragmentManager().beginTransaction().replace(R.id.spe_framelayout, new HomeChildFragment2()).commit();
+            }
+        });
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -80,12 +103,14 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
         toast = Toast.makeText(getContext(), "'뒤로' 버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);
         add_major = (ImageButton)rootView.findViewById(R.id.add_major);
         baseMajor = (Button)rootView.findViewById(R.id.select_major_base);
+
+
+
         SharedPreferences SP_user = getActivity().getSharedPreferences("user", MODE_PRIVATE);
         String user = SP_user.getString("user_id","");
 
-
-
         CreatePieGraph(rootView,50,30,80);
+
 
         Call<JsonObject> res1 = Net.getInstance().getyoramFactory().getYoram(user);
         res1.enqueue(new Callback<JsonObject>() {

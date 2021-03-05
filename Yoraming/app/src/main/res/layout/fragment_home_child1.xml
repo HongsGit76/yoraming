@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context=".UI.fragment.HomeChildFragment1">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/detail_score_1"/>
+
+    <TextView
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="30dp"
+        android:textSize="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="전공 필수"
+        android:gravity="center"/>
+
+    <ProgressBar
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="80dp"
+        android:layout_width="180dp"
+        android:minHeight="10dp"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:progressDrawable="@drawable/progressbar"
+        />
+
+
+    <TextView
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="30dp"
+        android:textSize="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="전공 선택"
+       android:gravity="center"/>
+
+    <ProgressBar
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="80dp"
+        android:layout_width="180dp"
+        android:minHeight="10dp"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:progressDrawable="@drawable/progressbar"
+        />
+</FrameLayout>

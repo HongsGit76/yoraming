@@ -9,9 +9,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/announcement_layout"
-        android:layout_marginTop="340dp"
         android:layout_width="0dp"
         android:layout_height="300dp"
+        android:layout_marginTop="340dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -27,35 +27,38 @@
             app:layout_constraintHorizontal_bias="0.491"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <ImageButton
             android:id="@+id/announcement_more"
             android:layout_width="10dp"
             android:layout_height="15dp"
+            android:layout_marginStart="300dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/more"
             android:scaleType="fitXY"
-            android:layout_marginTop="15dp"
-            android:layout_marginStart="300dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="235dp"
             android:text="맞춤 공지사항"
             android:textColor="#333333"
-            android:layout_marginEnd="235dp"
-            android:layout_marginTop="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/major_layout"
-        android:layout_marginTop="60dp"
         android:layout_width="0dp"
         android:layout_height="300dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -70,7 +73,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/major_button_group"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <TextView
@@ -186,6 +189,41 @@
             app:progress_stroke_width="12dp "
             app:style="solid_line" />
 
+        <ImageButton
+            android:id="@+id/imageButton1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginBottom="130dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/major_button_group"
+            app:layout_constraintEnd_toEndOf="@+id/cpb_circlebar1"
+            app:layout_constraintStart_toStartOf="@+id/major_button_group"
+            app:layout_constraintTop_toTopOf="@+id/major_button_group" />
+
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="130dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/major_button_group"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/major_button_group"
+            app:layout_constraintTop_toTopOf="@+id/major_button_group" />
+
+        <ImageButton
+            android:id="@+id/imageButton3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="70dp"
+            android:layout_marginBottom="130dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/major_button_group"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/major_button_group" />
+
         <com.dinuscxj.progressbar.CircleProgressBar
             android:id="@+id/cpb_circlebar3"
             android:layout_width="50dp"
@@ -231,17 +269,27 @@
 
             <Button
                 android:id="@+id/select_major_base"
-                android:autoSizeMinTextSize="9sp"
-                android:autoSizeMaxTextSize="13sp"
-                android:autoSizeTextType="uniform"
-                android:autoSizeStepGranularity="1dp"
                 android:layout_width="100dp"
                 android:layout_height="25dp"
                 android:layout_weight="1"
+                android:autoSizeMaxTextSize="11sp"
+                android:autoSizeMinTextSize="9sp"
+                android:autoSizeStepGranularity="1dp"
+                android:autoSizeTextType="uniform"
                 android:background="@drawable/selected_major"
                 android:scaleType="fitXY" />
         </LinearLayout>
 
+        <FrameLayout
+            android:id="@+id/spe_framelayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="150dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginBottom="60dp">
+
+        </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
