@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.SpannableString;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -46,6 +48,7 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
     private ImageButton add_major;
     private Button baseMajor;
     private Toast toast;
+    private TextView number_all, number_major, number_general;
     long backKeyPressedTime;
     MainActivity activity;
     View.OnClickListener buttonlistener;
@@ -80,6 +83,8 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
         SharedPreferences SP_user = getActivity().getSharedPreferences("user", MODE_PRIVATE);
         String user = SP_user.getString("user_id","");
 
+
+
         CreatePieGraph(rootView,50,30,80);
 
         Call<JsonObject> res1 = Net.getInstance().getyoramFactory().getYoram(user);
@@ -94,9 +99,32 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
                         JsonArray jsonArray = success.getAsJsonArray("yoram");
 
                         JsonElement jsonElement = jsonArray.get(0);
-                        String major = jsonElement.getAsJsonObject().get("yoram_major").getAsString();
-                        Log.d("MainMajor 통신", major);
-                        baseMajor.setText(major);
+                        String yoram_major = jsonElement.getAsJsonObject().get("yoram_major").getAsString();
+                        String yoram_total = jsonElement.getAsJsonObject().get("yoram_total").getAsString();
+                        String yoram_majorR = jsonElement.getAsJsonObject().get("yoram_majorR").getAsString();
+                        String yoram_majorS = jsonElement.getAsJsonObject().get("yoram_majorS").getAsString();
+                        String yoram_univR = jsonElement.getAsJsonObject().get("yoram_univR").getAsString();
+                        String yoram_basicR = jsonElement.getAsJsonObject().get("yoram_basicR").getAsString();
+
+
+                        Log.d("MainMajor 통신", yoram_major);
+                        baseMajor.setText(yoram_major);
+                        number_all = (TextView) getActivity().findViewById(R.id.number_all);
+                        number_major = (TextView) getActivity().findViewById(R.id.number_major);
+                        number_general = (TextView) getActivity().findViewById(R.id.number_general);
+
+
+                        int int_total = Integer.parseInt(yoram_total);
+                        int int_major = Integer.parseInt(yoram_majorR) + Integer.parseInt(yoram_majorS);
+                        int int_notMajor = Integer.parseInt(yoram_univR) + Integer.parseInt(yoram_basicR);
+                        String str_major = Integer.toString(int_major);
+                        String str_notMajor = Integer.toString(int_notMajor);
+
+                        number_all.append(yoram_total);
+                        number_major.append(str_major);
+                        number_general.append(str_notMajor);
+
+
                         if (success.get("success").toString().equals("true")) {
 
                         }else{
@@ -116,8 +144,6 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
                 Log.e("MainMajor 통신", "실패 3 통신 에러 "+t.getLocalizedMessage());
             }
         });
-
-        //baseMajor.setText();
 
         add_major.setOnClickListener(new View.OnClickListener() {
             @Override
