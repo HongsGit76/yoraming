@@ -19,34 +19,34 @@ router.post("/etc", specCtrl.process.addEtcSpec);
 // 스펙 제거
 router.delete("/etc", specCtrl.process.deleteEtcSpec);
 
-// 1. etc 스펙
+// 2. career 스펙
 // 스펙 보기
-router.get("/etc", specCtrl.process.getCareerSpec);
+router.get("/career", specCtrl.process.getCareerSpec);
 // 스펙 수정
-router.put("/etc", specCtrl.process.editCareerSpec);
+router.put("/career", specCtrl.process.editCareerSpec);
 // 스펙 추가
-router.post("/etc", specCtrl.process.addCareerSpec);
+router.post("/career", specCtrl.process.addCareerSpec);
 // 스펙 제거
-router.delete("/etc", specCtrl.process.deleteCareerSpec);
+router.delete("/career", specCtrl.process.deleteCareerSpec);
 
-// 1. etc 스펙
+// 3. certificate 스펙
 // 스펙 보기
-router.get("/etc", specCtrl.process.getCertSpec);
+router.get("/certificate", specCtrl.process.getCertSpec);
 // 스펙 수정
-router.put("/etc", specCtrl.process.editCertSpec);
+router.put("/certificate", specCtrl.process.editCertSpec);
 // 스펙 추가
-router.post("/etc", specCtrl.process.addCertSpec);
+router.post("/certificate", specCtrl.process.addCertSpec);
 // 스펙 제거
-router.delete("/etc", specCtrl.process.deleteCertSpec);
+router.delete("/certificate", specCtrl.process.deleteCertSpec);
 
-// 1. etc 스펙
+// 4. language 스펙
 // 스펙 보기
-router.get("/etc", specCtrl.process.getLangSpec);
+router.get("/language", specCtrl.process.getLangSpec);
 // 스펙 수정
-router.put("/etc", specCtrl.process.editLangSpec);
+router.put("/language", specCtrl.process.editLangSpec);
 // 스펙 추가
-router.post("/etc", specCtrl.process.addLangSpec);
+router.post("/language", specCtrl.process.addLangSpec);
 // 스펙 제거
-router.delete("/etc", specCtrl.process.deleteLangSpec);
+router.delete("/language", specCtrl.process.deleteLangSpec);
 
 module.exports = router;

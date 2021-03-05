@@ -11,7 +11,7 @@ const process = {
   // 1. etc 스펙
   // 스펙 보기
   getEtcSpec: async (req, res) => {
-    const spec = new specEtcModel(req.body);
+    const spec = new specEtcModel(req.query);
     const response = await spec.getEtcSpec();
     return res.json(response);
   },
@@ -23,7 +23,7 @@ const process = {
   },
   // 스펙 삭제
   deleteEtcSpec: async (req, res) => {
-    const spec = new specEtcModel(req.body);
+    const spec = new specEtcModel(req.query);
     const response = await spec.deleteEtcSpec();
     return res.json(response);
   },
@@ -37,7 +37,7 @@ const process = {
   // 2. career 스펙
   // 스펙 보기
   getCareerSpec: async (req, res) => {
-    const spec = new specCareerModel(req.body);
+    const spec = new specCareerModel(req.query);
     const response = await spec.getCareerSpec();
     return res.json(response);
   },
@@ -49,7 +49,7 @@ const process = {
   },
   // 스펙 삭제
   deleteCareerSpec: async (req, res) => {
-    const spec = new specCareerModel(req.body);
+    const spec = new specCareerModel(req.query);
     const response = await spec.deleteCareerSpec();
     return res.json(response);
   },
@@ -63,7 +63,7 @@ const process = {
   // 3. certificate 스펙
   // 스펙 보기
   getCertSpec: async (req, res) => {
-    const spec = new specCertModel(req.body);
+    const spec = new specCertModel(req.query);
     const response = await spec.getCertSpec();
     return res.json(response);
   },
@@ -75,7 +75,7 @@ const process = {
   },
   // 스펙 삭제
   deleteCertSpec: async (req, res) => {
-    const spec = new specCertModel(req.body);
+    const spec = new specCertModel(req.query);
     const response = await spec.deleteCertSpec();
     return res.json(response);
   },
@@ -89,7 +89,7 @@ const process = {
   // 4. Language 스펙
   // 스펙 보기
   getLangSpec: async (req, res) => {
-    const spec = new specLangModel(req.body);
+    const spec = new specLangModel(req.query);
     const response = await spec.getLangSpec();
     return res.json(response);
   },
@@ -101,7 +101,7 @@ const process = {
   },
   // 스펙 삭제
   deleteLangSpec: async (req, res) => {
-    const spec = new specLangModel(req.body);
+    const spec = new specLangModel(req.query);
     const response = await spec.deleteLangSpec();
     return res.json(response);
   },
