@@ -4,7 +4,7 @@ module.exports = {
   output: {
     getUser: async function (req, res) {
       try {
-        const getUser = await userModel.getUser(req.body.user_id);
+        const getUser = await userModel.getUser(req.query.user_id);
 
         if (getUser) {
           var result = { success: true, data: getUser };

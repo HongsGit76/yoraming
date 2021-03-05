@@ -18,7 +18,7 @@ const selectSbjtRecQuery =
   "SELECT recSbjt_recCategory, yoram_id  FROM recognitionSbjt WHERE comSbjt_id = ?";
 
 const selectSbjtDateQuery =
-  "SELECT comSbjt_id, comSbjt_name, comSbjt_credit, comSbjt_grade  FROM completeSbjt WHERE user_id = ?";
+  "SELECT comSbjt_id, comSbjt_name, comSbjt_credit, comSbjt_grade  FROM completeSbjt WHERE user_id = ? AND comSbjt_date = ?";
 
 class sbjtModel {
   static addSbjt(data) {
@@ -144,9 +144,9 @@ class sbjtModel {
     });
   }
 
-  static getSbjtDate(user_id) {
+  static getSbjtDate(user_id, comSbjt_date) {
     return new Promise((resolve, reject) => {
-      db.query(selectSbjtDateQuery, [user_id], (err, data) => {
+      db.query(selectSbjtDateQuery, [user_id, comSbjt_date], (err, data) => {
         if (err) reject(err);
         resolve(data);
       });
