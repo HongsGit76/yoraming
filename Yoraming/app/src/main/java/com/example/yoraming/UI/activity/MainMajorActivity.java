@@ -54,9 +54,11 @@ public class MainMajorActivity extends AppCompatActivity {
         btn_main_major.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences SP_user = getSharedPreferences("user", MODE_PRIVATE);
+                String user_id = SP_user.getString("user_id","");
 
                 // body to Jsonobject
-                Call<JsonObject> res1 = Net.getInstance().getyoramFactory().postYoram(new YoramData("test@ajou.ac.kr","",auto_major.getText().toString(),yoram_total.getText().toString(),majorR.getText().toString(),majorS.getText().toString(),univR.getText().toString(),basicR.getText().toString()));
+                Call<JsonObject> res1 = Net.getInstance().getyoramFactory().postYoram(new YoramData(user_id,"",auto_major.getText().toString(),yoram_total.getText().toString(),majorR.getText().toString(),majorS.getText().toString(),univR.getText().toString(),basicR.getText().toString()));
                 res1.enqueue(new Callback<JsonObject>() {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {

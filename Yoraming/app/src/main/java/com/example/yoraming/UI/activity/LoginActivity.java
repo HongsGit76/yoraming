@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -196,8 +197,15 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                                 JsonObject success = response.body();
                                                 Log.d("LoginGet 통신", success.get("success").toString());
                                                 if (success.get("success").toString().equals("true")){
+                                                    SharedPreferences SP_user = getSharedPreferences("user", MODE_PRIVATE);
+                                                    SharedPreferences.Editor editor = SP_user.edit();
+                                                    editor.putString("user_id", email);
+                                                    editor.putString("user_name",account.getDisplayName());
+                                                    editor.commit();
+
                                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                                     startActivity(intent);
+
                                                 }
                                                 else if(success.get("success").toString().equals("false")){
 
@@ -210,6 +218,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                                                     JsonObject success = response.body();
                                                                     Log.d("LoginPost 통신", success.get("success").toString());
                                                                     if(success.get("success").toString().equals("true")){
+                                                                        SharedPreferences SP_user = getSharedPreferences("user", MODE_PRIVATE);
+                                                                        SharedPreferences.Editor editor = SP_user.edit();
+                                                                        editor.putString("user_id", email);
+                                                                        editor.putString("user_name",account.getDisplayName());
+                                                                        editor.commit();
                                                                         Intent intent = new Intent(getApplicationContext(), MainMajorActivity.class);
                                                                         startActivity(intent);
                                                                     }else{
