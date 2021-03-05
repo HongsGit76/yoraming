@@ -2,69 +2,114 @@ package com.example.yoraming.UI.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
+import com.dinuscxj.progressbar.CircleProgressBar;
 import com.example.yoraming.UI.activity.LoginActivity;
 import com.example.yoraming.UI.activity.MainActivity;
 import com.example.yoraming.OnBackPressedListener;
 import com.example.yoraming.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DetailFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class DetailFragment extends Fragment implements OnBackPressedListener {
+///**
+// * A simple {@link Fragment} subclass.
+// * Use the {@link DetailFragment#newInstance} factory method to
+// * create an instance of this fragment.
+// */
+public class DetailFragment extends Fragment implements CircleProgressBar.ProgressFormatter, OnBackPressedListener {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String DEFAULT_PATTERN = "%d%%";
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    MainActivity activity;
+    CircleProgressBar circleProgressBar1, circleProgressBar2, circleProgressBar3;
+    int i, j, k = 0;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
-    public DetailFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DetailFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static DetailFragment newInstance(String param1, String param2) {
-        DetailFragment fragment = new DetailFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    }
+    @Override
+    public void onStop(){
+        super.onStop();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
+        activity = (MainActivity) getActivity();
+
+        CreatePieGraph(rootView,10,10,10);
+
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_detail, container, false);
+    }
+
+    public void CreatePieGraph(View rootView,int per_1, int per_2, int per_3) {
+        circleProgressBar1 = (CircleProgressBar) rootView.findViewById(R.id.cpb_detail_circlebar1);
+        circleProgressBar1.setProgressFormatter(null);
+        circleProgressBar2 = (CircleProgressBar) rootView.findViewById(R.id.cpb_detail_circlebar2);
+        circleProgressBar2.setProgressFormatter(null);
+        circleProgressBar3 = (CircleProgressBar) rootView.findViewById(R.id.cpb_detail_circlebar3);
+        circleProgressBar3.setProgressFormatter(null);
+
+        final Handler handler1 = new Handler();
+        final Handler handler2 = new Handler();
+        final Handler handler3 = new Handler();
+        handler1.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (i <= per_1) {
+                    circleProgressBar1.setProgress(i);
+                    i++;
+                    handler1.postDelayed(this, 10);
+                } else {
+                    Log.d("handler1", "endrun");
+                    handler1.removeCallbacks(this);
+                }
+            }
+        }, 10);
+        handler2.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (j <= per_2) {
+                    circleProgressBar2.setProgress(j);
+                    j++;
+                    handler2.postDelayed(this, 10);
+                } else {
+                    handler2.removeCallbacks(this);
+                }
+            }
+        }, 10);
+
+        handler3.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (k <= per_3) {
+                    circleProgressBar3.setProgress(k);
+                    k++;
+                    handler3.postDelayed(this, 10);
+                } else {
+                    handler3.removeCallbacks(this);
+                }
+            }
+        }, 10);
+
+    }
+
+    @Override
+    public CharSequence format(int progress, int max) {
+
+        return String.format(DEFAULT_PATTERN,  (int) ((float) progress / (float) max * 100));
     }
     @Override
     public void onBackPressed() {
