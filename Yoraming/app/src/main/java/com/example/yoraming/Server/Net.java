@@ -22,7 +22,7 @@ public class Net {
     OkHttpClient client = new OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor()).build();
 
     private Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("") //<= 서버 주소값 입력
+            .baseUrl("http://13.58.240.144:3000") //<= 서버 주소값 입력
             .client(client) //<= OkHttpClient 연동
             .addConverterFactory(ScalarsConverterFactory.create()) //<= 고질적인 에러 :JSON document was not fully consumed 해결
             .addConverterFactory(GsonConverterFactory.create(gson))

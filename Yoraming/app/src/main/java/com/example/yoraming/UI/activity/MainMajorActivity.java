@@ -1,23 +1,35 @@
 package com.example.yoraming.UI.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.yoraming.R;
 import com.example.yoraming.AutoCompleteAdapter;
+import com.example.yoraming.Server.Net;
 import com.example.yoraming.items.MajorItem;
+import com.example.yoraming.items.YoramData;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MainMajorActivity extends AppCompatActivity {
 
     private Button btn_main_major;
+    private EditText yoram_total,majorR,majorS,univR,basicR;
     private List<MajorItem> majorList;
 
     @Override
@@ -34,11 +46,52 @@ public class MainMajorActivity extends AppCompatActivity {
         auto_major.setAdapter(adapter);
 
         btn_main_major = (Button)findViewById(R.id.btn_main_major);
+        yoram_total = (EditText)findViewById(R.id.yoram_total);
+        majorR = (EditText)findViewById(R.id.majorR);
+        majorS = (EditText)findViewById(R.id.majorS);
+        univR = (EditText)findViewById(R.id.majorR);
+        basicR = (EditText)findViewById(R.id.basicR);
         btn_main_major.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainMajorActivity.this, MainActivity.class);
-                startActivity(intent);
+
+                // body to Jsonobject
+                Call<JsonObject> res1 = Net.getInstance().getyoramFactory().postYoram(new YoramData("test@ajou.ac.kr","",auto_major.getText().toString(),yoram_total.getText().toString(),majorR.getText().toString(),majorS.getText().toString(),univR.getText().toString(),basicR.getText().toString()));
+                res1.enqueue(new Callback<JsonObject>() {
+                    @Override
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                        if(response.isSuccessful()){
+                            if(response.body() != null){
+                                JsonObject success = response.body();
+                                Log.d("MainMajor 통신", success.get("success").toString());
+                                Log.d("MainMajor 통신", success.get("yoramid").toString());
+                                if (success.get("success").toString().equals("true")) {
+                                    SharedPreferences SP_yoram = getSharedPreferences("yoram", MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = SP_yoram.edit();
+                                    editor.putString("yoram_1", success.get("yoramid").toString());
+                                    editor.putString("yoram_2", "");
+                                    editor.putString("yoram_3", "");
+                                    editor.putString("yoram_4", "");
+                                    editor.commit();
+                                    Intent intent = new Intent(MainMajorActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                }else{
+                                    Toast.makeText(getApplicationContext(),"다시 시도해주세요",Toast.LENGTH_SHORT);
+                                }
+                            }else{
+                                Log.e("MainMajor 통신", "실패 1 response 내용이 없음");
+                            }
+                        }else{
+                            Log.e("MainMajor 통신", "실패 2 서버 에러");
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        Log.e("MainMajor 통신", "실패 3 통신 에러 "+t.getLocalizedMessage());
+                    }
+                });
             }
         });
     }

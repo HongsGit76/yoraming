@@ -18,7 +18,7 @@ class noticeModel {
         if (JSONtype === true) this.body = req.body;
         else this.query = req.query;
     }
-    async #curnoticeIndex(){
+    async curnoticeIndex(){
         return new Promise((resolve,reject)=>{
             db.query(findNULLQuery,
             (err,data) =>{
@@ -46,7 +46,7 @@ class noticeModel {
 
     async postNotice(){
         return new Promise(async (resolve,reject)=>{
-            const curidx = await this.#curnoticeIndex();
+            const curidx = await this.curnoticeIndex();
             const newidx = Number(curidx.idx)+1;
             if (curidx ==="err") resolve( {success: false, msg: "indexErr"});
             else if (curidx.type === "NotNullItem"){

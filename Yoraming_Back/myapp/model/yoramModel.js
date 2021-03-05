@@ -18,7 +18,7 @@ class yoramModel {
         else this.query = req.query;
     }
 
-    async #curYoramIndex(){
+    async curYoramIndex(){
         return new Promise((resolve,reject)=>{
             db.query(findNULLQuery,
             (err,data) =>{
@@ -45,7 +45,7 @@ class yoramModel {
 
     async postYoram(){
         return new Promise(async (resolve,reject)=>{
-            const curidx = await this.#curYoramIndex();
+            const curidx = await this.curYoramIndex();
             const newidx = Number(curidx.idx)+1;
             if (curidx ==="err") resolve( {success: false, msg: "indexErr"});
             else if (curidx.type === "NotNullItem"){

@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 
 import com.example.yoraming.BackPressedForFinish;
 import com.example.yoraming.R;
+import com.example.yoraming.Server.Net;
+import com.example.yoraming.items.UserData;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -33,6 +36,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
 
@@ -46,6 +50,10 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
@@ -173,29 +181,93 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) { //로그인이 성공했다면
-                            String email = account.getEmail().substring(account.getEmail().lastIndexOf("@"));
+                            String subemail = account.getEmail().substring(account.getEmail().lastIndexOf("@"));
+                            String email = account.getEmail();
+
                             Log.d("test", email);
-                            if (email.equals("@ajou.ac.kr")) {
-                                new JSONTask().execute("https://f93d745aa940.ngrok.io/test//login");
-                                Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
-                                /*try {
-                                    String result = new JSONTask().execute("https://f93d745aa940.ngrok.io/test//login").get();
-                                    Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
-                                    if (result.equals("new user")) {
-                                        Intent intent = new Intent(getApplicationContext(), MainMajorActivity.class);
-                                        startActivity(intent);
+                            if (subemail.equals("@ajou.ac.kr")) {
+                                UserData userData = new UserData(email,account.getDisplayName(),"");
+                                Call<JsonObject> res = Net.getInstance().getuserFactory().getUser(email);
+                                res.enqueue(new Callback<JsonObject>() {
+                                    @Override
+                                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                                        if(response.isSuccessful()){
+                                            if(response.body() != null){
+                                                JsonObject success = response.body();
+                                                Log.d("LoginGet 통신", success.get("success").toString());
+                                                if (success.get("success").toString().equals("true")){
+                                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                                    startActivity(intent);
+                                                }
+                                                else if(success.get("success").toString().equals("false")){
+
+                                                    Call<JsonObject> res1 = Net.getInstance().getuserFactory().postUser(userData);
+                                                    res1.enqueue(new Callback<JsonObject>() {
+                                                        @Override
+                                                        public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                                                            if(response.isSuccessful()) {
+                                                                if (response.body() != null) {
+                                                                    JsonObject success = response.body();
+                                                                    Log.d("LoginPost 통신", success.get("success").toString());
+                                                                    if(success.get("success").toString().equals("true")){
+                                                                        Intent intent = new Intent(getApplicationContext(), MainMajorActivity.class);
+                                                                        startActivity(intent);
+                                                                    }else{
+                                                                        Toast.makeText(getApplicationContext(),"다시 시도해 주세요",Toast.LENGTH_SHORT);
+                                                                    }
+                                                                }else{
+                                                                    Log.e("LoginPost 통신", "실패 1 response 내용이 없음");
+                                                                }
+                                                            }else{
+                                                                Log.e("LoginPost 통신", "실패 2 서버 에러");
+                                                            }
+                                                        }
+
+                                                        @Override
+                                                        public void onFailure(Call<JsonObject> call, Throwable t) {
+                                                            Log.e("LoginPost 통신", "실패 3 통신 에러 "+t.getLocalizedMessage());
+                                                        }
+                                                    });
+
+
+
+                                                }else{
+                                                    Toast.makeText(getApplicationContext(),"다시 시도해 주세요",Toast.LENGTH_SHORT);
+                                                }
+                                            }else{
+                                                Log.e("LoginGet 통신", "실패 1 response 내용이 없음");
+                                            }
+                                        }else{
+                                            Log.e("LoginGet 통신", "실패 2 서버 에러");
+                                        }
+
                                     }
-                                    else {
-                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                        startActivity(intent);
+
+                                    @Override
+                                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                                        Log.e("LoginGet 통신", "실패 3 통신 에러 "+t.getLocalizedMessage());
                                     }
-                                } catch (ExecutionException e) {
-                                    e.printStackTrace();
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }*/
-                                Intent intent = new Intent(getApplicationContext(), MainMajorActivity.class);
-                                startActivity(intent);
+                                });
+//                                new JSONTask().execute("https://f93d745aa940.ngrok.io/test//login");
+//                                Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+//                                /*try {
+//                                    String result = new JSONTask().execute("https://f93d745aa940.ngrok.io/test//login").get();
+//                                    Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+//                                    if (result.equals("new user")) {
+//                                        Intent intent = new Intent(getApplicationContext(), MainMajorActivity.class);
+//                                        startActivity(intent);
+//                                    }
+//                                    else {
+//                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                                        startActivity(intent);
+//                                    }
+//                                } catch (ExecutionException e) {
+//                                    e.printStackTrace();
+//                                } catch (InterruptedException e) {
+//                                    e.printStackTrace();
+//                                }*/
+//                                Intent intent = new Intent(getApplicationContext(), MainMajorActivity.class);
+//                                startActivity(intent);
 
                             } else {
                                 Toast.makeText(LoginActivity.this, "아주대학교 계정이 아닙니다.", Toast.LENGTH_SHORT).show();

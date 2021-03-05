@@ -1,30 +1,30 @@
 package com.example.yoraming.items;
 
 public class UserData {
-    private String userEmail;
-    private String userName;
+    private String user_id;
+    private String user_name;
     private String uid;
 
     public UserData(String userEmail, String userName, String uid) {
-        this.userEmail = userEmail;
-        this.userName = userName;
+        this.user_id = userEmail;
+        this.user_name = userName;
         this.uid = uid;
     }
 
     public String getUserEmail() {
-        return userEmail;
+        return user_id;
     }
 
     public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+        this.user_id = userEmail;
     }
 
     public String getUserName() {
-        return userName;
+        return user_name;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.user_name = userName;
     }
 
     public String getUid() {
