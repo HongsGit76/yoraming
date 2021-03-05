@@ -1,10 +1,13 @@
 package com.example.yoraming.UI.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.TypedValue;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +43,18 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
         super.onCreate(savedInstanceState);
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("mainMajor", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        String text = baseMajor.getText().toString();
+        editor.putString("mainMajor", text);
+
+        editor.commit();
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,8 +62,19 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
         activity = (MainActivity) getActivity();
         toast = Toast.makeText(getContext(), "'뒤로' 버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);
         add_major = (ImageButton)rootView.findViewById(R.id.add_major);
+        baseMajor = (Button)rootView.findViewById(R.id.select_major_base);
 
         CreatePieGraph(rootView,50,30,80);
+
+        Bundle title = this.getArguments();
+        if(title != null) {
+            title = getArguments();
+            String mainMajor = title.getString("mainMajor");
+        }
+
+        SharedPreferences sf = getActivity().getSharedPreferences("mainMajor", Context.MODE_PRIVATE);
+        String text = sf.getString("text", "");
+        baseMajor.setText(text);
 
         add_major.setOnClickListener(new View.OnClickListener() {
             @Override
