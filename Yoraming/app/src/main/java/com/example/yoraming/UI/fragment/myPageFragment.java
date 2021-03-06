@@ -1,11 +1,15 @@
 package com.example.yoraming.UI.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,10 +19,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.yoraming.BackPressedForFinish;
+import com.example.yoraming.Server.Net;
 import com.example.yoraming.UI.activity.LoginActivity;
 import com.example.yoraming.UI.activity.MainActivity;
 import com.example.yoraming.OnBackPressedListener;
 import com.example.yoraming.R;
+import com.example.yoraming.UI.activity.MainMajorActivity;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,11 +33,18 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,6 +66,7 @@ public class myPageFragment extends Fragment implements OnBackPressedListener {
     private BackPressedForFinish backPressedForFinish;
     private final int GET_GALLERY_IMAGE = 200;
     private CircleImageView iv_profile;
+    private Button tv_initialize;
     private GoogleApiClient googleApiClient;
     private static final int REQ_SIGN_GOOGLE = 100; //구글로그인 했을 때 결과 코드
     StorageReference storageReference;
@@ -122,6 +136,46 @@ public class myPageFragment extends Fragment implements OnBackPressedListener {
 
         TextView tv_email = (TextView) logout.findViewById(R.id.tv_email);
         tv_email.setText(user.getEmail());
+
+        Button tv_initialize = (Button) logout.findViewById(R.id.tv_initialize);
+        tv_initialize.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences SP_yoram = getActivity().getSharedPreferences("yoram", MODE_PRIVATE);
+                String yoramid = SP_yoram.getString("yoram_1","");
+
+                Log.d("mypage 통신", yoramid);
+
+                Call<JsonObject> res1 = Net.getInstance().getyoramFactory().deleteYoram(yoramid);
+                res1.enqueue(new Callback<JsonObject>() {
+                    @Override
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                        if(response.isSuccessful()){
+                            if(response.body() != null){
+                                JsonObject success = response.body();
+                                Log.d("mypage 통신", success.get("success").toString());
+                                if (success.get("success").toString().equals("true")) {
+                                    //Intent intent = new Intent(getActivity(), MainMajorActivity.class);
+                                    //startActivity(intent);
+                                }else{
+                                    Toast.makeText(getActivity().getApplicationContext(),"다시 시도해주세요",Toast.LENGTH_SHORT);
+                                }
+                            }else{
+                                Log.e("MainMajor 통신", "실패 1 response 내용이 없음");
+                            }
+                        }else{
+                            Log.e("MainMajor 통신", "실패 2 서버 에러");
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        Log.e("MainMajor 통신", "실패 3 통신 에러 "+t.getLocalizedMessage());
+                    }
+                });
+            }
+        });
 
         ImageButton btn_logout = (ImageButton) logout.findViewById(R.id.btn_logout);
         btn_logout.setOnClickListener(new View.OnClickListener() {

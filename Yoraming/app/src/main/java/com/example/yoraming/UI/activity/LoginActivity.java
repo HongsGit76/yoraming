@@ -37,6 +37,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
@@ -61,6 +63,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private SignInButton btn_google;
     private Button btn_logout;
     private TextView textView;
+    private JsonArray jsonArray;
     private static final String TAG = "LoginActivity";
     public FirebaseAuth auth; //파이어베이스 인증 객체
     public GoogleApiClient googleApiClient;
@@ -195,17 +198,48 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                         if(response.isSuccessful()){
                                             if(response.body() != null){
                                                 JsonObject success = response.body();
-                                                Log.d("LoginGet 통신", success.get("success").toString());
+                                                Log.d("LoginGet 통신1", success.get("success").toString());
                                                 if (success.get("success").toString().equals("true")){
                                                     SharedPreferences SP_user = getSharedPreferences("user", MODE_PRIVATE);
                                                     SharedPreferences.Editor editor = SP_user.edit();
                                                     editor.putString("user_id", email);
                                                     editor.putString("user_name",account.getDisplayName());
                                                     editor.commit();
+                                                    String user = SP_user.getString("user_id", "");
 
-                                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                                    startActivity(intent);
-
+                                                    Call<JsonObject> res1 = Net.getInstance().getyoramFactory().getYoram(user);
+                                                    res1.enqueue(new Callback<JsonObject>() {
+                                                        @Override
+                                                        public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                                                            if(response.isSuccessful()){
+                                                                if(response.body() != null){
+                                                                    JsonObject success = response.body();
+                                                                    Log.d("login 통신2", success.get("success").toString());
+                                                                    if (success.get("success").toString().equals("true")) {
+                                                                        jsonArray = success.getAsJsonArray("yoram");
+                                                                        if (success.get("yoram").toString().equals("[]")) {
+                                                                            Log.d("login 통신", "아무것도 없음");
+                                                                            Intent intent = new Intent(getApplicationContext(), MainMajorActivity.class);
+                                                                            startActivity(intent);
+                                                                        } else {
+                                                                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                                                            startActivity(intent);
+                                                                        }
+                                                                    }else{
+                                                                        Toast.makeText(getApplicationContext(),"다시 시도해주세요",Toast.LENGTH_SHORT);
+                                                                    }
+                                                                }else{
+                                                                    Log.e("MainMajor 통신", "실패 1 response 내용이 없음");
+                                                                }
+                                                            }else{
+                                                                Log.e("MainMajor 통신", "실패 2 서버 에러");
+                                                            }
+                                                        }
+                                                        @Override
+                                                        public void onFailure(Call<JsonObject> call, Throwable t) {
+                                                            Log.e("MainMajor 통신", "실패 3 통신 에러 "+t.getLocalizedMessage());
+                                                        }
+                                                    });
                                                 }
                                                 else if(success.get("success").toString().equals("false")){
 
@@ -225,7 +259,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                                                         editor.commit();
                                                                         Intent intent = new Intent(getApplicationContext(), MainMajorActivity.class);
                                                                         startActivity(intent);
-                                                                    }else{
+                                                                    }else {
                                                                         Toast.makeText(getApplicationContext(),"다시 시도해 주세요",Toast.LENGTH_SHORT);
                                                                     }
                                                                 }else{

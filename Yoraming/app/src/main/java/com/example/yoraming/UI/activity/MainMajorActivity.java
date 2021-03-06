@@ -1,5 +1,6 @@
 package com.example.yoraming.UI.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -68,13 +69,14 @@ public class MainMajorActivity extends AppCompatActivity {
                                 Log.d("MainMajor 통신", success.get("success").toString());
                                 Log.d("MainMajor 통신", success.get("yoramid").toString());
                                 if (success.get("success").toString().equals("true")) {
-                                    SharedPreferences SP_yoram = getSharedPreferences("yoram", MODE_PRIVATE);
+                                    SharedPreferences SP_yoram = getSharedPreferences("yoram", Context.MODE_PRIVATE);
                                     SharedPreferences.Editor editor = SP_yoram.edit();
                                     editor.putString("yoram_1", success.get("yoramid").toString());
                                     editor.putString("yoram_2", "");
                                     editor.putString("yoram_3", "");
                                     editor.putString("yoram_4", "");
                                     editor.commit();
+
                                     Intent intent = new Intent(MainMajorActivity.this, MainActivity.class);
                                     startActivity(intent);
                                 }else{
