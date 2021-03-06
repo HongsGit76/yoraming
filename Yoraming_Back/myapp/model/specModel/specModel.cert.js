@@ -28,8 +28,17 @@ class SpecCertModel {
         insertQuery,
         [user_id, certificate_name, certificate_date, certificate_endDate],
         (err) => {
-          if (err) console.log(err);
-          resolve({ success: true });
+          if (err) {
+            console.log(err);
+            resolve();
+          } else {
+            db.query("SELECT LAST_INSERT_ID()", (err, rows) => {
+              resolve({
+                certificate_id: rows[0]["LAST_INSERT_ID()"],
+                success: true,
+              });
+            });
+          }
         }
       );
     });

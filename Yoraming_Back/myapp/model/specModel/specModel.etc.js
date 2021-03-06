@@ -28,8 +28,17 @@ class SpecEtcModel {
         insertQuery,
         [user_id, etc_title, etc_content, etc_date],
         (err) => {
-          if (err) console.log(err);
-          resolve({ success: true });
+          if (err) {
+            console.log(err);
+            resolve();
+          } else {
+            db.query("SELECT LAST_INSERT_ID()", (err, rows) => {
+              resolve({
+                etc_id: rows[0]["LAST_INSERT_ID()"],
+                success: true,
+              });
+            });
+          }
         }
       );
     });

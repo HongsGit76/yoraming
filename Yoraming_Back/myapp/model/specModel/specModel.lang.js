@@ -28,8 +28,17 @@ class SpecLangModel {
         insertQuery,
         [user_id, language_name, language_grade, language_date],
         (err) => {
-          if (err) console.log(err);
-          resolve({ success: true });
+          if (err) {
+            console.log(err);
+            resolve();
+          } else {
+            db.query("SELECT LAST_INSERT_ID()", (err, rows) => {
+              resolve({
+                language_id: rows[0]["LAST_INSERT_ID()"],
+                success: true,
+              });
+            });
+          }
         }
       );
     });

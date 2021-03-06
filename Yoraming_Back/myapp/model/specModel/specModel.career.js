@@ -27,8 +27,17 @@ class SpecCertModel {
         insertQuery,
         [user_id, career_office, career_content, career_date],
         (err) => {
-          if (err) console.log(err);
-          resolve({ success: true });
+          if (err) {
+            console.log(err);
+            resolve();
+          } else {
+            db.query("SELECT LAST_INSERT_ID()", (err, rows) => {
+              resolve({
+                career_id: rows[0]["LAST_INSERT_ID()"],
+                success: true,
+              });
+            });
+          }
         }
       );
     });
