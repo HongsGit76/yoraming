@@ -27,6 +27,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.dinuscxj.progressbar.CircleProgressBar;
+import com.example.yoraming.CustomDialog;
 import com.example.yoraming.Server.Net;
 import com.example.yoraming.UI.activity.LoginActivity;
 import com.example.yoraming.UI.activity.MainActivity;
@@ -172,6 +173,8 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
             @Override
             public void onClick(View v) {
                 onCreateButton(rootView,"전공",R.drawable.not_selected_major);
+                CustomDialog dialog = new CustomDialog();
+                dialog.show(getFragmentManager(), "customDialog");
             }
         });
         return rootView;
