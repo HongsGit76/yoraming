@@ -143,7 +143,7 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
 
                             Log.d("homeFragment 통신", yoram_major);
                             baseMajor.setText(yoram_major);
-                            majorList.add(baseMajor.toString());
+                            majorList.add(baseMajor.getText().toString());
                             baseMajor.setPadding(15,0,15,0);
                             number_all = (TextView) getActivity().findViewById(R.id.number_all);
                             number_major = (TextView) getActivity().findViewById(R.id.number_major);
@@ -187,7 +187,8 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
                     @Override
                     public void onPositiveClicked(String add_auto_major, String add_totalR, String add_majorR,
                                                   String add_majorS, String add_univR, String add_basicR) {
-                        if (!majorList.contains(add_auto_major)) {
+                        if (majorList.contains(add_auto_major)) {
+                            Toast.makeText(activity, "중복된 학과입니다.", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                         } else {
                             majorList.add(add_auto_major);
