@@ -124,7 +124,7 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
                 (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 23, getResources().getDisplayMetrics()));
         pm.weight = 1;
         mButton.setText(text);
-        mButton.setTextSize(10.0f);
+        //mButton.setTextSize(7.5f);
         mButton.setBackgroundResource(imageId);
         mButton.setLayoutParams(pm);
         mButton.setOnClickListener(buttonlistener);
