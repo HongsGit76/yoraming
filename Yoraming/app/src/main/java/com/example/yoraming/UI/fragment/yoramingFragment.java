@@ -25,8 +25,8 @@ public class yoramingFragment extends Fragment implements OnBackPressedListener 
 
     View rootView;
     HorizontalScrollView scrollView;
-    final int rootID = 10000;
-    final int childID = 20000;
+    //final int rootID = 10000;
+    //final int childID = 20000;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,41 +40,31 @@ public class yoramingFragment extends Fragment implements OnBackPressedListener 
         scrollView = (HorizontalScrollView) rootView.findViewById(R.id.scrollView);
         scrollView.setHorizontalScrollBarEnabled(false);
 
-        onCreateRootLayout(rootView,1);
-        onCreateRootLayout(rootView, 2);
-        onCreateRootLayout(rootView, 3);
-        onCreateRootLayout(rootView, 4);
-        onCreateRootLayout(rootView, 5);
+        onCreateRootLayout(rootView,"G11",1);
+        onCreateRootLayout(rootView, "G12",2);
+        onCreateRootLayout(rootView, "G13",3);
+        onCreateRootLayout(rootView, "G14",4);
+        onCreateRootLayout(rootView, "G21",5);
 
-        onCreateChildLayout(rootView,10001, 1,R.drawable.blue_rounded);
-        onCreateChildLayout(rootView,10001, 2,R.drawable.yellow_rounded);
-        onCreateChildLayout(rootView,10001, 3,R.drawable.orange_rounded);
-        onCreateChildLayout(rootView,10001, 4,R.drawable.green_rounded);
+        onCreateChildLayout(rootView,"G11","Major",R.drawable.blue_rounded);
+        onCreateChildLayout(rootView,"G11","yellow",R.drawable.yellow_rounded);
+        onCreateChildLayout(rootView,"G11","orange",R.drawable.orange_rounded);
+        onCreateChildLayout(rootView,"G11","green",R.drawable.green_rounded);
 
-        onCreateChildLayout(rootView,10002, 6,R.drawable.yellow_rounded);
-        onCreateChildLayout(rootView,10002, 7,R.drawable.orange_rounded);
-        onCreateChildLayout(rootView,10002, 8,R.drawable.green_rounded);
+        onCreateMajorText(rootView,"Major","전공");
+        onCreateMajorText(rootView,"Major","전공");
+        onCreateMajorText(rootView,"yellow","전공");
+        onCreateMajorText(rootView,"yellow","전공");
+        onCreateMajorText(rootView,"yellow","전공");
+        onCreateMajorText(rootView,"orange","전공");
+        onCreateMajorText(rootView,"orange","전공");
+        onCreateMajorText(rootView,"orange","전공");
 
-        onCreateChildLayout(rootView,10003, 6,R.drawable.yellow_rounded);
-        onCreateChildLayout(rootView,10003, 7,R.drawable.orange_rounded);
-        onCreateChildLayout(rootView,10003, 8,R.drawable.green_rounded);
-
-        onCreateChildLayout(rootView,10004, 6,R.drawable.yellow_rounded);
-        onCreateChildLayout(rootView,10004, 7,R.drawable.orange_rounded);
-        onCreateChildLayout(rootView,10004, 8,R.drawable.green_rounded);
-
-        onCreateChildLayout(rootView,10005, 6,R.drawable.yellow_rounded);
-        onCreateChildLayout(rootView,10005, 7,R.drawable.orange_rounded);
-        onCreateChildLayout(rootView,10005, 8,R.drawable.green_rounded);
-
-
-        onCreateMajorText(rootView,20001, "전공");
-        onCreateMajorText(rootView,20001, "전공");
-        onCreateMajorText(rootView,20002, "전공");
-        onCreateMajorText(rootView,20002, "전공");
-        onCreateMajorText(rootView,20003, "전공");
-        onCreateMajorText(rootView,20003, "전공");
-
+        setRootLayoutSize(rootView, "G11");
+        setChildLayoutSize(rootView,"Major");
+        setChildLayoutSize(rootView,"yellow");
+        setChildLayoutSize(rootView,"orange");
+        setChildLayoutSize(rootView,"green");
         return rootView;
     }
     @Override
@@ -85,7 +75,7 @@ public class yoramingFragment extends Fragment implements OnBackPressedListener 
     }
 
     // 동적으로 학기 별 LinearLayout을 생성해주는 함수
-    public void onCreateRootLayout(View rootView, int i) {
+    public void onCreateRootLayout(View rootView, String tag, int i) {
         FrameLayout frame_View = (FrameLayout)rootView.findViewById(R.id.frame_yoraming);
         LinearLayout ll = new LinearLayout(getActivity());
         LinearLayout.LayoutParams lpm = new LinearLayout.LayoutParams((int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 95, getResources().getDisplayMetrics()),
@@ -93,13 +83,13 @@ public class yoramingFragment extends Fragment implements OnBackPressedListener 
         lpm.setMarginStart((int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15 + ((i-1) * 110), getResources().getDisplayMetrics()));
         ll.setLayoutParams(lpm);
         ll.setOrientation(LinearLayout.VERTICAL);
-        ll.setId(rootID + i);
+        ll.setTag(tag);
         frame_View.addView(ll);
     }
 
     // 동적으로 학기 별 과목 구분 LinearLayout을 생성해주는 함수
-    public void onCreateChildLayout(@NotNull View rootView, int root_ID, int i, int lineColor) {
-        LinearLayout root_View = (LinearLayout)rootView.findViewById(root_ID);
+    public void onCreateChildLayout(@NotNull View rootView, String root_tag, String tag, int lineColor) {
+        LinearLayout root_View = (LinearLayout)rootView.findViewWithTag(root_tag);
         LinearLayout ll = new LinearLayout((getActivity()));
         LinearLayout.LayoutParams lpm = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, getResources().getDisplayMetrics()));
@@ -109,13 +99,13 @@ public class yoramingFragment extends Fragment implements OnBackPressedListener 
         ll.setLayoutParams(lpm);
         ll.setBackgroundResource(lineColor);
         ll.setOrientation(LinearLayout.VERTICAL);
-        ll.setId(childID + i);
+        ll.setTag(tag);
         root_View.addView(ll);
     }
 
     // 동적으로 전공 별 과목을 추가해주는 함수
-    public void onCreateMajorText(View rootView, int parentID, String majorName) {
-        LinearLayout parent_View = (LinearLayout)rootView.findViewById(parentID);
+    public void onCreateMajorText(View rootView,String parentTag, String majorName) {
+        LinearLayout parent_View = (LinearLayout)rootView.findViewWithTag(parentTag);
         TextView tv = new TextView(getActivity());
         tv.setGravity(Gravity.CENTER);
         tv.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -124,14 +114,19 @@ public class yoramingFragment extends Fragment implements OnBackPressedListener 
         parent_View.addView(tv);
     }
 
-    // 학기 별 LinearLayout에 size를 설정해주는 함수
-    public void setRootLayoutSize(View rootView) {
-        FrameLayout root_View = (FrameLayout)rootView.findViewById(R.id.frame_yoraming);
-        for(int i = 0; i < root_View.getChildCount(); i++) {
-            LinearLayout child = (LinearLayout)root_View.getChildAt(i);
-            LinearLayout.LayoutParams pm = new LinearLayout.LayoutParams((int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 95, getResources().getDisplayMetrics()),
-                    (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, child.getChildCount() * 60, getResources().getDisplayMetrics()));
-            child.setLayoutParams(pm);
-        }
+    // 학기 별 LinearLayout에 height를 설정해주는 함수
+    public void setRootLayoutSize(View rootView, String tag) {
+        LinearLayout root_View = (LinearLayout) rootView.findViewWithTag(tag);
+        ViewGroup.LayoutParams pm = (ViewGroup.LayoutParams)root_View.getLayoutParams();
+        pm.height = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 125 * root_View.getChildCount(), getResources().getDisplayMetrics());
+        root_View.setLayoutParams(pm);
+    }
+
+    // 전공 별 LinearLayout에 가중치를 변경해 height 비율을 맞춰주는 함수
+    public void setChildLayoutSize(View rootView, String tag) {
+        LinearLayout parent_View = (LinearLayout) rootView.findViewWithTag(tag);
+        LinearLayout.LayoutParams pm = (LinearLayout.LayoutParams)parent_View.getLayoutParams();
+        pm.weight = parent_View.getChildCount() * 1;
+        parent_View.setLayoutParams(pm);
     }
 }
