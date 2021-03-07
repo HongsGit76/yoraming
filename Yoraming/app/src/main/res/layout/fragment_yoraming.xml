@@ -2,14 +2,21 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="500dp"
-    android:translationY="80dp"
+    android:layout_height="580dp"
+    android:layout_gravity="bottom"
     tools:context=".UI.fragment.yoramingFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <HorizontalScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="현재 시간표" />
+        android:layout_height="500dp"
+        android:layout_gravity="bottom"
+        android:fillViewport="true">
+        <FrameLayout
+            android:id="@+id/frame_yoraming"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </FrameLayout>
 
+    </HorizontalScrollView>
 </FrameLayout>

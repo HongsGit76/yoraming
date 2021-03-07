@@ -16,11 +16,7 @@ import com.example.yoraming.UI.activity.MainActivity;
 import com.example.yoraming.OnBackPressedListener;
 import com.example.yoraming.R;
 
-///**
-// * A simple {@link Fragment} subclass.
-// * Use the {@link DetailFragment#newInstance} factory method to
-// * create an instance of this fragment.
-// */
+
 public class DetailFragment extends Fragment implements CircleProgressBar.ProgressFormatter, OnBackPressedListener {
 
     private static final String DEFAULT_PATTERN = "%d%%";
@@ -30,12 +26,6 @@ public class DetailFragment extends Fragment implements CircleProgressBar.Progre
     CircleProgressBar circleProgressBar1, circleProgressBar2, circleProgressBar3;
     int i, j, k = 0;
 
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
     @Override
     public void onStop(){
         super.onStop();
