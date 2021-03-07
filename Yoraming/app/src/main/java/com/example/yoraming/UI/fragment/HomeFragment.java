@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -37,6 +39,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -51,6 +57,7 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
     private Toast toast;
     private TextView number_all, number_major, number_general;
     long backKeyPressedTime;
+    ArrayList<String> majorList = new ArrayList<>();
     MainActivity activity;
     View.OnClickListener buttonlistener;
     CircleProgressBar circleProgressBar1, circleProgressBar2, circleProgressBar3;
@@ -136,6 +143,8 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
 
                             Log.d("homeFragment 통신", yoram_major);
                             baseMajor.setText(yoram_major);
+                            majorList.add(baseMajor.toString());
+                            baseMajor.setPadding(15,0,15,0);
                             number_all = (TextView) getActivity().findViewById(R.id.number_all);
                             number_major = (TextView) getActivity().findViewById(R.id.number_major);
                             number_general = (TextView) getActivity().findViewById(R.id.number_general);
@@ -172,9 +181,23 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
         add_major.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onCreateButton(rootView,"전공",R.drawable.not_selected_major);
                 CustomDialog dialog = new CustomDialog();
                 dialog.show(getFragmentManager(), "customDialog");
+                dialog.setDialogListener(new CustomDialog.CustomDialogListener() {
+                    @Override
+                    public void onPositiveClicked(String add_auto_major, String add_totalR, String add_majorR,
+                                                  String add_majorS, String add_univR, String add_basicR) {
+                        if (!majorList.contains(add_auto_major)) {
+                            dialog.dismiss();
+                        } else {
+                            majorList.add(add_auto_major);
+                            onCreateButton(rootView, add_auto_major, R.drawable.not_selected_major);
+                        }
+                    }
+                    @Override
+                    public void onNegativeClicked() {
+                    }
+                });
             }
         });
         return rootView;
@@ -245,7 +268,8 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
                 (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 23, getResources().getDisplayMetrics()));
         pm.weight = 1;
         mButton.setText(text);
-        mButton.setTextSize(10.0f);
+        mButton.setPadding(15,0,15,0);
+        TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(mButton, 9, 11, 1, TypedValue.COMPLEX_UNIT_SP);
         mButton.setBackgroundResource(imageId);
         mButton.setLayoutParams(pm);
         mButton.setOnClickListener(buttonlistener);
@@ -276,6 +300,7 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
 
         if(pm_button.getMarginEnd() < (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 46, getResources().getDisplayMetrics())) {
             pm_button.setMarginEnd((int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 45, getResources().getDisplayMetrics()));
+            add_major.setVisibility(View.INVISIBLE);
         } else {
             pm_button.setMarginEnd(pm_button.getMarginEnd() - (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics()));
         }

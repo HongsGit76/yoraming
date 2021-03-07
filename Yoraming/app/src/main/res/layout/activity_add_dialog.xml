@@ -8,6 +8,7 @@
     android:background="@drawable/popup_box">
 
     <Button
+        android:id="@+id/btn_xbutton"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:layout_width="12dp"
@@ -37,13 +38,14 @@
             android:textSize="13sp"
             android:gravity="center"/>
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/auto_major"
             android:layout_width="175dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
             android:background="@drawable/major_box"
             android:ems="10"
+            android:completionThreshold="1"
             android:gravity="center"
             android:textSize="12sp" />
 
@@ -218,6 +220,7 @@
             android:gravity="center"/>
     </LinearLayout>
     <Button
+        android:id="@+id/btn_ok"
         android:layout_margin="30dp"
         android:layout_width="72.6dp"
         android:layout_height="21.9dp"
