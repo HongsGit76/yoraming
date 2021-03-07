@@ -3,6 +3,7 @@ package com.example.yoraming.UI.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -55,9 +57,11 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
     private ImageButton add_major, imageButton1, imageButton2, imageButton3;
     private Button baseMajor;
     private Toast toast;
+    private int num = 1;
     private TextView number_all, number_major, number_general;
     long backKeyPressedTime;
     ArrayList<String> majorList = new ArrayList<>();
+    ArrayList<Button> buttonArrayList = new ArrayList<Button>();
     MainActivity activity;
     View.OnClickListener buttonlistener;
     CircleProgressBar circleProgressBar1, circleProgressBar2, circleProgressBar3;
@@ -193,6 +197,7 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
                         } else {
                             majorList.add(add_auto_major);
                             onCreateButton(rootView, add_auto_major, R.drawable.not_selected_major);
+                            num++;
                         }
                     }
                     @Override
@@ -265,6 +270,11 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
         setLayout(rootView);
         setAddButton(rootView);
         Button mButton = new Button(getActivity());
+        mButton.setId(num);
+        buttonArrayList.add(mButton);
+
+        Log.d("buttonArrayList", Integer.toString(buttonArrayList.size()));
+        Log.d("num", Integer.toString(num));
         LinearLayout.LayoutParams pm = new LinearLayout.LayoutParams((int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics()),
                 (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 23, getResources().getDisplayMetrics()));
         pm.weight = 1;
@@ -276,6 +286,139 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
         mButton.setOnClickListener(buttonlistener);
         LinearLayout mView = (LinearLayout) rootView.findViewById(R.id.major_button_group);
         mView.addView(mButton);
+
+        switch(num) {
+            case 0:
+                break;
+            case 1:
+                buttonArrayList.get(0).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        buttonArrayList.get(0).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.selected_major));
+                        baseMajor.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
+                        Log.d("전공 2개일 때", "클릭");
+                    }
+                });
+                baseMajor.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        baseMajor.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.selected_major));
+                        buttonArrayList.get(0).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
+
+                    }
+                });
+                break;
+            case 2:
+                buttonArrayList.get(0).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        buttonArrayList.get(0).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.selected_major));
+                        buttonArrayList.get(1).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
+                        baseMajor.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
+                        Log.d("전공 3개일때 ", "클릭");
+                    }
+                });
+                buttonArrayList.get(1).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        buttonArrayList.get(0).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
+                        buttonArrayList.get(1).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.selected_major));
+                        baseMajor.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
+                        Log.d("전공 3개일때 ", "클릭");
+                    }
+                });
+                baseMajor.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        baseMajor.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.selected_major));
+                        buttonArrayList.get(0).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
+                        buttonArrayList.get(1).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
+                    }
+                });
+                break;
+
+            case 3:
+                buttonArrayList.get(0).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        buttonArrayList.get(0).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.selected_major));
+                        buttonArrayList.get(1).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
+                        buttonArrayList.get(2).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
+                        baseMajor.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
+                        Log.d("전공 3개일때 ", "클릭");
+                    }
+                });
+                buttonArrayList.get(1).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        buttonArrayList.get(0).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
+                        buttonArrayList.get(1).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.selected_major));
+                        buttonArrayList.get(2).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
+                        baseMajor.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
+                        Log.d("전공 3개일때 ", "클릭");
+                    }
+                });
+                buttonArrayList.get(2).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        buttonArrayList.get(0).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
+                        buttonArrayList.get(1).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
+                        buttonArrayList.get(2).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.selected_major));
+                        baseMajor.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
+                        Log.d("전공 3개일때 ", "클릭");
+                    }
+                });
+                baseMajor.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        baseMajor.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.selected_major));
+                        buttonArrayList.get(0).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
+                        buttonArrayList.get(1).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
+                        buttonArrayList.get(2).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
+                    }
+                });
+                break;
+
+
+        }
+        /*buttonArrayList.get(0).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonArrayList.get(0).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.selected_major));
+                buttonArrayList.get(1).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
+                buttonArrayList.get(2).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
+                baseMajor.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
+                Log.d("mbutton1", "클릭");
+            }
+        });
+        buttonArrayList.get(1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonArrayList.get(0).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
+                buttonArrayList.get(1).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.selected_major));
+                buttonArrayList.get(2).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
+                baseMajor.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
+                Log.d("mbutton1", "클릭");
+            }
+        });
+        buttonArrayList.get(2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonArrayList.get(0).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
+                buttonArrayList.get(1).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
+                buttonArrayList.get(2).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.selected_major));
+                baseMajor.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
+                Log.d("mbutton1", "클릭");
+            }
+        });*/
+//        baseMajor.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                baseMajor.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.selected_major));
+//                mButton.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
+//
+//            }
+//        });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
