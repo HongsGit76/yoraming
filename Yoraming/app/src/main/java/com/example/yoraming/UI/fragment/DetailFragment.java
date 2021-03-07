@@ -23,8 +23,8 @@ public class DetailFragment extends Fragment implements CircleProgressBar.Progre
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     MainActivity activity;
-    CircleProgressBar circleProgressBar1, circleProgressBar2, circleProgressBar3;
-    int i, j, k = 0;
+    CircleProgressBar circleProgressBar1, circleProgressBar2, circleProgressBar3, circleProgressBar4;
+    int i, j, k ,l= 0;
 
     @Override
     public void onStop(){
@@ -37,24 +37,28 @@ public class DetailFragment extends Fragment implements CircleProgressBar.Progre
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
         activity = (MainActivity) getActivity();
 
-        CreatePieGraph(rootView,10,10,10);
+        CreatePieGraph(rootView,50,40,30,20);
 
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail, container, false);
+//        return inflater.inflate(R.layout.fragment_detail, container, false);
+        return rootView;
     }
 
-    public void CreatePieGraph(View rootView,int per_1, int per_2, int per_3) {
+    public void CreatePieGraph(View rootView,int per_1, int per_2, int per_3, int per_4) {
         circleProgressBar1 = (CircleProgressBar) rootView.findViewById(R.id.cpb_detail_circlebar1);
         circleProgressBar1.setProgressFormatter(null);
         circleProgressBar2 = (CircleProgressBar) rootView.findViewById(R.id.cpb_detail_circlebar2);
         circleProgressBar2.setProgressFormatter(null);
         circleProgressBar3 = (CircleProgressBar) rootView.findViewById(R.id.cpb_detail_circlebar3);
         circleProgressBar3.setProgressFormatter(null);
+        circleProgressBar4 = (CircleProgressBar) rootView.findViewById(R.id.cpb_detail_circlebar4);
+        circleProgressBar4.setProgressFormatter(null);
 
         final Handler handler1 = new Handler();
         final Handler handler2 = new Handler();
         final Handler handler3 = new Handler();
+        final Handler handler4 = new Handler();
         handler1.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -90,6 +94,19 @@ public class DetailFragment extends Fragment implements CircleProgressBar.Progre
                     handler3.postDelayed(this, 10);
                 } else {
                     handler3.removeCallbacks(this);
+                }
+            }
+        }, 10);
+
+        handler4.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (l <= per_4) {
+                    circleProgressBar4.setProgress(l);
+                    l++;
+                    handler4.postDelayed(this, 10);
+                } else {
+                    handler4.removeCallbacks(this);
                 }
             }
         }, 10);

@@ -21,7 +21,7 @@ public interface specFactory {
     @GET("/spec/career")
     Call<JsonObject> getcareer(@Query("user_id") String email);
 
-    
+
 
     @POST("/spec/certificate")
     Call<JsonObject> postcertificate(@Body SpecCertificateData specCertificateData);

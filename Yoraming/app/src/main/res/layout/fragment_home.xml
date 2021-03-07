@@ -104,7 +104,7 @@
             app:layout_constraintTop_toBottomOf="@+id/cpb_circlebar1" />
 
         <TextView
-            android:id="@+id/tv_major"
+            android:id="@+id/tv_basicR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
@@ -130,7 +130,7 @@
             app:layout_constraintTop_toBottomOf="@+id/cpb_circlebar2" />
 
         <TextView
-            android:id="@+id/tv_general"
+            android:id="@+id/tv_majorS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
