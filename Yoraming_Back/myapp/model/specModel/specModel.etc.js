@@ -18,16 +18,29 @@ class SpecEtcModel {
   async addEtcSpec() {
     // API
     const user_id = this.body.user_id;
-    const title = this.body.title;
-    const content = this.body.content;
-    const date = this.body.date;
+    const etc_title = this.body.etc_title;
+    const etc_content = this.body.etc_content;
+    const etc_date = this.body.etc_date;
 
     // Database 쿼리문 수행
     return new Promise((resolve, reject) => {
-      db.query(insertQuery, [user_id, title, content, date], (err) => {
-        if (err) console.log(err);
-        resolve({ success: true });
-      });
+      db.query(
+        insertQuery,
+        [user_id, etc_title, etc_content, etc_date],
+        (err) => {
+          if (err) {
+            console.log(err);
+            resolve();
+          } else {
+            db.query("SELECT LAST_INSERT_ID()", (err, rows) => {
+              resolve({
+                etc_id: rows[0]["LAST_INSERT_ID()"],
+                success: true,
+              });
+            });
+          }
+        }
+      );
     });
   }
 

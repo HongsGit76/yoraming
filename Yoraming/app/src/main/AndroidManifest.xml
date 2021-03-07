@@ -16,8 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
-        <activity android:name=".UI.activity.MainMajorActivity"></activity>
+        <activity android:name=".addDialog"></activity>
+        <activity android:name=".UI.activity.MainMajorActivity" />
         <activity android:name=".UI.activity.SignUpActivity" />
         <activity android:name=".UI.activity.MainActivity" />
         <activity android:name=".UI.activity.LoginActivity" />

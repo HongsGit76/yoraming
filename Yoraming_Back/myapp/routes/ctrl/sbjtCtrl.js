@@ -3,8 +3,8 @@ const sbjtModel = require("../../model/sbjtModel");
 module.exports = {
   output: {
     getSbjtYoram: async (req, res) => {
-      const user_id = req.body.user_id;
-      const yoram_id = req.body.yoram_id;
+      const user_id = req.query.user_id;
+      const yoram_id = req.query.yoram_id;
       try {
         const comSbjtData = await sbjtModel.getSbjt(user_id, yoram_id);
         const sortSbjtData = await sbjtModel.sortSbjt(comSbjtData);
@@ -18,9 +18,10 @@ module.exports = {
     },
 
     getSbjtDate: async (req, res) => {
-      const user_id = req.body.user_id;
+      const user_id = req.query.user_id;
+      const comSbjt_date = req.query.comSbjt_date;
       try {
-        const dateSbjtData = await sbjtModel.getSbjtDate(user_id);
+        const dateSbjtData = await sbjtModel.getSbjtDate(user_id, comSbjt_date);
         const dateRecSbjtData = await sbjtModel.getRecSbjtDate(dateSbjtData);
         const result = { success: true, data: dateRecSbjtData };
         res.json(result);

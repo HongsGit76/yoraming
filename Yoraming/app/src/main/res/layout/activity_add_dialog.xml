@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:layout_gravity="center"
+    android:background="@drawable/popup_box">
+
+    <Button
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_gravity="right"
+        android:background="@drawable/popup_delete" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:textSize="15sp"
+        android:text="전공 추가"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal"
+        android:weightSum="5">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="학과명"
+            android:textSize="13sp"
+            android:gravity="center"/>
+
+        <EditText
+            android:id="@+id/auto_major"
+            android:layout_width="175dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/major_box"
+            android:ems="10"
+            android:gravity="center"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:weightSum="5">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="총 학점"
+            android:textSize="11sp"
+            android:gravity="center"/>
+
+        <EditText
+            android:id="@+id/totalR"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:ems="6"
+            android:gravity="center"
+            android:textSize="12sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="점"
+            android:textSize="11sp"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:weightSum="5">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="전공 필수"
+            android:textSize="11sp"
+            android:gravity="center"/>
+
+        <EditText
+            android:id="@+id/majorR"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="11dp"
+            android:ems="6"
+            android:gravity="center"
+            android:textSize="12sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="점"
+            android:textSize="11sp"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:weightSum="5">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="전공 선택"
+            android:textSize="11sp"
+            android:gravity="center"/>
+
+        <EditText
+            android:id="@+id/majorS"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="11dp"
+            android:ems="6"
+            android:gravity="center"
+            android:textSize="12sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="점"
+            android:textSize="11sp"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:weightSum="5">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="대학 필수"
+            android:textSize="11sp"
+            android:gravity="center"/>
+
+        <EditText
+            android:id="@+id/univR"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="11dp"
+            android:ems="6"
+            android:gravity="center"
+            android:textSize="12sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="점"
+            android:textSize="11sp"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:weightSum="5">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="대학 필수"
+            android:textSize="11sp"
+            android:gravity="center"/>
+
+        <EditText
+            android:id="@+id/basicR"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="11dp"
+            android:ems="6"
+            android:gravity="center"
+            android:textSize="12sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="점"
+            android:textSize="11sp"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:weightSum="5">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="※ 각 학과별 졸업에 필요한 학점을 적어주시면 됩니다."
+            android:textSize="11sp"
+            android:textColor="#386cb9"
+            android:gravity="center"/>
+    </LinearLayout>
+    <Button
+        android:layout_margin="30dp"
+        android:layout_width="72.6dp"
+        android:layout_height="21.9dp"
+        android:layout_gravity="center"
+        android:background="@drawable/ok_button"/>
+
+
+</LinearLayout>

@@ -1,9 +1,13 @@
 package com.example.yoraming.UI.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,24 +15,41 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.dinuscxj.progressbar.CircleProgressBar;
+import com.example.yoraming.CustomDialog;
+import com.example.yoraming.Server.Net;
 import com.example.yoraming.UI.activity.LoginActivity;
 import com.example.yoraming.UI.activity.MainActivity;
 import com.example.yoraming.OnBackPressedListener;
 import com.example.yoraming.R;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class HomeFragment extends Fragment implements CircleProgressBar.ProgressFormatter, OnBackPressedListener {
 
     private static final String DEFAULT_PATTERN = "%d%%";
-    private ImageButton add_major;
+    private ImageButton add_major, imageButton1, imageButton2, imageButton3;
     private Button baseMajor;
     private Toast toast;
+    private TextView number_all, number_major, number_general;
     long backKeyPressedTime;
     MainActivity activity;
     View.OnClickListener buttonlistener;
@@ -40,6 +61,42 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
         super.onCreate(savedInstanceState);
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("mainMajor", MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        String text = baseMajor.getText().toString();
+        editor.putString("mainMajor", text);
+
+        editor.commit();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        imageButton1 = (ImageButton)getActivity().findViewById(R.id.imageButton1);
+        imageButton2 = (ImageButton)getActivity().findViewById(R.id.imageButton2);
+        imageButton3 = (ImageButton)getActivity().findViewById(R.id.imageButton3);
+
+        imageButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("onclick", "success");
+                getFragmentManager().beginTransaction().replace(R.id.spe_framelayout, new HomeChildFragment1()).commit();
+            }
+        });
+
+        imageButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("onclick", "success");
+                getFragmentManager().beginTransaction().replace(R.id.spe_framelayout, new HomeChildFragment2()).commit();
+            }
+        });
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,13 +104,77 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
         activity = (MainActivity) getActivity();
         toast = Toast.makeText(getContext(), "'뒤로' 버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);
         add_major = (ImageButton)rootView.findViewById(R.id.add_major);
+        baseMajor = (Button)rootView.findViewById(R.id.select_major_base);
+
+        SharedPreferences SP_user = getActivity().getSharedPreferences("user", MODE_PRIVATE);
+        String user = SP_user.getString("user_id","");
 
         CreatePieGraph(rootView,50,30,80);
+
+
+        Call<JsonObject> res1 = Net.getInstance().getyoramFactory().getYoram(user);
+        res1.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if(response.isSuccessful()){
+                    if(response.body() != null){
+                        JsonObject success = response.body();
+                        Log.d("homeFragment 통신", success.get("success").toString());
+                        Log.d("homeFragment 통신", success.get("yoram").toString());
+                        if (success.get("success").toString().equals("true")) {
+                            JsonArray jsonArray = success.getAsJsonArray("yoram");
+                            JsonElement jsonElement = jsonArray.get(0);
+
+                            String yoram_major = jsonElement.getAsJsonObject().get("yoram_major").getAsString();
+                            String yoram_total = jsonElement.getAsJsonObject().get("yoram_total").getAsString();
+                            String yoram_majorR = jsonElement.getAsJsonObject().get("yoram_majorR").getAsString();
+                            String yoram_majorS = jsonElement.getAsJsonObject().get("yoram_majorS").getAsString();
+                            String yoram_univR = jsonElement.getAsJsonObject().get("yoram_univR").getAsString();
+                            String yoram_basicR = jsonElement.getAsJsonObject().get("yoram_basicR").getAsString();
+
+
+
+                            Log.d("homeFragment 통신", yoram_major);
+                            baseMajor.setText(yoram_major);
+                            number_all = (TextView) getActivity().findViewById(R.id.number_all);
+                            number_major = (TextView) getActivity().findViewById(R.id.number_major);
+                            number_general = (TextView) getActivity().findViewById(R.id.number_general);
+
+
+                            int int_total = Integer.parseInt(yoram_total);
+                            int int_major = Integer.parseInt(yoram_majorR) + Integer.parseInt(yoram_majorS);
+                            int int_notMajor = Integer.parseInt(yoram_univR) + Integer.parseInt(yoram_basicR);
+                            String str_major = Integer.toString(int_major);
+                            String str_notMajor = Integer.toString(int_notMajor);
+
+                            number_all.append(yoram_total);
+                            number_major.append(str_major);
+                            number_general.append(str_notMajor);
+
+                        }else{
+                            Toast.makeText(getActivity().getApplicationContext(),"다시 시도해주세요",Toast.LENGTH_SHORT);
+                        }
+                    }else{
+                        Log.e("MainMajor 통신", "실패 1 response 내용이 없음");
+                    }
+                }else{
+                    Log.e("MainMajor 통신", "실패 2 서버 에러");
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.e("MainMajor 통신", "실패 3 통신 에러 "+t.getLocalizedMessage());
+            }
+        });
 
         add_major.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onCreateButton(rootView,"전공",R.drawable.not_selected_major);
+                CustomDialog dialog = new CustomDialog();
+                dialog.show(getFragmentManager(), "customDialog");
             }
         });
         return rootView;
