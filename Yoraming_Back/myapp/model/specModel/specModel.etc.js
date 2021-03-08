@@ -8,6 +8,8 @@ const deleteQuery = "DELETE FROM etc WHERE user_id = ? AND etc_id = ?";
 const insertQuery =
   "INSERT INTO etc(user_id, etc_title, etc_content, etc_date) VALUES(?,?,?,?)";
 const getQuery = "SELECT * FROM etc WHERE user_id = ?";
+const updateQuery =
+  "UPDATE etc SET etc_title=?, etc_content=?, etc_date=? WHERE etc_id=?";
 
 // 스펙 모델 클래스
 class SpecEtcModel {
@@ -33,6 +35,7 @@ class SpecEtcModel {
             resolve();
           } else {
             db.query("SELECT LAST_INSERT_ID()", (err, rows) => {
+              if (err) console.log(err);
               resolve({
                 etc_id: rows[0]["LAST_INSERT_ID()"],
                 success: true,
@@ -72,8 +75,24 @@ class SpecEtcModel {
   }
 
   async editEtcSpec() {
-    return { success: true };
+    // API
+    const etc_id = this.body.etc_id;
+    const etc_title = this.body.etc_title;
+    const etc_content = this.body.etc_content;
+    const etc_date = this.body.etc_date;
+
+    return new Promise((resolve, reject) => {
+      db.query(
+        updateQuery,
+        [etc_title, etc_content, etc_date, etc_id],
+        (err) => {
+          if (err) console.log(err);
+          resolve({ success: true });
+        }
+      );
+    });
   }
+  //return { success: true };
 }
 
 module.exports = SpecEtcModel;

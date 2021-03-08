@@ -8,6 +8,8 @@ const deleteQuery =
 const insertQuery =
   "INSERT INTO certificate(user_id, certificate_name, certificate_date, certificate_endDate) VALUES(?,?,?,?)";
 const getQuery = "SELECT * FROM certificate WHERE user_id = ?";
+const updateQuery =
+  "UPDATE certificate SET certificate_name=?, certificate_date=?, certificate_endDate=? WHERE certificate_id=?";
 
 // 스펙 모델 클래스
 class SpecCertModel {
@@ -72,7 +74,27 @@ class SpecCertModel {
   }
 
   async editCertSpec() {
-    return { success: true };
+    // API
+    const certificate_id = this.body.certificate_id;
+    const certificate_name = this.body.certificate_name;
+    const certificate_date = this.body.certificate_date;
+    const certificate_endDate = this.body.certificate_endDate;
+
+    return new Promise((resolve, reject) => {
+      db.query(
+        updateQuery,
+        [
+          certificate_name,
+          certificate_date,
+          certificate_endDate,
+          certificate_id,
+        ],
+        (err) => {
+          if (err) console.log(err);
+          resolve({ success: true });
+        }
+      );
+    });
   }
 }
 

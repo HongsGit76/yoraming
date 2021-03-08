@@ -7,6 +7,8 @@ const deleteQuery = "DELETE FROM career WHERE user_id = ? AND career_id = ?";
 const insertQuery =
   "INSERT INTO career(user_id, career_office, career_content, career_date) VALUES(?,?,?,?)";
 const getQuery = "SELECT * FROM career WHERE user_id = ?";
+const updateQuery =
+  "UPDATE career SET career_office=?, career_content=?, career_date=? WHERE career_id=?";
 
 // 스펙 모델 클래스
 class SpecCertModel {
@@ -71,7 +73,22 @@ class SpecCertModel {
   }
 
   async editCareerSpec() {
-    return { success: true };
+    // API
+    const career_id = this.body.career_id;
+    const career_office = this.body.career_office;
+    const career_content = this.body.career_content;
+    const career_date = this.body.career_date;
+
+    return new Promise((resolve, reject) => {
+      db.query(
+        updateQuery,
+        [career_office, career_content, career_date, career_id],
+        (err) => {
+          if (err) console.log(err);
+          resolve({ success: true });
+        }
+      );
+    });
   }
 }
 

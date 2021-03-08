@@ -8,6 +8,8 @@ const deleteQuery =
 const insertQuery =
   "INSERT INTO language(user_id, language_name, language_grade, language_date) VALUES(?,?,?,?)";
 const getQuery = "SELECT * FROM language WHERE user_id = ?";
+const updateQuery =
+  "UPDATE language SET language_name=?, language_grade=?, language_date=? WHERE language_id=?";
 
 // 스펙 모델 클래스
 class SpecLangModel {
@@ -33,6 +35,7 @@ class SpecLangModel {
             resolve();
           } else {
             db.query("SELECT LAST_INSERT_ID()", (err, rows) => {
+              if (err) console.log(err);
               resolve({
                 language_id: rows[0]["LAST_INSERT_ID()"],
                 success: true,
@@ -72,7 +75,22 @@ class SpecLangModel {
   }
 
   async editLangSpec() {
-    return { success: true };
+    // API
+    const language_id = this.body.language_id;
+    const language_name = this.body.language_name;
+    const language_grade = this.body.language_grade;
+    const language_date = this.body.language_date;
+
+    return new Promise((resolve, reject) => {
+      db.query(
+        updateQuery,
+        [language_name, language_grade, language_date, language_id],
+        (err) => {
+          if (err) console.log(err);
+          resolve({ success: true });
+        }
+      );
+    });
   }
 }
 
