@@ -87,7 +87,7 @@ class SpecLangModel {
         [language_name, language_grade, language_date, language_id],
         (err) => {
           if (err) console.log(err);
-          resolve({ success: true });
+          resolve({ language_id: language_id, success: true });
         }
       );
     });

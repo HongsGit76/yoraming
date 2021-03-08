@@ -85,7 +85,7 @@ class SpecCertModel {
         [career_office, career_content, career_date, career_id],
         (err) => {
           if (err) console.log(err);
-          resolve({ success: true });
+          resolve({ career_id: career_id, success: true });
         }
       );
     });

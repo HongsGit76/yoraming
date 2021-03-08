@@ -87,7 +87,7 @@ class SpecEtcModel {
         [etc_title, etc_content, etc_date, etc_id],
         (err) => {
           if (err) console.log(err);
-          resolve({ success: true });
+          resolve({ etc_id: etc_id, success: true });
         }
       );
     });

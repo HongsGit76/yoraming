@@ -91,7 +91,7 @@ class SpecCertModel {
         ],
         (err) => {
           if (err) console.log(err);
-          resolve({ success: true });
+          resolve({ certificate_id: certificate_id, success: true });
         }
       );
     });
