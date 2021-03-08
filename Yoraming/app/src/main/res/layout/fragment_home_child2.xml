@@ -3,12 +3,71 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.fragment.HomeChildFragment2">
+    android:orientation="horizontal"
+    tools:context=".UI.fragment.HomeChildFragment1">
 
     <!-- TODO: Update blank fragment layout -->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/detail_score_2"/>
+        android:src="@drawable/detail_score_1"/>
 
+    <TextView
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="30dp"
+        android:textSize="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="대학 필수"
+        android:gravity="center"/>
+
+    <ProgressBar
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="80dp"
+        android:layout_width="180dp"
+        android:minHeight="10dp"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:progressDrawable="@drawable/progressbar"
+        />
+
+    <TextView
+        android:id="@+id/num_univR"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="275dp"
+        android:textSize="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="/"
+        android:gravity="center"/>
+
+
+    <TextView
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="30dp"
+        android:textSize="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="학과 필수"
+        android:gravity="center"/>
+
+    <ProgressBar
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="80dp"
+        android:layout_width="180dp"
+        android:minHeight="10dp"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:progressDrawable="@drawable/progressbar"
+        />
+
+    <TextView
+        android:id="@+id/num_basicR"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="275dp"
+        android:textSize="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="/"
+        android:gravity="center"/>
 </FrameLayout>

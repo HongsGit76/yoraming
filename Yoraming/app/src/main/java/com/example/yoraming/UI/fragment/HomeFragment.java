@@ -64,6 +64,7 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
     ArrayList<String> majorList = new ArrayList<>();
     ArrayList<Button> buttonArrayList = new ArrayList<Button>();
     MainActivity activity;
+    String majorR, majorS, univR, basicR;
     View.OnClickListener buttonlistener;
     CircleProgressBar circleProgressBar1, circleProgressBar2, circleProgressBar3;
     int i, j, k = 0;
@@ -96,7 +97,17 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
             @Override
             public void onClick(View v) {
                 Log.d("onclick", "success");
-                getFragmentManager().beginTransaction().replace(R.id.spe_framelayout, new HomeChildFragment1()).commit();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                HomeChildFragment1 homeChildFragment1 = new HomeChildFragment1();
+
+                //프레그먼트끼리 데이터 넘기기 위한 bundle
+                Bundle bundle = new Bundle();
+                bundle.putString("majorR", majorR);
+                bundle.putString("majorS", majorS);
+
+                homeChildFragment1.setArguments(bundle);
+                transaction.replace(R.id.spe_framelayout, homeChildFragment1);
+                transaction.commit();
             }
         });
 
@@ -104,7 +115,17 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
             @Override
             public void onClick(View v) {
                 Log.d("onclick", "success");
-                getFragmentManager().beginTransaction().replace(R.id.spe_framelayout, new HomeChildFragment2()).commit();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                HomeChildFragment2 homeChildFragment2 = new HomeChildFragment2();
+
+                //프레그먼트끼리 데이터 넘기기 위한 bundle
+                Bundle bundle = new Bundle();
+                bundle.putString("univR", univR);
+                bundle.putString("basicR", basicR);
+
+                homeChildFragment2.setArguments(bundle);
+                transaction.replace(R.id.spe_framelayout, homeChildFragment2);
+                transaction.commit();
             }
         });
     }
@@ -144,8 +165,6 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
                             String yoram_univR = jsonElement.getAsJsonObject().get("yoram_univR").getAsString();
                             String yoram_basicR = jsonElement.getAsJsonObject().get("yoram_basicR").getAsString();
 
-
-
                             Log.d("homeFragment 통신", yoram_major);
                             baseMajor.setText(yoram_major);
                             majorList.add(baseMajor.getText().toString());
@@ -154,8 +173,11 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
                             number_major = (TextView) getActivity().findViewById(R.id.number_major);
                             number_general = (TextView) getActivity().findViewById(R.id.number_general);
 
-
                             int int_total = Integer.parseInt(yoram_total);
+                            majorR = yoram_majorR;
+                            majorS = yoram_majorS;
+                            univR = yoram_univR;
+                            basicR = yoram_basicR;
                             int int_major = Integer.parseInt(yoram_majorR) + Integer.parseInt(yoram_majorS);
                             int int_notMajor = Integer.parseInt(yoram_univR) + Integer.parseInt(yoram_basicR);
                             String str_major = Integer.toString(int_major);
@@ -164,7 +186,6 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
                             number_all.append(yoram_total);
                             number_major.append(str_major);
                             number_general.append(str_notMajor);
-
                         }else{
                             Toast.makeText(getActivity().getApplicationContext(),"다시 시도해주세요",Toast.LENGTH_SHORT);
                         }
@@ -271,6 +292,7 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
         setAddButton(rootView);
         Button mButton = new Button(getActivity());
         mButton.setId(num);
+        mButton.setEllipsize(TextUtils.TruncateAt.MARQUEE);
         buttonArrayList.add(mButton);
 
         Log.d("buttonArrayList", Integer.toString(buttonArrayList.size()));
@@ -281,7 +303,6 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
         mButton.setText(text);
         mButton.setPadding(15,0,15,0);
         mButton.setSingleLine(true);
-        mButton.setEllipsize(TextUtils.TruncateAt.MARQUEE);
         TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(mButton, 9, 11, 1, TypedValue.COMPLEX_UNIT_SP);
         mButton.setBackgroundResource(imageId);
         mButton.setLayoutParams(pm);
