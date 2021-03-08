@@ -8,6 +8,7 @@ import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -181,7 +182,6 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
                 Log.e("MainMajor 통신", "실패 3 통신 에러 "+t.getLocalizedMessage());
             }
         });
-
         add_major.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -276,10 +276,12 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
         Log.d("buttonArrayList", Integer.toString(buttonArrayList.size()));
         Log.d("num", Integer.toString(num));
         LinearLayout.LayoutParams pm = new LinearLayout.LayoutParams((int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics()),
-                (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 23, getResources().getDisplayMetrics()));
+                (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 25, getResources().getDisplayMetrics()));
         pm.weight = 1;
         mButton.setText(text);
         mButton.setPadding(15,0,15,0);
+        mButton.setSingleLine(true);
+        mButton.setEllipsize(TextUtils.TruncateAt.MARQUEE);
         TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(mButton, 9, 11, 1, TypedValue.COMPLEX_UNIT_SP);
         mButton.setBackgroundResource(imageId);
         mButton.setLayoutParams(pm);
@@ -289,11 +291,14 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
 
         switch(num) {
             case 0:
+                baseMajor.setSelected(true);
                 break;
             case 1:
                 buttonArrayList.get(0).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        buttonArrayList.get(0).setSelected(true);
+                        baseMajor.setSelected(false);
                         buttonArrayList.get(0).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.selected_major));
                         baseMajor.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
                         Log.d("전공 2개일 때", "클릭");
@@ -302,6 +307,8 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
                 baseMajor.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        baseMajor.setSelected(true);
+                        buttonArrayList.get(0).setSelected(false);
                         baseMajor.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.selected_major));
                         buttonArrayList.get(0).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
 
@@ -312,6 +319,9 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
                 buttonArrayList.get(0).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        buttonArrayList.get(0).setSelected(true);
+                        buttonArrayList.get(1).setSelected(false);
+                        baseMajor.setSelected(false);
                         buttonArrayList.get(0).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.selected_major));
                         buttonArrayList.get(1).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
                         baseMajor.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
@@ -321,6 +331,9 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
                 buttonArrayList.get(1).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        buttonArrayList.get(0).setSelected(false);
+                        buttonArrayList.get(1).setSelected(true);
+                        baseMajor.setSelected(false);
                         buttonArrayList.get(0).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
                         buttonArrayList.get(1).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.selected_major));
                         baseMajor.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
@@ -330,6 +343,9 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
                 baseMajor.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        buttonArrayList.get(0).setSelected(false);
+                        buttonArrayList.get(1).setSelected(false);
+                        baseMajor.setSelected(true);
                         baseMajor.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.selected_major));
                         buttonArrayList.get(0).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
                         buttonArrayList.get(1).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
@@ -341,6 +357,10 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
                 buttonArrayList.get(0).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        buttonArrayList.get(0).setSelected(true);
+                        buttonArrayList.get(1).setSelected(false);
+                        buttonArrayList.get(2).setSelected(false);
+                        baseMajor.setSelected(false);
                         buttonArrayList.get(0).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.selected_major));
                         buttonArrayList.get(1).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
                         buttonArrayList.get(2).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
@@ -351,6 +371,10 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
                 buttonArrayList.get(1).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        buttonArrayList.get(0).setSelected(false);
+                        buttonArrayList.get(1).setSelected(true);
+                        buttonArrayList.get(2).setSelected(false);
+                        baseMajor.setSelected(false);
                         buttonArrayList.get(0).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
                         buttonArrayList.get(1).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.selected_major));
                         buttonArrayList.get(2).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
@@ -361,6 +385,10 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
                 buttonArrayList.get(2).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        buttonArrayList.get(0).setSelected(false);
+                        buttonArrayList.get(1).setSelected(false);
+                        buttonArrayList.get(2).setSelected(true);
+                        baseMajor.setSelected(false);
                         buttonArrayList.get(0).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
                         buttonArrayList.get(1).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
                         buttonArrayList.get(2).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.selected_major));
@@ -371,6 +399,10 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
                 baseMajor.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        buttonArrayList.get(0).setSelected(false);
+                        buttonArrayList.get(1).setSelected(false);
+                        buttonArrayList.get(2).setSelected(false);
+                        baseMajor.setSelected(true);
                         baseMajor.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.selected_major));
                         buttonArrayList.get(0).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
                         buttonArrayList.get(1).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
@@ -381,44 +413,6 @@ public class HomeFragment extends Fragment implements CircleProgressBar.Progress
 
 
         }
-        /*buttonArrayList.get(0).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buttonArrayList.get(0).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.selected_major));
-                buttonArrayList.get(1).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
-                buttonArrayList.get(2).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
-                baseMajor.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
-                Log.d("mbutton1", "클릭");
-            }
-        });
-        buttonArrayList.get(1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buttonArrayList.get(0).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
-                buttonArrayList.get(1).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.selected_major));
-                buttonArrayList.get(2).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
-                baseMajor.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
-                Log.d("mbutton1", "클릭");
-            }
-        });
-        buttonArrayList.get(2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buttonArrayList.get(0).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
-                buttonArrayList.get(1).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
-                buttonArrayList.get(2).setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.selected_major));
-                baseMajor.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
-                Log.d("mbutton1", "클릭");
-            }
-        });*/
-//        baseMajor.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                baseMajor.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.selected_major));
-//                mButton.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.not_selected_major));
-//
-//            }
-//        });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)

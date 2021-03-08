@@ -273,11 +273,13 @@
                 android:layout_height="25dp"
                 android:layout_weight="1"
                 android:autoSizeMaxTextSize="11sp"
-                android:autoSizeMinTextSize="9sp"
+                android:autoSizeMinTextSize="8sp"
                 android:autoSizeStepGranularity="1dp"
                 android:autoSizeTextType="uniform"
                 android:background="@drawable/selected_major"
-                android:scaleType="fitXY" />
+                android:ellipsize="marquee"
+                android:scaleType="fitXY"
+                android:singleLine="true" />
         </LinearLayout>
 
         <FrameLayout
