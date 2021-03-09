@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yoraming.OnBackPressedListener;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManger;
     private Fragment currentFragment = null;
     private FragmentTransaction transaction;
+    TextView tv_suggestion;
     private ImageView tab_home, tab_detail, tab_mypage, tab_yoraming;
 
     @Override
@@ -53,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         tab_detail = (ImageView) findViewById(R.id.tab_detail);
         tab_yoraming = (ImageView) findViewById(R.id.tab_yoraming);
         tab_mypage = (ImageView) findViewById(R.id.tab_mypage);
+        tv_suggestion = (TextView)findViewById(R.id.tv_suggestion);
+
         SharedPreferences SP_user = getSharedPreferences("user", MODE_PRIVATE);
         String user = SP_user.getString("user_id","");
         SharedPreferences SP_yoram = getSharedPreferences("yoram", MODE_PRIVATE);
@@ -97,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
                         tab_detail.setSelected(false);
                         tab_yoraming.setSelected(false);
                         tab_mypage.setSelected(false);
+                        tv_suggestion.setVisibility(View.INVISIBLE);
                         currentFragment = new HomeFragment();
                         break;
                     case R.id.tab_detail:
@@ -104,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
                         tab_detail.setSelected(true);
                         tab_yoraming.setSelected(false);
                         tab_mypage.setSelected(false);
+                        tv_suggestion.setVisibility(View.VISIBLE);
                         currentFragment = new DetailFragment();
                         break;
                     case R.id.tab_yoraming:
@@ -111,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
                         tab_detail.setSelected(false);
                         tab_yoraming.setSelected(true);
                         tab_mypage.setSelected(false);
+                        tv_suggestion.setVisibility(View.INVISIBLE);
                         currentFragment = new yoramingFragment();
                         break;
                     case R.id.tab_mypage:
@@ -118,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
                         tab_detail.setSelected(false);
                         tab_yoraming.setSelected(false);
                         tab_mypage.setSelected(true);
+                        tv_suggestion.setVisibility(View.INVISIBLE);
                         currentFragment = new myPageFragment();
                         break;
                     default:
