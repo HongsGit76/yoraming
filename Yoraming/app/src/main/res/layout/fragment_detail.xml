@@ -21,7 +21,7 @@
         <ImageView
             android:id="@+id/selected_major_1"
             android:layout_width="350dp"
-            android:layout_height="180dp"
+            android:layout_height="190dp"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
             android:src="@drawable/announcement_box"
@@ -31,9 +31,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="이수 학점 리포트"
+            android:textColor="@color/black"
             android:textSize="11dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/selected_major_1"
@@ -44,13 +46,36 @@
             app:layout_constraintVertical_bias="0.07999998" />
 
         <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="총 이수 학점    "
+            android:textSize="9dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView3"
+            app:layout_constraintEnd_toEndOf="@+id/selected_major_1"
+            app:layout_constraintHorizontal_bias="0.75"
+            app:layout_constraintStart_toEndOf="@+id/textView3"
+            app:layout_constraintTop_toTopOf="@+id/textView3"
+            app:layout_constraintVertical_bias="0.07999998" />
+
+        <TextView
+            android:id="@+id/tv_detail_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*/*"
+            android:textSize="9dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView2"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toTopOf="@+id/textView2" />
+
+        <TextView
             android:id="@+id/tv_major_R"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:text="전공 필수"
             android:textColor="#797979"
-            android:textSize="9dp"
+            android:textSize="10dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/cpb_detail_circlebar1"
             app:layout_constraintEnd_toEndOf="@+id/cpb_detail_circlebar1"
@@ -63,7 +88,7 @@
             android:layout_marginBottom="8dp"
             android:text="전공 선택"
             android:textColor="#797979"
-            android:textSize="9dp"
+            android:textSize="10dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/cpb_detail_circlebar2"
             app:layout_constraintEnd_toEndOf="@+id/cpb_detail_circlebar2"
@@ -76,7 +101,7 @@
             android:layout_marginBottom="8dp"
             android:text="학과 필수"
             android:textColor="#797979"
-            android:textSize="9dp"
+            android:textSize="10dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/cpb_detail_circlebar3"
             app:layout_constraintEnd_toEndOf="@+id/cpb_detail_circlebar3"
@@ -89,7 +114,7 @@
             android:layout_marginBottom="8dp"
             android:text="대학 필수"
             android:textColor="#797979"
-            android:textSize="9dp"
+            android:textSize="10dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/cpb_detail_circlebar4"
             app:layout_constraintEnd_toEndOf="@+id/cpb_detail_circlebar4"
@@ -158,6 +183,50 @@
             app:progress_stroke_cap="butt"
             app:progress_stroke_width="7dp"
             app:style="solid_line" />
+
+        <TextView
+            android:id="@+id/tv_major_R_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="*/*"
+            android:textSize="7dp"
+            app:layout_constraintEnd_toEndOf="@+id/cpb_detail_circlebar1"
+            app:layout_constraintStart_toStartOf="@+id/cpb_detail_circlebar1"
+            app:layout_constraintTop_toBottomOf="@+id/cpb_detail_circlebar1" />
+
+        <TextView
+            android:id="@+id/tv_major_S_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="*/*"
+            android:textSize="7dp"
+            app:layout_constraintEnd_toEndOf="@+id/cpb_detail_circlebar2"
+            app:layout_constraintStart_toStartOf="@+id/cpb_detail_circlebar2"
+            app:layout_constraintTop_toBottomOf="@+id/cpb_detail_circlebar2" />
+
+        <TextView
+            android:id="@+id/tv_basic_R_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="*/*"
+            android:textSize="7dp"
+            app:layout_constraintEnd_toEndOf="@+id/cpb_detail_circlebar3"
+            app:layout_constraintStart_toStartOf="@+id/cpb_detail_circlebar3"
+            app:layout_constraintTop_toBottomOf="@+id/cpb_detail_circlebar3" />
+
+        <TextView
+            android:id="@+id/tv_univ_R_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="*/*"
+            android:textSize="7dp"
+            app:layout_constraintEnd_toEndOf="@+id/cpb_detail_circlebar4"
+            app:layout_constraintStart_toStartOf="@+id/cpb_detail_circlebar4"
+            app:layout_constraintTop_toBottomOf="@+id/cpb_detail_circlebar4" />
 
 
         <LinearLayout

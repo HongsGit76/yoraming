@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private Fragment currentFragment = null;
     private FragmentTransaction transaction;
     TextView tv_suggestion;
+    LinearLayout L_problem;
     private ImageView tab_home, tab_detail, tab_mypage, tab_yoraming;
 
     @Override
@@ -56,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         tab_yoraming = (ImageView) findViewById(R.id.tab_yoraming);
         tab_mypage = (ImageView) findViewById(R.id.tab_mypage);
         tv_suggestion = (TextView)findViewById(R.id.tv_suggestion);
+        L_problem = (LinearLayout)findViewById(R.id.L_problem);
 
         SharedPreferences SP_user = getSharedPreferences("user", MODE_PRIVATE);
         String user = SP_user.getString("user_id","");
@@ -101,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                         tab_detail.setSelected(false);
                         tab_yoraming.setSelected(false);
                         tab_mypage.setSelected(false);
-                        tv_suggestion.setVisibility(View.INVISIBLE);
+                        L_problem.setVisibility(View.INVISIBLE);
                         currentFragment = new HomeFragment();
                         break;
                     case R.id.tab_detail:
@@ -109,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                         tab_detail.setSelected(true);
                         tab_yoraming.setSelected(false);
                         tab_mypage.setSelected(false);
-                        tv_suggestion.setVisibility(View.VISIBLE);
+                        L_problem.setVisibility(View.VISIBLE);
                         currentFragment = new DetailFragment();
                         break;
                     case R.id.tab_yoraming:
@@ -117,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                         tab_detail.setSelected(false);
                         tab_yoraming.setSelected(true);
                         tab_mypage.setSelected(false);
-                        tv_suggestion.setVisibility(View.INVISIBLE);
+                        L_problem.setVisibility(View.INVISIBLE);
                         currentFragment = new yoramingFragment();
                         break;
                     case R.id.tab_mypage:
@@ -125,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                         tab_detail.setSelected(false);
                         tab_yoraming.setSelected(false);
                         tab_mypage.setSelected(true);
-                        tv_suggestion.setVisibility(View.INVISIBLE);
+                        L_problem.setVisibility(View.INVISIBLE);
                         currentFragment = new myPageFragment();
                         break;
                     default:
