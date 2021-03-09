@@ -16,10 +16,15 @@ import androidx.fragment.app.Fragment;
 
 import com.example.yoraming.OnBackPressedListener;
 import com.example.yoraming.R;
+import com.example.yoraming.TempData;
 import com.example.yoraming.UI.activity.LoginActivity;
 import com.example.yoraming.UI.activity.MainActivity;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.TreeMap;
 
 public class yoramingFragment extends Fragment implements OnBackPressedListener {
 
@@ -27,6 +32,13 @@ public class yoramingFragment extends Fragment implements OnBackPressedListener 
     HorizontalScrollView scrollView;
     //final int rootID = 10000;
     //final int childID = 20000;
+    TreeMap<String, ArrayList<TempData>> ht = new TreeMap<String, ArrayList<TempData>>();
+    String[] semester = {"G11","G12","G21","G22"};
+    ArrayList<String> tagList = new ArrayList<String>();
+    ArrayList<TempData> one = new ArrayList<TempData>();
+    ArrayList<TempData> two = new ArrayList<TempData>();
+    ArrayList<TempData> three = new ArrayList<TempData>();
+    ArrayList<TempData> four = new ArrayList<TempData>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,31 +52,23 @@ public class yoramingFragment extends Fragment implements OnBackPressedListener 
         scrollView = (HorizontalScrollView) rootView.findViewById(R.id.scrollView);
         scrollView.setHorizontalScrollBarEnabled(false);
 
-        onCreateRootLayout(rootView,"G11",1);
-        onCreateRootLayout(rootView, "G12",2);
-        onCreateRootLayout(rootView, "G13",3);
-        onCreateRootLayout(rootView, "G14",4);
-        onCreateRootLayout(rootView, "G21",5);
+        addOneList(one);
+        addtwoList(two);
+        addthreeList(three);
+        addfourList(four);
+        CreateSemester(rootView,semester);
+        addHashTable();
+        for(int i = 0; i < semester.length; i++) {
+            CreateCategory(rootView,semester[i]);
+        }
+        CreateSubject(rootView,semester);
 
-        onCreateChildLayout(rootView,"G11","Major",R.drawable.blue_rounded);
-        onCreateChildLayout(rootView,"G11","yellow",R.drawable.yellow_rounded);
-        onCreateChildLayout(rootView,"G11","orange",R.drawable.orange_rounded);
-        onCreateChildLayout(rootView,"G11","green",R.drawable.green_rounded);
-
-        onCreateMajorText(rootView,"Major","전공");
-        onCreateMajorText(rootView,"Major","전공");
-        onCreateMajorText(rootView,"yellow","전공");
-        onCreateMajorText(rootView,"yellow","전공");
-        onCreateMajorText(rootView,"yellow","전공");
-        onCreateMajorText(rootView,"orange","전공");
-        onCreateMajorText(rootView,"orange","전공");
-        onCreateMajorText(rootView,"orange","전공");
-
-        setRootLayoutSize(rootView, "G11");
-        setChildLayoutSize(rootView,"Major");
-        setChildLayoutSize(rootView,"yellow");
-        setChildLayoutSize(rootView,"orange");
-        setChildLayoutSize(rootView,"green");
+        for(int i = 0; i < semester.length; i++) {
+            setRootLayoutSize(rootView, semester[0]);
+        }
+        for(int i =0; i < tagList.size(); i++ ) {
+            setChildLayoutSize(rootView,tagList.get(i));
+        }
         return rootView;
     }
     @Override
@@ -101,6 +105,8 @@ public class yoramingFragment extends Fragment implements OnBackPressedListener 
         ll.setOrientation(LinearLayout.VERTICAL);
         ll.setTag(tag);
         root_View.addView(ll);
+
+        tagList.add(ll.getTag().toString());
     }
 
     // 동적으로 전공 별 과목을 추가해주는 함수
@@ -129,4 +135,242 @@ public class yoramingFragment extends Fragment implements OnBackPressedListener 
         pm.weight = parent_View.getChildCount() * 1;
         parent_View.setLayoutParams(pm);
     }
+
+    public void addOneList(ArrayList<TempData> temp) {
+        TempData one = new TempData();
+        one.setCategory("majorR");
+        one.setName("디지털미디어");
+        temp.add(one);
+        TempData two = new TempData();
+        two.setName("디자인기초");
+        two.setCategory("majorR");
+        temp.add(two);
+        TempData three = new TempData();
+        three.setName("아주희망");
+        three.setCategory("univR");
+        temp.add(three);
+        TempData four = new TempData();
+        four.setName("수학1");
+        four.setCategory("univR");
+        temp.add(four);
+        TempData five = new TempData();
+        five.setName("영어2");
+        five.setCategory("univR");
+        temp.add(five);
+        TempData Six = new TempData();
+        Six.setName("영상문학기행");
+        Six.setCategory("univS");
+        temp.add(Six);
+        TempData seven = new TempData();
+        seven.setName("소셜미디어");
+        seven.setCategory("majorS");
+        temp.add(seven);
+    }
+
+    public void addtwoList(ArrayList<TempData> temp) {
+        TempData one = new TempData();
+        one.setCategory("majorR");
+        one.setName("컴퓨터프로그래밍");
+        temp.add(one);
+        TempData two = new TempData();
+        two.setName("컴퓨터프로그래밍설계");
+        two.setCategory("majorS");
+        temp.add(two);
+        TempData three = new TempData();
+        three.setName("글쓰기");
+        three.setCategory("univR");
+        temp.add(three);
+        TempData four = new TempData();
+        four.setName("확률과통계");
+        four.setCategory("univR");
+        temp.add(four);
+        TempData five = new TempData();
+        five.setName("영어1");
+        five.setCategory("univR");
+        temp.add(five);
+        TempData Six = new TempData();
+        Six.setName("아주인성");
+        Six.setCategory("univR");
+        temp.add(Six);
+    }
+
+    public void addthreeList(ArrayList<TempData> temp) {
+        TempData one = new TempData();
+        one.setCategory("majorR");
+        one.setName("객체지향프로그래밍");
+        temp.add(one);
+        TempData two = new TempData();
+        two.setName("자료구조");
+        two.setCategory("majorS");
+        temp.add(two);
+        TempData three = new TempData();
+        three.setName("이산수학");
+        three.setCategory("majorR");
+        temp.add(three);
+        TempData four = new TempData();
+        four.setName("그래픽디자인");
+        four.setCategory("majorS");
+        temp.add(four);
+        TempData five = new TempData();
+        five.setName("생명과학");
+        five.setCategory("univR");
+        temp.add(five);
+        TempData Six = new TempData();
+        Six.setName("물리학");
+        Six.setCategory("univR");
+        temp.add(Six);
+    }
+
+    public void addfourList(ArrayList<TempData> temp) {
+        TempData one = new TempData();
+        one.setCategory("majorR");
+        one.setName("컴퓨터구조");
+        temp.add(one);
+        TempData two = new TempData();
+        two.setName("도메인분석및SW설계");
+        two.setCategory("majorS");
+        temp.add(two);
+        TempData three = new TempData();
+        three.setName("선형대수");
+        three.setCategory("univR");
+        temp.add(three);
+        TempData four = new TempData();
+        four.setName("수학2");
+        four.setCategory("univR");
+        temp.add(four);
+        TempData five = new TempData();
+        five.setName("알고리즘");
+        five.setCategory("majorS");
+        temp.add(five);
+        TempData Six = new TempData();
+        Six.setName("창의소프트웨어입문");
+        Six.setCategory("majorR");
+        temp.add(Six);
+    }
+
+    public void addHashTable() {
+        ht.put(semester[0],one);
+        ht.put(semester[1],two);
+        ht.put(semester[2],three);
+        ht.put(semester[3],four);
+    }
+    // 학기
+    public void CreateSemester(View rootView,String[] semester) {
+        for (int i = 0; i < semester.length; i++) {
+            onCreateRootLayout(rootView,semester[i],i+1);
+        }
+    }
+
+    public void CreateCategory(View rootView,String semester) {
+        ArrayList<TempData> info = ht.get(semester);
+        ArrayList<String> temp = new ArrayList<String>();
+        for(int i = 0; i < info.size(); i++) {
+            temp.add(info.get(i).getCategory());
+        }
+
+        HashSet<String> hs = new HashSet<String>(temp);
+        ArrayList<String> category = new ArrayList<String>(hs);
+
+        for(int i = 0; i < category.size(); i++) {
+            switch (category.get(i)) {
+                case "majorR":
+                    onCreateChildLayout(rootView,semester,semester+category.get(i),R.drawable.blue_rounded);
+                    break;
+                case "majorS":
+                    onCreateChildLayout(rootView,semester,semester+category.get(i),R.drawable.yellow_rounded);
+                    break;
+                case "univR":
+                    onCreateChildLayout(rootView,semester,semester+category.get(i),R.drawable.orange_rounded);
+                    break;
+                case "univS":
+                    onCreateChildLayout(rootView,semester,semester+category.get(i),R.drawable.green_rounded);
+                    break;
+                default:
+                    return;
+            }
+        }
+    }
+
+    public void CreateSubject(View rootView,String[] semester) {
+        ArrayList<TempData> temp;
+        for(int i = 0; i < ht.size(); i++){
+            temp = ht.get(semester[i]);
+            for(int j = 0; j < temp.size(); j ++) {
+                onCreateMajorText(rootView,semester[i]+temp.get(j).getCategory(),temp.get(j).getName());
+            }
+        }
+    }
+
+
+
+    // json파일을 String으로 반환해주는 함수
+//    private String getJsonString() {
+//        String json = "";
+//
+//        try {
+//            InputStream is = getActivity().getAssets().open("test.json");
+//            int fileSize = is.available();
+//
+//            byte[] buffer = new byte[fileSize];
+//            is.read(buffer);
+//            is.close();
+//
+//            json = new String(buffer,"UTF-8");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return json;
+//    }
+
+    // String 형식의 json데이터를 ArrayList에 넣어주는 함수
+//    private void jsonParsing(String json,String semester) {
+//        try {
+//            JSONObject jsonObject = new JSONObject(json);
+//
+//            JSONArray jsonArray = jsonObject.getJSONArray(semester);
+//
+//            ArrayList<UserYoramingParsing> yoramingList = new ArrayList<UserYoramingParsing>();
+//
+//            for (int i = 0; i < jsonArray.length(); i++) {
+//                JSONObject testObj = jsonArray.getJSONObject(i);
+//                UserYoramingParsing yoraming = new UserYoramingParsing();
+//                yoraming.setName(testObj.getString("comSbjt_name"));
+//                JSONObject tempObj = testObj.getJSONArray("recognitionSbjt").getJSONObject(0);
+//                yoraming.setCategory(tempObj.getString("recSbjt_recCategory"));
+//                yoramingList.add(yoraming);
+//            }
+//
+//            ht.put(semester,yoramingList);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+    // json에서 받은 데이터로 학기와 전공 종류 틀을 만들어주는 함수
+//    public void onCreateTemplate(View rootView, ArrayList<UserYoramingParsing> list) {
+//        ArrayList<String> temp = new ArrayList<String>();
+//        Map<String,HashSet<String>> ht = new HashMap<String, HashSet<String>>();
+//
+//        for(int i = 0; i < list.size(); i++) {
+//            temp.add(list.get(i).getDate());
+//        }
+//        HashSet<String> hs = new HashSet<String>(temp);
+//        ArrayList<String> dateList = new ArrayList<String>(hs);
+//        Collections.sort(dateList);
+//
+//        HashSet<String> tempSet = new HashSet<String>();
+//
+//        for(int i = 0; i < dateList.size(); i++) {
+//            onCreateRootLayout(rootView, dateList.get(i),i+1);
+//            tempSet = new HashSet<String>();
+//            for(int j = 0; j < list.size(); j++) {
+//                if(list.get(j).getDate() == dateList.get(i)) {
+//                    System.out.println(list.get(j).getCategory());
+//                    tempSet.add(list.get(j).getCategory());
+//                }
+//            }
+//            ht.put(dateList.get(i),tempSet);
+//        }
+//        System.out.println(ht);
+//    }
 }
