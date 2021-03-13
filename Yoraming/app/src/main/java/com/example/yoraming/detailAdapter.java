@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -19,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.yoraming.UI.fragment.DetailFragment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class detailAdapter extends RecyclerView.Adapter<detailAdapter.ViewHolder> {
     private ArrayList<DetailFragment.item> mDataset; //MainActivity에 item class를 정의해 놓았음
@@ -53,20 +53,30 @@ public class detailAdapter extends RecyclerView.Adapter<detailAdapter.ViewHolder
 
     //뷰홀더
     // Create new views (invoked by the layout manager)
+    //루트뷰 = 0 자격증 = 1 경력사항 = 2 외국어 = 3 기타 = 4
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v;
-        Log.d("view", viewType+"");
+
 
         // 뷰타입 별로 나눠주는 부분
-        if (viewType == 1) {
-            Log.d("view", "23 ");
+        if (viewType == 0) {
+            Log.d("create_view_type", "root ");
              v = LayoutInflater.from(parent.getContext()).inflate(R.layout.spec_root_card_view, parent, false);
-        }else {
-            Log.d("view", "22 ");
-            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.spec_card_view, parent, false);
+        }else if (viewType == 1) {
+            Log.d("create_view_type", "자격증 ");
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.certificate_spec_card_view, parent, false);
+        }else if (viewType == 2) {
+            Log.d("create_view_type", "경력사항 ");
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.career_spec_card_view, parent, false);
+        }else if (viewType == 3) {
+            Log.d("create_view_type", "외국어 ");
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.language_spec_card_view, parent, false);
+        }else{
+            Log.d("create_view_type", "기타 ");
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.etc_spec_card_view, parent, false);
         }
         // set the view's size, margins, paddings and layout parameters
 
@@ -76,10 +86,16 @@ public class detailAdapter extends RecyclerView.Adapter<detailAdapter.ViewHolder
     //뷰 타입 나눠주는 부분
     @Override
     public int getItemViewType(int position) {
-        if (mDataset.get(position).getItemViewType() == 1) {
+        if (mDataset.get(position).getItemViewType() == 0) {
+            return 0;
+        } else if(mDataset.get(position).getItemViewType() == 1){
             return 1;
-        } else {
+        }else if(mDataset.get(position).getItemViewType() == 2){
             return 2;
+        }else if(mDataset.get(position).getItemViewType() == 3){
+            return 3;
+        }else {
+            return 4;
         }
     }
 
@@ -89,24 +105,95 @@ public class detailAdapter extends RecyclerView.Adapter<detailAdapter.ViewHolder
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
 //        holder.mName.setText(mDataset.get(position).getName());
-        String[] items = {"자격증","인턴","경력사항","외국어 공인 성적"};
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(mcontext,android.R.layout.simple_spinner_dropdown_item,items);
+        String[] items = {"자격증","경력사항","외국어 공인 성적","기타"," "};
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(mcontext,android.R.layout.simple_spinner_dropdown_item,items)
+        {            //스피너 디폴트값 빈값 설정을 위한 부분*리얼 중요*
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+
+                View v = super.getView(position, convertView, parent);
+                if (position == getCount()) {
+                    ((TextView)v.findViewById(android.R.id.text1)).setText("");
+                    ((TextView)v.findViewById(android.R.id.text1)).setHint(getItem(getCount())); //"Hint to be displayed"
+                }
+
+                return v;
+            }
+
+            @Override
+            public int getCount() {
+                return super.getCount()-1;            // you don't display last item. It is used as hint.
+            }
+
+        };
 
 
         //뷰별로 나눠주기
-        if(mDataset.get(position).getItemViewType() == 1){
+        if(mDataset.get(position).getItemViewType() == 0){
+            //스피너 디폴트값으로 빈값설정 *중요* 복잡했음 죽을뻔
             holder.spinner.setAdapter(spinnerAdapter);
             spinnerAdapter.setDropDownViewResource(R.layout.spec_spin_dropdown);
+            System.out.println(spinnerAdapter.getCount());
+            holder.spinner.setSelection(spinnerAdapter.getCount(),false);        //set the hint the default selection so it appears on launch.
             holder.plus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     holder.spinner.performClick();
                 }
             });
+            //메뉴선택에서 각각의 스펙 항목 선택시
             holder.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    mDataset.add(mDataset.size()-1,new DetailFragment.item(30,2));
+                    Log.d("click_spec", position+"");
+                    Log.d("selected", "onItemSelected: "+holder.spinner.getSelectedItem());
+                    List<Integer> nowRecyclerList = new ArrayList<>();
+                    for(int i = 0; i < mDataset.size();i++){
+                        nowRecyclerList.add(mDataset.get(i).getItemViewType());
+                    }
+                    System.out.println(nowRecyclerList);
+                    if (position == 0) {
+                        if(!nowRecyclerList.contains(position + 1)) {
+                            mDataset.add(mDataset.size() - 1, new DetailFragment.item(30, position + 1));
+                            if (mDataset.size() == 5){
+                                Log.d("selected", "gguakcarm");
+                                mDataset.remove(mDataset.size() - 1);
+                            }
+                             detailAdapter.this.notifyDataSetChanged();
+                        }else{
+                            Toast.makeText(view.getContext(),"이미 추가된 항목입니다.",Toast.LENGTH_LONG).show();
+                        }
+                    }else if (position == 1) {
+                        if(!nowRecyclerList.contains(position + 1)) {
+                            mDataset.add(mDataset.size() - 1, new DetailFragment.item(30, position + 1));
+                            if (mDataset.size() == 5){
+                                mDataset.remove(mDataset.size() - 1);
+                            }
+                            detailAdapter.this.notifyDataSetChanged();
+                        }else{
+                            Toast.makeText(view.getContext(),"이미 추가된 항목입니다.",Toast.LENGTH_LONG).show();
+                        }
+                    }else if (position == 2) {
+                        if(!nowRecyclerList.contains(position + 1)) {
+                            mDataset.add(mDataset.size() - 1, new DetailFragment.item(30, position + 1));
+                            if (mDataset.size() == 5){
+                                mDataset.remove(mDataset.size() - 1);
+                            }
+                            detailAdapter.this.notifyDataSetChanged();
+                        }else{
+                            Toast.makeText(view.getContext(),"이미 추가된 항목입니다.",Toast.LENGTH_LONG);
+                        }
+                    }else if (position == 3) {
+                        if(!nowRecyclerList.contains(position + 1)) {
+                            mDataset.add(mDataset.size() - 1, new DetailFragment.item(30, position + 1));
+                            if (mDataset.size() == 5){
+                                mDataset.remove(mDataset.size() - 1);
+                            }
+                            detailAdapter.this.notifyDataSetChanged();
+                        }else{
+                            Toast.makeText(view.getContext(),"이미 추가된 항목입니다.",Toast.LENGTH_LONG);
+                        }
+                    }
                 }
 
                 @Override

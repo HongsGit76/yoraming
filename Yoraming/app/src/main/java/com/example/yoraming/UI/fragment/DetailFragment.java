@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -53,12 +54,12 @@ public class DetailFragment extends Fragment implements CircleProgressBar.Progre
 
         //리사이클러뷰에 넣어줄 데이터
         itemArrayList = new ArrayList<>();
-        itemArrayList.add(new item( 10,  1));
+        itemArrayList.add(new item( 10,  0));
 //        itemArrayList.add(new item(20,2));
 //        itemArrayList.add(new item( 10,  1));
 //        itemArrayList.add(new item(20,2));
 
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycle_view);
+        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.spec_recycle_view);
         mRecyclerView.setHasFixedSize(true);//옵션
         //Linear layout manager 사용
         mLayoutManager = new LinearLayoutManager(rootView.getContext());
