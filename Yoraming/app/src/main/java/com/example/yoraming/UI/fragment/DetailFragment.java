@@ -1,12 +1,16 @@
 package com.example.yoraming.UI.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +42,7 @@ public class DetailFragment extends Fragment implements CircleProgressBar.Progre
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private TextView tv_suggestion;
 
     @Override
     public void onStop(){
@@ -49,15 +54,53 @@ public class DetailFragment extends Fragment implements CircleProgressBar.Progre
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
         activity = (MainActivity) getActivity();
+        TextView tv_suggestion;
+
 
         CreatePieGraph(rootView,50,40,30,20);
 
         //리사이클러뷰에 넣어줄 데이터
         itemArrayList = new ArrayList<>();
         itemArrayList.add(new item( 10,  0));
-//        itemArrayList.add(new item(20,2));
-//        itemArrayList.add(new item( 10,  1));
-//        itemArrayList.add(new item(20,2));
+
+
+        tv_suggestion = (TextView)activity.findViewById(R.id.tv_suggestion);
+
+        tv_suggestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder suggestion = new AlertDialog.Builder(activity);
+                suggestion.setIcon(R.drawable.problem);
+                suggestion.setTitle("문의사항");
+                suggestion.setMessage("오류사항이나 고쳐야 할 부분 있으면 자유롭게 말해주세요!");
+
+                final EditText et = new EditText(activity);
+                suggestion.setView(et);
+                suggestion.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(activity,"확인",Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                });
+
+                suggestion.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(activity,"취소",Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                });
+                suggestion.show();
+
+
+//                TextView textView = (TextView) suggestion.
+//                Typeface face = Typeface.createFromAsset(getAssets(),"font/폰트파일명.확장자"); // 예시> "font/nanum.ttf"
+//                textView.setTypeface(face);
+
+            }
+        });
+
 
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.spec_recycle_view);
         mRecyclerView.setHasFixedSize(true);//옵션
