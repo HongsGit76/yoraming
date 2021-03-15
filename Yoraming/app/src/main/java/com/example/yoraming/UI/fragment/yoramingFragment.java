@@ -7,31 +7,35 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.yoraming.OnBackPressedListener;
 import com.example.yoraming.R;
+import com.example.yoraming.RecyclerViewAdapter;
 import com.example.yoraming.TempData;
 import com.example.yoraming.UI.activity.LoginActivity;
 import com.example.yoraming.UI.activity.MainActivity;
-
-import org.jetbrains.annotations.NotNull;
+import com.example.yoraming.items.Yoramingitem;
+import com.google.firebase.database.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.TreeMap;
 
 public class yoramingFragment extends Fragment implements OnBackPressedListener {
 
     View rootView;
-    HorizontalScrollView scrollView;
-    //final int rootID = 10000;
-    //final int childID = 20000;
+    RecyclerView recyclerView;
+    LinearLayoutManager linearLayoutManager;
+    RecyclerViewAdapter recyclerViewAdapter;
+
     TreeMap<String, ArrayList<TempData>> ht = new TreeMap<String, ArrayList<TempData>>();
     String[] semester = {"G11","G12","G21","G22"};
     ArrayList<String> tagList = new ArrayList<String>();
@@ -49,26 +53,36 @@ public class yoramingFragment extends Fragment implements OnBackPressedListener 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_yoraming, container, false);
-        scrollView = (HorizontalScrollView) rootView.findViewById(R.id.scrollView);
-        scrollView.setHorizontalScrollBarEnabled(false);
 
-        addOneList(one);
-        addtwoList(two);
-        addthreeList(three);
-        addfourList(four);
-        CreateSemester(rootView,semester);
-        addHashTable();
-        for(int i = 0; i < semester.length; i++) {
-            CreateCategory(rootView,semester[i]);
-        }
-        CreateSubject(rootView,semester);
+        recyclerView = rootView.findViewById(R.id.recyleView);
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
 
-        for(int i = 0; i < semester.length; i++) {
-            setRootLayoutSize(rootView, semester[0]);
-        }
-        for(int i =0; i < tagList.size(); i++ ) {
-            setChildLayoutSize(rootView,tagList.get(i));
-        }
+        recyclerView.addItemDecoration(
+                new DividerItemDecoration(getActivity(),linearLayoutManager.getOrientation()));
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        recyclerViewAdapter = new RecyclerViewAdapter(getActivity(),getItem());
+        recyclerView.setAdapter(recyclerViewAdapter);
+
+//        addOneList(one);
+//        addtwoList(two);
+//        addthreeList(three);
+//        addfourList(four);
+//
+//        addHashTable();
+//        for(int i = 0; i < semester.length; i++) {
+//            CreateCategory(recyclerView,semester[i]);
+//        }
+//        CreateSubject(recyclerView,semester);
+//
+//        for(int i = 0; i < semester.length; i++) {
+//            setRootLayoutSize(recyclerView, semester[0]);
+//        }
+//        for(int i =0; i < tagList.size(); i++ ) {
+//            setChildLayoutSize(recyclerView,tagList.get(i));
+//        }
+
         return rootView;
     }
     @Override
@@ -78,17 +92,13 @@ public class yoramingFragment extends Fragment implements OnBackPressedListener 
         ((MainActivity)getActivity()).replaceFragment(new HomeFragment());
     }
 
-    // 동적으로 학기 별 LinearLayout을 생성해주는 함수
-    public void onCreateRootLayout(View rootView, String tag, int i) {
-        FrameLayout frame_View = (FrameLayout)rootView.findViewById(R.id.frame_yoraming);
-        LinearLayout ll = new LinearLayout(getActivity());
-        LinearLayout.LayoutParams lpm = new LinearLayout.LayoutParams((int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 95, getResources().getDisplayMetrics()),
-                ViewGroup.LayoutParams.MATCH_PARENT);
-        lpm.setMarginStart((int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15 + ((i-1) * 110), getResources().getDisplayMetrics()));
-        ll.setLayoutParams(lpm);
-        ll.setOrientation(LinearLayout.VERTICAL);
-        ll.setTag(tag);
-        frame_View.addView(ll);
+    public List<Yoramingitem> getItem() {
+        List<Yoramingitem> item = new ArrayList<>();
+        item.add(new Yoramingitem("G11"));
+        item.add(new Yoramingitem("G12"));
+        item.add(new Yoramingitem("G21"));
+        item.add(new Yoramingitem("G22"));
+        return item;
     }
 
     // 동적으로 학기 별 과목 구분 LinearLayout을 생성해주는 함수
@@ -96,7 +106,7 @@ public class yoramingFragment extends Fragment implements OnBackPressedListener 
         LinearLayout root_View = (LinearLayout)rootView.findViewWithTag(root_tag);
         LinearLayout ll = new LinearLayout((getActivity()));
         LinearLayout.LayoutParams lpm = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, getResources().getDisplayMetrics()));
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, getResources().getDisplayMetrics()));
         lpm.topMargin = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics());
         lpm.bottomMargin = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics());
         lpm.weight = 1;
@@ -253,12 +263,6 @@ public class yoramingFragment extends Fragment implements OnBackPressedListener 
         ht.put(semester[1],two);
         ht.put(semester[2],three);
         ht.put(semester[3],four);
-    }
-    // 학기
-    public void CreateSemester(View rootView,String[] semester) {
-        for (int i = 0; i < semester.length; i++) {
-            onCreateRootLayout(rootView,semester[i],i+1);
-        }
     }
 
     public void CreateCategory(View rootView,String semester) {

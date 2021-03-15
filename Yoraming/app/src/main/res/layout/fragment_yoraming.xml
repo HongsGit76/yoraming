@@ -6,17 +6,11 @@
     android:layout_gravity="bottom"
     tools:context=".UI.fragment.yoramingFragment">
 
-    <HorizontalScrollView
-        android:id="@+id/scrollView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyleView"
         android:layout_width="match_parent"
         android:layout_height="500dp"
         android:layout_gravity="bottom"
-        android:fillViewport="true">
-        <FrameLayout
-            android:id="@+id/frame_yoraming"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </FrameLayout>
-
-    </HorizontalScrollView>
+        android:orientation="horizontal">
+    </androidx.recyclerview.widget.RecyclerView>
 </FrameLayout>
