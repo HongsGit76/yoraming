@@ -8,14 +8,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.dinuscxj.progressbar.CircleProgressBar;
 import com.example.yoraming.UI.activity.LoginActivity;
 import com.example.yoraming.UI.activity.MainActivity;
 import com.example.yoraming.OnBackPressedListener;
 import com.example.yoraming.R;
+import com.example.yoraming.detailAdapter;
+import com.firebase.ui.auth.ErrorCodes;
+
+import java.util.ArrayList;
 
 
 public class DetailFragment extends Fragment implements CircleProgressBar.ProgressFormatter, OnBackPressedListener {
@@ -26,6 +33,11 @@ public class DetailFragment extends Fragment implements CircleProgressBar.Progre
     MainActivity activity;
     CircleProgressBar circleProgressBar1, circleProgressBar2, circleProgressBar3, circleProgressBar4;
     int i, j, k ,l= 0;
+    private static ArrayList<item> itemArrayList;
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     public void onStop(){
@@ -40,6 +52,22 @@ public class DetailFragment extends Fragment implements CircleProgressBar.Progre
 
         CreatePieGraph(rootView,50,40,30,20);
 
+        //리사이클러뷰에 넣어줄 데이터
+        itemArrayList = new ArrayList<>();
+        itemArrayList.add(new item( 10,  0));
+//        itemArrayList.add(new item(20,2));
+//        itemArrayList.add(new item( 10,  1));
+//        itemArrayList.add(new item(20,2));
+
+        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.spec_recycle_view);
+        mRecyclerView.setHasFixedSize(true);//옵션
+        //Linear layout manager 사용
+        mLayoutManager = new LinearLayoutManager(rootView.getContext());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        //어답터 세팅
+        mAdapter = new detailAdapter(this.activity,itemArrayList); //스트링 배열 데이터 인자로
+        mRecyclerView.setAdapter(mAdapter);
 
         // Inflate the layout for this fragment
 //        return inflater.inflate(R.layout.fragment_detail, container, false);
@@ -124,5 +152,22 @@ public class DetailFragment extends Fragment implements CircleProgressBar.Progre
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         intent.putExtra("key", 0);
         ((MainActivity)getActivity()).replaceFragment(new HomeFragment());
+    }
+    public static class item {
+        int age;
+        int itemViewType;
+
+        public item( int age,int itemViewType) {
+            this.age = age;
+            this.itemViewType = itemViewType;
+        }
+
+
+        public int getAge() {
+            return age;
+        }
+        public int getItemViewType() {
+            return itemViewType;
+        }
     }
 }

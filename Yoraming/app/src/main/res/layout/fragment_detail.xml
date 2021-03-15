@@ -5,6 +5,7 @@
     android:id="@+id/view_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".UI.fragment.DetailFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -12,23 +13,29 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/major_layout"
         android:layout_width="0dp"
-        android:layout_height="250dp"
+        android:layout_height="0dp"
         android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintDimensionRatio="H,7.5:5">
 
         <ImageView
             android:id="@+id/selected_major_1"
-            android:layout_width="350dp"
-            android:layout_height="190dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
             android:src="@drawable/announcement_box"
             app:layout_constraintBottom_toBottomOf="@+id/major_button_group"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintDimensionRatio="H,6.7:4" />
 
         <TextView
             android:id="@+id/textView3"
@@ -249,6 +256,16 @@
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/spec_recycle_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/major_layout" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
