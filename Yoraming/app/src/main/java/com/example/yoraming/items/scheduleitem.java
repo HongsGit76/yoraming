@@ -1,9 +1,9 @@
 package com.example.yoraming.items;
 
-public class Yoramingitem {
+public class scheduleitem {
     String semester;
 
-    public Yoramingitem(String semester) {
+    public scheduleitem(String semester) {
         this.semester = semester;
     }
 
