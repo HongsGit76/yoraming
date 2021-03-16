@@ -3,10 +3,12 @@ package com.example.yoraming.UI.fragment;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +26,8 @@ import com.example.yoraming.UI.activity.MainActivity;
 import com.example.yoraming.OnBackPressedListener;
 import com.example.yoraming.R;
 import com.example.yoraming.detailAdapter;
-import com.firebase.ui.auth.ErrorCodes;
+import com.example.yoraming.problem_popup_activity;
+
 
 import java.util.ArrayList;
 
@@ -69,34 +72,11 @@ public class DetailFragment extends Fragment implements CircleProgressBar.Progre
         tv_suggestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder suggestion = new AlertDialog.Builder(activity);
-                suggestion.setIcon(R.drawable.problem);
-                suggestion.setTitle("문의사항");
-                suggestion.setMessage("오류사항이나 고쳐야 할 부분 있으면 자유롭게 말해주세요!");
-
-                final EditText et = new EditText(activity);
-                suggestion.setView(et);
-                suggestion.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(activity,"확인",Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
-                    }
-                });
-
-                suggestion.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(activity,"취소",Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
-                    }
-                });
-                suggestion.show();
+                Intent intent = new Intent(activity, problem_popup_activity.class);
+                intent.putExtra("data", "Test Popup");
+                startActivityForResult(intent, 1);
 
 
-//                TextView textView = (TextView) suggestion.
-//                Typeface face = Typeface.createFromAsset(getAssets(),"font/폰트파일명.확장자"); // 예시> "font/nanum.ttf"
-//                textView.setTypeface(face);
 
             }
         });

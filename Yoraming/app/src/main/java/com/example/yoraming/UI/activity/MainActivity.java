@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         tv_suggestion = (TextView)findViewById(R.id.tv_suggestion);
         L_problem = (LinearLayout)findViewById(R.id.L_problem);
 
+
         SharedPreferences SP_user = getSharedPreferences("user", MODE_PRIVATE);
         String user = SP_user.getString("user_id","");
         SharedPreferences SP_yoram = getSharedPreferences("yoram", MODE_PRIVATE);

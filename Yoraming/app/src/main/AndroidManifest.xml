@@ -16,12 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".addDialog"></activity>
+        <activity android:name=".problem_popup_activity" android:theme="@android:style/Theme.Dialog"></activity>
         <activity android:name=".UI.activity.MainMajorActivity" />
         <activity android:name=".UI.activity.SignUpActivity" />
         <activity android:name=".UI.activity.MainActivity" />
         <activity android:name=".UI.activity.LoginActivity" />
         <activity android:name=".UI.activity.IntroActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
