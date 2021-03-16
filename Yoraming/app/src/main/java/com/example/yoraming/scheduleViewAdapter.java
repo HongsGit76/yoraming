@@ -70,10 +70,9 @@ public class scheduleViewAdapter extends RecyclerView.Adapter<scheduleViewAdapte
     public void onBindViewHolder(final ViewHolder holder, int position) {
         scheduleitem data = item.get(position);
         holder.ll.setTag(data.getSemester());
-
         CreateCategory(holder.ll.getRootView(),data.getSemester());
         CreateSubject(holder.ll.getRootView(), data);
-        setRootLayoutSize(holder.ll.getRootView(), data.getSemester());
+        setRootLayoutSize(holder.ll.getRootView(), position);
         setChildLayoutSize(holder.ll.getRootView(), data.getSemester());
     }
 
@@ -111,13 +110,19 @@ public class scheduleViewAdapter extends RecyclerView.Adapter<scheduleViewAdapte
     }
 
     // 학기 별 LinearLayout에 height를 설정해주는 함수
-    public void setRootLayoutSize(View rootView, String tag) {
-        for(int i = 0; i < item.indexOf(tag); i++) {
-            LinearLayout root_View = (LinearLayout) rootView.findViewWithTag(item.get(i).getSemester());
-            ViewGroup.LayoutParams pm = (ViewGroup.LayoutParams)root_View.getLayoutParams();
-            pm.height = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 125 * root_View.getChildCount(), activity.getResources().getDisplayMetrics());
-            root_View.setLayoutParams(pm);
+    public void setRootLayoutSize(View rootView, int position) {
+        int childSum = 0;
+        LinearLayout root_View = (LinearLayout) rootView.findViewWithTag(item.get(position).getSemester());
+        ViewGroup.LayoutParams pm = (ViewGroup.LayoutParams)root_View.getLayoutParams();
+        for(int i = 0; i < root_View.getChildCount(); i++) {
+            LinearLayout leaf_View = (LinearLayout)root_View.getChildAt(i);
+            childSum = childSum + leaf_View.getChildCount();
         }
+        pm.height = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100 * childSum, activity.getResources().getDisplayMetrics());
+        if(pm.height >= (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 500, activity.getResources().getDisplayMetrics())) {
+            pm.height = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 500, activity.getResources().getDisplayMetrics());
+        }
+        root_View.setLayoutParams(pm);
     }
 
     // 전공 별 LinearLayout에 가중치를 변경해 height 비율을 맞춰주는 함수
@@ -127,7 +132,7 @@ public class scheduleViewAdapter extends RecyclerView.Adapter<scheduleViewAdapte
         for(int i = 0; i < parent_View.getChildCount(); i++) {
             LinearLayout child_View = (LinearLayout)parent_View.getChildAt(i);
             LinearLayout.LayoutParams pm = (LinearLayout.LayoutParams)child_View.getLayoutParams();
-            pm.weight = child_View.getChildCount() * 1;
+            pm.weight = child_View.getChildCount() * 1f;
             child_View.setLayoutParams(pm);
         }
     }
