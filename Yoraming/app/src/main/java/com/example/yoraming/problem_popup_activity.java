@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 public class problem_popup_activity extends Activity {
 
-    EditText tv_problem;
+    EditText et_problem;
 
 
     @Override
@@ -24,12 +24,12 @@ public class problem_popup_activity extends Activity {
         setContentView(R.layout.activity_problem_popup_activity);
 
         //UI 객체생성
-        tv_problem = (EditText)findViewById(R.id.tv_problem);
+        et_problem = (EditText)findViewById(R.id.et_problem);
 
         //데이터 가져오기
-        Intent intent = getIntent();
-        String data = intent.getStringExtra("data");
-        tv_problem.setHint("문의사항이나 건의사항 자유롭게 적어주세요!");
+//        Intent intent = getIntent();
+//        String data = intent.getStringExtra("data");
+        et_problem.setHint("문의사항이나 건의사항 자유롭게 적어주세요!");
     }
 
     //확인 버튼 클릭

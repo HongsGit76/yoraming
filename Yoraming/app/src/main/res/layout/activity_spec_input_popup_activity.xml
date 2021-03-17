@@ -7,17 +7,26 @@
 
     <!-- 타이틀바 -->
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:text="문의사항"
+            android:id="@+id/tv_add_spec_title"
+            android:text="스펙 추가"
             android:textSize="20sp"
             android:textColor="#fff"
             android:gravity="center"
             android:background="#386cb9"
             android:layout_width="match_parent"
-            android:layout_height="53dp" />
+            android:layout_height="40dp" />
+        <TextView
+            android:text="스펙 정보들을 입력해 주세요!"
+            android:textSize="10sp"
+            android:textColor="#fff"
+            android:gravity="top|center"
+            android:background="#386cb9"
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
     </LinearLayout>
     <!-- //end 타이틀바 -->
 
@@ -27,8 +36,54 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_spec_content_1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="1번"
+            android:textColor="#386cb9"
+            android:padding="3dp"/>
+
         <EditText
-            android:id="@+id/et_problem"
+            android:id="@+id/et_spec_content_1"
+            android:padding="7dp"
+            android:background="@drawable/problem_et_box"
+            android:textSize="13sp"
+            android:textColor="#000"
+            android:alpha="0.87"
+            android:gravity="center"
+            android:layout_marginBottom="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_spec_content_2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="2번"
+            android:textColor="#386cb9"
+            android:padding="3dp"/>
+
+        <EditText
+            android:id="@+id/et_spec_content_2"
+            android:padding="7dp"
+            android:background="@drawable/problem_et_box"
+            android:textSize="13sp"
+            android:textColor="#000"
+            android:alpha="0.87"
+            android:gravity="center"
+            android:layout_marginBottom="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_spec_content_3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="3번"
+            android:textColor="#386cb9"
+            android:padding="3dp"/>
+
+        <EditText
+            android:id="@+id/et_spec_content_3"
             android:padding="7dp"
             android:background="@drawable/problem_et_box"
             android:textSize="13sp"

@@ -73,7 +73,7 @@ public class DetailFragment extends Fragment implements CircleProgressBar.Progre
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(activity, problem_popup_activity.class);
-                intent.putExtra("data", "Test Popup");
+//                intent.putExtra("data", "Test Popup");
                 startActivityForResult(intent, 1);
 
 

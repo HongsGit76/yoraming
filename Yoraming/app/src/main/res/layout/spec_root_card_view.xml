@@ -49,7 +49,7 @@
                 card_view:layout_constraintVertical_bias="0.0" />
 
             <ImageView
-                android:id="@+id/plus"
+                android:id="@+id/spec_menu_plus"
                 android:layout_width="11dp"
                 android:layout_height="11dp"
                 android:scaleType="fitXY"
@@ -62,7 +62,7 @@
                 card_view:layout_constraintVertical_bias="0.18" />
 
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/spec_spinner"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/menu_select_box"

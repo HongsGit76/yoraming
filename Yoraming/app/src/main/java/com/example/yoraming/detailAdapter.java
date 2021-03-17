@@ -1,6 +1,8 @@
 package com.example.yoraming;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,8 @@ import java.util.List;
 public class detailAdapter extends RecyclerView.Adapter<detailAdapter.ViewHolder> {
     private ArrayList<DetailFragment.item> mDataset; //MainActivity에 item class를 정의해 놓았음
     private Context mcontext;
+    private Activity mactivity;
+//    private ImageView spec_plus;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -31,23 +35,30 @@ public class detailAdapter extends RecyclerView.Adapter<detailAdapter.ViewHolder
         // 사용될 항목들 선언
         public TextView mAge;
         public Spinner spinner;
-        public ImageView plus;
+        public ImageView spec_menu_plus,spec_plus;
 
 
         public ViewHolder(View v) {
             super(v);
-            spinner = (Spinner) v.findViewById(R.id.spinner);
+            spinner = (Spinner) v.findViewById(R.id.spec_spinner);
 //            mName = (TextView) v.findViewById(R.id.info_text);
             mAge = (TextView) v.findViewById(R.id.tv_select_spec);
 //            mEmail = (TextView) v.findViewById(R.id.info_email);
-            plus =  (ImageView) v.findViewById(R.id.plus);
+            if (v.findViewById(R.id.spec_menu_plus) != null) {
+                spec_menu_plus = (ImageView) v.findViewById(R.id.spec_menu_plus);
+            }
+            if (v.findViewById(R.id.spec_plus) != null) {
+                spec_plus = (ImageView) v.findViewById(R.id.spec_plus);
+            }
         }
     }
 
     // 생성자 - 넘어 오는 데이터파입에 유의해야 한다.
-    public detailAdapter(Context context,ArrayList<DetailFragment.item> myDataset) {
+    public detailAdapter(Context context, ArrayList<DetailFragment.item> myDataset) {
         mDataset = myDataset;
         mcontext = context;
+        mactivity = (Activity) context;
+
     }
 
 
@@ -104,7 +115,7 @@ public class detailAdapter extends RecyclerView.Adapter<detailAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-//        holder.mName.setText(mDataset.get(position).getName());
+//        holder.mName.setText(mDataset.get(position).getName();
         String[] items = {"자격증","경력사항","외국어 공인 성적","기타"," "};
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(mcontext,android.R.layout.simple_spinner_dropdown_item,items)
         {            //스피너 디폴트값 빈값 설정을 위한 부분*리얼 중요*
@@ -135,7 +146,7 @@ public class detailAdapter extends RecyclerView.Adapter<detailAdapter.ViewHolder
             spinnerAdapter.setDropDownViewResource(R.layout.spec_spin_dropdown);
             System.out.println(spinnerAdapter.getCount());
             holder.spinner.setSelection(spinnerAdapter.getCount(),false);        //set the hint the default selection so it appears on launch.
-            holder.plus.setOnClickListener(new View.OnClickListener() {
+            holder.spec_menu_plus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     holder.spinner.performClick();
@@ -156,7 +167,6 @@ public class detailAdapter extends RecyclerView.Adapter<detailAdapter.ViewHolder
                         if(!nowRecyclerList.contains(position + 1)) {
                             mDataset.add(mDataset.size() - 1, new DetailFragment.item(30, position + 1));
                             if (mDataset.size() == 5){
-                                Log.d("selected", "gguakcarm");
                                 mDataset.remove(mDataset.size() - 1);
                             }
                              detailAdapter.this.notifyDataSetChanged();
@@ -209,12 +219,32 @@ public class detailAdapter extends RecyclerView.Adapter<detailAdapter.ViewHolder
 //        holder.mAge.setText(mDataset.get(position).getAge()+""); //int를 가져온다는점 유의
 
 
-        holder.mAge.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("TAG",mDataset.get(position).getAge()+"" );
-            }
-        });
+//        holder.mAge.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.d("TAG",mDataset.get(position).getAge()+"" );
+//            }
+//        });
+
+        if(holder.spec_plus != null) {
+            holder.spec_plus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                Intent intent = new Intent(mactivity, spec_input_popup_activity.class);
+                if (mDataset.get(position).getItemViewType() ==1) {
+                    intent.putExtra("spec_type", "certificate");
+                }else if (mDataset.get(position).getItemViewType() ==2) {
+                    intent.putExtra("spec_type", "career");
+                }else if (mDataset.get(position).getItemViewType() ==3) {
+                    intent.putExtra("spec_type", "language");
+                }else if (mDataset.get(position).getItemViewType() ==4) {
+                    intent.putExtra("spec_type", "etc");
+                }
+                mactivity.startActivityForResult(intent, 1);
+
+                }
+            });
+        }
     }
 
     @Override
