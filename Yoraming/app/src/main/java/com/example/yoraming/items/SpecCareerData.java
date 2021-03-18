@@ -8,7 +8,7 @@ public class SpecCareerData {
     private String career_office;
 
     private String user_id;
-    public SpecCareerData(String user_id, String career_content, String career_date, String career_office) {
+    public SpecCareerData(String user_id, String career_content, String career_office, String career_date) {
         this.user_id = user_id;
         this.career_content = career_content;
         this.career_date = career_date;

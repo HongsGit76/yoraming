@@ -4,22 +4,36 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.renderscript.ScriptGroup;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.yoraming.Server.Net;
+import com.example.yoraming.items.SpecCareerData;
+import com.example.yoraming.items.SpecCertificateData;
+import com.example.yoraming.items.SpecEtcData;
+import com.example.yoraming.items.SpecLanguageData;
+import com.google.gson.JsonObject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class spec_input_popup_activity extends Activity {
     private TextView tv_add_spec_title,tv_spec_content_1,tv_spec_content_2,tv_spec_content_3;
     private EditText et_spec_content_1, et_spec_content_2, et_spec_content_3;
     private int textlength;
+    private String spec_type, user_ID;
 
 
     @Override
@@ -28,10 +42,11 @@ public class spec_input_popup_activity extends Activity {
         //타이틀바 없애기
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_spec_input_popup_activity);
-
+        SharedPreferences SP_user = getSharedPreferences("user", MODE_PRIVATE);
+        user_ID = SP_user.getString("user_id", "");
 
         Intent intent = getIntent();
-        String spec_type = intent.getStringExtra("spec_type");
+        spec_type = intent.getStringExtra("spec_type");
 
         tv_add_spec_title = (TextView)findViewById(R.id.tv_add_spec_title);
         tv_spec_content_1 = (TextView)findViewById(R.id.tv_spec_content_1);
@@ -111,12 +126,9 @@ public class spec_input_popup_activity extends Activity {
         }else if(spec_type.equals("etc")){
             tv_add_spec_title.setText("기타 추가");
 
-            tv_spec_content_1.setText("내용");
-            tv_spec_content_2.setText("기간");
-            tv_spec_content_3.setVisibility(View.GONE);
-            et_spec_content_3.setVisibility(View.GONE);
-
-            //tv_spec_content_3.setText("");
+            tv_spec_content_1.setText("제목");
+            tv_spec_content_2.setText("내용");
+            tv_spec_content_3.setText("기간");
 
         }
         et_spec_content_3.addTextChangedListener(new TextWatcher() {
@@ -172,6 +184,43 @@ public class spec_input_popup_activity extends Activity {
         finish();
     }
     public void mOnSend(View v){
+        Call<JsonObject> res = null;
+
+    if(spec_type.equals("certificate")){
+        SpecCertificateData specCertificateData = new SpecCertificateData(user_ID,et_spec_content_1.getText().toString(),et_spec_content_2.getText().toString(),et_spec_content_3.getText().toString());
+        res = Net.getInstance().getspecFactory().postcertificate(specCertificateData);
+    }else if(spec_type.equals("career")){
+        SpecCareerData specCareerData = new SpecCareerData(user_ID,et_spec_content_1.getText().toString(),et_spec_content_2.getText().toString(),et_spec_content_3.getText().toString());
+        res = Net.getInstance().getspecFactory().postcareer(specCareerData);
+    }else if(spec_type.equals("language")){
+        SpecLanguageData specLanguageData = new SpecLanguageData(user_ID,et_spec_content_1.getText().toString(),et_spec_content_2.getText().toString(),et_spec_content_3.getText().toString());
+        res = Net.getInstance().getspecFactory().postlanguage(specLanguageData);
+    }else if(spec_type.equals("etc")){
+        SpecEtcData specEtcData = new SpecEtcData(user_ID,et_spec_content_1.getText().toString(),et_spec_content_2.getText().toString(),et_spec_content_3.getText().toString());
+        res = Net.getInstance().getspecFactory().postetc(specEtcData);
+
+    }
+    res.enqueue(new Callback<JsonObject>() {
+        @Override
+        public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+            if(response.isSuccessful()){
+                if(response.body() != null){
+                    String success = response.body().toString();
+                    Log.d("spec_input_popup 통신", response.body().toString());
+                }else{
+                    Log.e("spec_input_popup 통신", "실패 1 response 내용이 없음");
+                }
+            }else{
+                Log.e("spec_input_popup 통신", "실패 2 서버 에러");
+            }
+        }
+
+        @Override
+        public void onFailure(Call<JsonObject> call, Throwable t) {
+            Log.e("spec_input_popup 통신", "실패 3 통신 에러 "+t.getLocalizedMessage());
+        }
+    });
+
         //데이터 전달하기
         Intent intent = new Intent();
         intent.putExtra("result", "Close Popup");
