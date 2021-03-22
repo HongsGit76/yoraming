@@ -17,10 +17,16 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.yoraming.Server.Net;
 import com.example.yoraming.UI.fragment.DetailFragment;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class detailAdapter extends RecyclerView.Adapter<detailAdapter.ViewHolder> {
     private ArrayList<DetailFragment.item> mDataset; //MainActivity에 item class를 정의해 놓았음
@@ -144,7 +150,6 @@ public class detailAdapter extends RecyclerView.Adapter<detailAdapter.ViewHolder
             //스피너 디폴트값으로 빈값설정 *중요* 복잡했음 죽을뻔
             holder.spinner.setAdapter(spinnerAdapter);
             spinnerAdapter.setDropDownViewResource(R.layout.spec_spin_dropdown);
-            System.out.println(spinnerAdapter.getCount());
             holder.spinner.setSelection(spinnerAdapter.getCount(),false);        //set the hint the default selection so it appears on launch.
             holder.spec_menu_plus.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -162,7 +167,6 @@ public class detailAdapter extends RecyclerView.Adapter<detailAdapter.ViewHolder
                     for(int i = 0; i < mDataset.size();i++){
                         nowRecyclerList.add(mDataset.get(i).getItemViewType());
                     }
-                    System.out.println(nowRecyclerList);
                     if (position == 0) {
                         if(!nowRecyclerList.contains(position + 1)) {
                             mDataset.add(mDataset.size() - 1, new DetailFragment.item(30, position + 1));
@@ -211,9 +215,36 @@ public class detailAdapter extends RecyclerView.Adapter<detailAdapter.ViewHolder
 
                 }
             });
+
+
+
         }
 
+        Call<JsonObject> res = null;
 
+        res = Net.getInstance().getspecFactory().getcareer("bangjinhyuk@ajou.ac.kr");
+
+
+        res.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if(response.isSuccessful()){
+                    if(response.body() != null){
+                        String success = response.body().toString();
+                        Log.d("getcareer 통신", response.body().toString());
+                    }else{
+                        Log.e("getcareer 통신", "실패 1 response 내용이 없음");
+                    }
+                }else{
+                    Log.e("getcareer 통신", "실패 2 서버 에러");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.e("getcareer 통신", "실패 3 통신 에러 "+t.getLocalizedMessage());
+            }
+        });
 
 
 //        holder.mAge.setText(mDataset.get(position).getAge()+""); //int를 가져온다는점 유의

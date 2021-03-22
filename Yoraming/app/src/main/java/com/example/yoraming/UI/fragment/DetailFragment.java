@@ -60,9 +60,11 @@ public class DetailFragment extends Fragment implements CircleProgressBar.Progre
         TextView tv_suggestion;
 
 
+        Toast.makeText(activity,"123",Toast.LENGTH_SHORT).show();
         CreatePieGraph(rootView,50,40,30,20);
 
         //리사이클러뷰에 넣어줄 데이터
+
         itemArrayList = new ArrayList<>();
         itemArrayList.add(new item( 10,  0));
 
